@@ -16,8 +16,9 @@ if __name__ == '__main__':
     def on_key_press(symbol, modifiers):
         if symbol == key.A:
             print('The "A" key was pressed.')
+            print("uwu")
         elif symbol == key.LEFT:
-            print('The left arrow key was pressed.')
+            print('The left arrow key was pres.')
         elif symbol == key.ENTER:
             print('The enter key was pressed.')
         else:
