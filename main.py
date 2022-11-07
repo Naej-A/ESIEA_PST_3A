@@ -15,7 +15,7 @@ if __name__ == '__main__':
     @window.event
     def on_key_press(symbol, modifiers):
         if symbol == key.A:
-            print('Mabite')
+            print('The "A" key was pressed.')
         elif symbol == key.LEFT:
             print('The left arrow key was pressed.')
         elif symbol == key.ENTER:
