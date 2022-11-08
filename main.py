@@ -28,6 +28,9 @@ if __name__ == '__main__':
             print('The left arrow key was pressed.')
         elif symbol == key.ENTER:
             print('The enter key was pressed.')
+        elif symbol == key.ESCAPE:
+            print('The escape key was pressed.')
+            window.close()
         else:
             print('A key was pressed ')
 
@@ -48,7 +51,7 @@ if __name__ == '__main__':
 
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
-    window.push_handlers(event_logger)
+    # window.push_handlers(event_logger)
 
 
     pyglet.app.run()
