@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
 
     @window.event
-    def on_key_press(symbol, modifiers, yi = yi):
+    def on_key_press(symbol, modifiers):
         if symbol == key.A:
             print('The "A" key was pressed.')
         elif symbol == key.LEFT:
