@@ -6,7 +6,6 @@ if __name__ == '__main__':
     import pyglet
 
     window = pyglet.window.Window()
-
     image = pyglet.resource.image('Aubin_le_GOAT.jpg') # Imgae à afficher
     label = pyglet.text.Label('Aubin le GOAT', # Text à afficher
                               font_name='Times New Roman',
@@ -21,7 +20,7 @@ if __name__ == '__main__':
 
 
     @window.event
-    def on_key_press(symbol, modifiers):
+    def on_key_press(symbol, modifiers, yi = yi):
         if symbol == key.A:
             print('The "A" key was pressed.')
         elif symbol == key.LEFT:
