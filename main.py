@@ -6,9 +6,9 @@ if __name__ == '__main__':
     import pyglet
 
     window = pyglet.window.Window()
-    image = pyglet.resource.image('Aubin_le_GOAT.jpg') # Imgae à afficher
+    image = pyglet.resource.image('ressources/Aubin_le_GOAT.jpg') # Imgae à afficher
     label = pyglet.text.Label('Aubin le GOAT', # Text à afficher
-                              font_name='Times New Roman',
+                              font_name='Comic sans ms',
                               font_size=36,
                               x=window.width // 2, y=window.height // 2 ,
                               anchor_x='center', anchor_y='center')
