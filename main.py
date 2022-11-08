@@ -6,6 +6,8 @@ if __name__ == '__main__':
     import pyglet
 
     window = pyglet.window.Window()
+    image = pyglet.resource.image('Aubin_le_GOAT.jpg')
+
 
     @window.event # important de savoir que un event peut être surchargé
     def on_key_press(symbol, modifiers):
@@ -35,6 +37,7 @@ if __name__ == '__main__':
     @window.event
     def on_draw():
         window.clear()
+        image.blit(0, 0)
 
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
