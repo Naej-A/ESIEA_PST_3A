@@ -6,8 +6,14 @@ if __name__ == '__main__':
     import pyglet
 
     window = pyglet.window.Window()
-    image = pyglet.resource.image('Aubin_le_GOAT.jpg')
 
+    image = pyglet.resource.image('Aubin_le_GOAT.jpg') # Imgae à afficher
+    label = pyglet.text.Label('Aubin le GOAT', # Text à afficher
+                              font_name='Times New Roman',
+                              font_size=36,
+                              x=window.width // 2, y=window.height // 2 ,
+                              anchor_x='center', anchor_y='center')
+    label.color = (255, 0, 255, 255) # Couleur du text
 
     @window.event # important de savoir que un event peut être surchargé
     def on_key_press(symbol, modifiers):
@@ -37,11 +43,12 @@ if __name__ == '__main__':
     @window.event
     def on_draw():
         window.clear()
-        image.blit(0, 0)
+        image.blit((window.width - image.width)/2, (window.height - image.height)/2)
+        label.draw()
 
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
-    # window.push_handlers(event_logger)
+    window.push_handlers(event_logger)
 
 
     pyglet.app.run()
