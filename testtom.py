@@ -10,8 +10,7 @@ def draw_map(height_Map, width_Map):
 
 
 
-
-
+    Block_vert_sprite.draw()
 
 
 if __name__ == '__main__':
