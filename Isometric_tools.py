@@ -16,3 +16,9 @@ class Isometric_tools:
         y_coord = - (x_pixel / (0.5 * self.width_block) - self.origine_x) + (y_pixel / (-0.25 * self.height_block) - self.origine_y)
 
         return x_coord, y_coord
+
+    def coordinate_to_pixel_z(self, x_coord, y_coord, z_coord):
+        x_pixel = 0.5 * self.width_block * (x_coord - y_coord) + self.origine_x
+        y_pixel = self.height_block * (0.5 * z_coord - 0.25 * (x_coord + y_coord)) + self.origine_y
+
+        return x_pixel, y_pixel
