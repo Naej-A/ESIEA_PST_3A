@@ -1,5 +1,4 @@
 import pyglet
-import math
 from pyglet.window import key
 def Draw_map(Map_size):
     Block_vert_lecture = open('ressources/Block_vert.png', 'rb')  # Lecture du fichier en binaire
@@ -24,6 +23,11 @@ if __name__ == '__main__':
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
 
+    Block_vert_lecture = open('ressources/Block_vert.png', 'rb')  # Lecture du fichier en binaire
+    Block_vert_image = pyglet.image.load('ressources/Block_vert.png', file=Block_vert_lecture)  # Attribution de l'image PNG
+    Block_vert_sprite = pyglet.sprite.Sprite(img=Block_vert_image)  # création d'un sprite à partir de l'image
+
+
 
     @window.event
     def on_key_press(symbol):
@@ -43,6 +47,7 @@ if __name__ == '__main__':
     @window.event
     def on_draw():
         window.clear()
+        Block_vert_sprite.draw()
 
 
     # voir ce qui est inscrit sur
