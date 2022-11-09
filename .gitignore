@@ -2,3 +2,4 @@
 venv
 dist
 build
+/test/.pytest_cache/
