@@ -1,29 +1,34 @@
 import pyglet
 import math
 from pyglet.window import key
-def Draw_map(Map_size):
-    Block_vert_lecture = open('ressources/Block_vert.png', 'rb')  # Lecture du fichier en binaire
-    Block_vert_image = pyglet.image.load('ressources/Block_vert.png',
-                                         file=Block_vert_lecture)  # Attribution de l'image PNG
-    Block_vert_sprite = pyglet.sprite.Sprite(img=Block_vert_image)  # création d'un sprite à partir de l'image
+import IsometricTools
+def draw_map(height_Map, width_Map):
+    # largeur de la fenêtre
+    width = 1000
+    # hauteur de la fenêtre
+    height = 700
 
 
-    Block_vert_sprite.draw()
+
+
+
 
 
 if __name__ == '__main__':
-
     # largeur de la fenêtre
     width = 1000
-
     # hauteur de la fenêtre
     height = 700
+
 
     # titre du de la fenêtre
     title = "Jeu de la mort"
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
 
+    Block_vert_lecture = open('ressources/Block_vert.png', 'rb')  # Lecture du fichier en binaire
+    Block_vert_image = pyglet.image.load('ressources/Block_vert.png',
+                                         file=Block_vert_lecture)  # Attribution de l'image PNG
 
     @window.event
     def on_key_press(symbol):
@@ -43,6 +48,12 @@ if __name__ == '__main__':
     @window.event
     def on_draw():
         window.clear()
+        isoTools = IsometricTools.IsometricTools(height_window=height, width_window=width)
+        for y in range(16):
+            for x in range(16):
+                x_pixel, y_pixel = isoTools.coordinate_to_pixel(x, y)
+                temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
+                temp.draw()
 
 
     # voir ce qui est inscrit sur

@@ -1,4 +1,4 @@
-class Isometric_tools:
+class IsometricTools:
     def __init__(self, width_window, height_window):
         self.width_block = 31
         self.height_block = 30
