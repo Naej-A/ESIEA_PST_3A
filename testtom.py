@@ -1,7 +1,7 @@
 import pyglet
-import math
 from pyglet.window import key
 import IsometricTools
+import time
 def draw_map(height_Map, width_Map):
     # largeur de la fenêtre
     width = 1000
@@ -24,6 +24,9 @@ if __name__ == '__main__':
     Block_vert_lecture = open('ressources/Block_vert.png', 'rb')  # Lecture du fichier en binaire
     Block_vert_image = pyglet.image.load('ressources/Block_vert.png',
                                          file=Block_vert_lecture)  # Attribution de l'image PNG
+    Block_color_lecture = open('ressources/Block_color.png', 'rb')  # Lecture du fichier en binaire
+    Block_color_image = pyglet.image.load('ressources/Block_color.png',
+                                         file=Block_color_lecture)  # Attribution de l'image PNG
 
     @window.event
     def on_key_press(symbol):
@@ -44,12 +47,13 @@ if __name__ == '__main__':
     def on_draw():
         window.clear()
         isoTools = IsometricTools.IsometricTools(height_window=height, width_window=width)
-        for y in range(50):
-            for x in range(50):
-                x_pixel, y_pixel = isoTools.coordinate_to_pixel(x, y)
-                if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height:
-                    temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
+        for y in range(100):
+            for x in range(100):
+                x_pixel, y_pixel = isoTools.coordinate_to_pixel(x-16, y-16)
+                if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height-23 and (x*y)%20 == 0:
+                    temp = pyglet.sprite.Sprite(img=Block_color_image, y=y_pixel, x=x_pixel)
                     temp.draw()
+
 
 
     # voir ce qui est inscrit sur
