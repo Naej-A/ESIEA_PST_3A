@@ -1,7 +1,6 @@
 import pyglet
 from pyglet.window import key
 import IsometricTools
-import time
 def draw_map(height_Map, width_Map):
     # largeur de la fenêtre
     width = 1000
@@ -50,7 +49,7 @@ if __name__ == '__main__':
         for y in range(100):
             for x in range(100):
                 x_pixel, y_pixel = isoTools.coordinate_to_pixel(x-16, y-16)
-                if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height-23 and (x*y)%20 == 0:
+                if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height-23 and (x*y)%1 == 0:
                     temp = pyglet.sprite.Sprite(img=Block_color_image, y=y_pixel, x=x_pixel)
                     temp.draw()
 
