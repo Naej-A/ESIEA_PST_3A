@@ -9,10 +9,6 @@ def draw_map(height_Map, width_Map):
     height = 700
 
 
-
-    Block_vert_sprite.draw()
-
-
 if __name__ == '__main__':
     # largeur de la fenêtre
     width = 1000
@@ -48,11 +44,12 @@ if __name__ == '__main__':
     def on_draw():
         window.clear()
         isoTools = IsometricTools.IsometricTools(height_window=height, width_window=width)
-        for y in range(16):
-            for x in range(16):
+        for y in range(50):
+            for x in range(50):
                 x_pixel, y_pixel = isoTools.coordinate_to_pixel(x, y)
-                temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
-                temp.draw()
+                if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height:
+                    temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
+                    temp.draw()
 
 
     # voir ce qui est inscrit sur
