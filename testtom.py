@@ -1,6 +1,9 @@
 import pyglet
 from pyglet.window import key
 import IsometricTools
+import random
+
+
 def draw_map(height_Map, width_Map):
     # largeur de la fenêtre
     width = 1000
@@ -20,12 +23,30 @@ if __name__ == '__main__':
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
 
+    # Block_vert
     Block_vert_lecture = open('ressources/Block_vert.png', 'rb')  # Lecture du fichier en binaire
     Block_vert_image = pyglet.image.load('ressources/Block_vert.png',
                                          file=Block_vert_lecture)  # Attribution de l'image PNG
+
+    # Block_rouge
+    Block_rouge_lecture = open('ressources/Block_rouge.png', 'rb')  # Lecture du fichier en binaire
+    Block_rouge_image = pyglet.image.load('ressources/Block_rouge.png',
+                                         file=Block_rouge_lecture)  # Attribution de l'image PNG
+
+    # Block_bleu
+    Block_bleu_lecture = open('ressources/Block_bleu.png', 'rb')  # Lecture du fichier en binaire
+    Block_bleu_image = pyglet.image.load('ressources/Block_bleu.png',
+                                         file=Block_bleu_lecture)  # Attribution de l'image PNG
+
+    # Block_color
     Block_color_lecture = open('ressources/Block_color.png', 'rb')  # Lecture du fichier en binaire
     Block_color_image = pyglet.image.load('ressources/Block_color.png',
                                          file=Block_color_lecture)  # Attribution de l'image PNG
+
+    # Gros_block_color
+    Gros_block_color_lecture = open('ressources/Gros_block_color.png', 'rb')  # Lecture du fichier en binaire
+    Gros_block_color_image = pyglet.image.load('ressources/Gros_block_color.png',
+                                               file=Gros_block_color_lecture)  # Attribution de l'image PNG
 
     @window.event
     def on_key_press(symbol):
@@ -44,14 +65,32 @@ if __name__ == '__main__':
 
     @window.event
     def on_draw():
+        Archi = 5
         window.clear()
         isoTools = IsometricTools.IsometricTools(height_window=height, width_window=width)
-        for y in range(100):
-            for x in range(100):
-                x_pixel, y_pixel = isoTools.coordinate_to_pixel(x-16, y-16)
-                if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height-23 and (x*y)%1 == 0:
-                    temp = pyglet.sprite.Sprite(img=Block_color_image, y=y_pixel, x=x_pixel)
-                    temp.draw()
+        for z in range (4):
+            for y in range(100):
+                for x in range(100):
+                    x_pixel, y_pixel = isoTools.coordinate_to_pixel_z(x-16, y-16, z)
+                    if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height-23:  # and (x*y)%1 == 0:
+                        if (x*y)%(Archi**z) == 0:
+                            if z == 0:
+                                temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
+                                temp.draw()
+                            elif z == 1:
+                                temp = pyglet.sprite.Sprite(img=Block_rouge_image, y=y_pixel, x=x_pixel)
+                                temp.draw()
+                            elif z == 2:
+                                temp = pyglet.sprite.Sprite(img=Block_bleu_image, y=y_pixel, x=x_pixel)
+                                temp.draw()
+                            elif z == 3:
+                                temp = pyglet.sprite.Sprite(img=Gros_block_color_image, y=y_pixel, x=x_pixel)
+                                temp.draw()
+
+
+
+
+
 
 
 
