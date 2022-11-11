@@ -1,7 +1,9 @@
 import pyglet
 from pyglet.window import key
 import IsometricTools
-import random
+import numpy as np
+import MapGeneration as mg
+
 
 
 def draw_map(height_Map, width_Map):
@@ -48,6 +50,14 @@ if __name__ == '__main__':
     Gros_block_color_image = pyglet.image.load('ressources/Gros_block_color.png',
                                                file=Gros_block_color_lecture)  # Attribution de l'image PNG
 
+    x = 100  # Dimension x de la map
+    y = 100  # Dimension y de la map
+    z = 4  # Dimension z de la map
+
+    map = np.zeros((z, y, x))  # Création d'un tableau de dimension x, y, z
+    mg.picos(map, 3, 1/200)
+
+
     @window.event
     def on_key_press(symbol):
         if symbol == key.ESCAPE:
@@ -65,27 +75,24 @@ if __name__ == '__main__':
 
     @window.event
     def on_draw():
-        Archi = 5
         window.clear()
         isoTools = IsometricTools.IsometricTools(height_window=height, width_window=width)
-        for z in range (4):
-            for y in range(100):
-                for x in range(100):
-                    x_pixel, y_pixel = isoTools.coordinate_to_pixel_z(x-16, y-16, z)
-                    if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel >= 0 and y_pixel <= window.height-23:  # and (x*y)%1 == 0:
-                        if (x*y)%(Archi**z) == 0:
-                            if z == 0:
+        for zi in range (z):
+            for yi in range(y):
+                for xi in range(x):
+                    if map[zi, yi, xi] == 1:
+                        x_pixel, y_pixel = isoTools.coordinate_to_pixel_z(xi-16, yi-16, zi)
+                        if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel-zi*15 >= 0 and y_pixel <= window.height-23:
+                            if zi == 0:
                                 temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
-                                temp.draw()
-                            elif z == 1:
-                                temp = pyglet.sprite.Sprite(img=Block_rouge_image, y=y_pixel, x=x_pixel)
-                                temp.draw()
-                            elif z == 2:
+                            elif zi == 1:
                                 temp = pyglet.sprite.Sprite(img=Block_bleu_image, y=y_pixel, x=x_pixel)
-                                temp.draw()
-                            elif z == 3:
-                                temp = pyglet.sprite.Sprite(img=Gros_block_color_image, y=y_pixel, x=x_pixel)
-                                temp.draw()
+                            elif zi == 2:
+                                temp = pyglet.sprite.Sprite(img=Block_rouge_image, y=y_pixel, x=x_pixel)
+                            elif zi == 3:
+                                temp = pyglet.sprite.Sprite(img=Block_color_image, y=y_pixel, x=x_pixel)
+                            temp.draw()
+
 
 
 
