@@ -10,7 +10,7 @@ class MapRepresentation:
         self.width = width
         self._init_carte()
         self.positionCamera = 0 # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
-        # self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
+        self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
 
 
     def _init_carte(self):

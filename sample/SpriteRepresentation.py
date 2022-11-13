@@ -17,7 +17,7 @@ class SpriteRepresentation:
         self.tabRepresentation[y][x] = self.id
 
         self.imageName = imageName
-        pathToImage = "../ressources/" + imageName
+        pathToImage = os.getcwd() + "/ressources/" + imageName
         if not os.path.isfile(pathToImage): # si l'image n'existe pas lance une erreur
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), imageName)
         file_lecture = open(pathToImage, 'rb')  # Lecture du fichier en binaire
