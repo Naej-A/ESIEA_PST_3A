@@ -6,6 +6,7 @@ if __name__ == '__main__':
     map = MapRepresentation.MapRepresentation(5, 5)
     map.afficheCarteCarreDebug()
 
+
     window = pyglet.window.Window()
     image = pyglet.resource.image("ressources/Aubin_le_GOAT.jpg") # Image à afficher
     label = pyglet.text.Label('Aubin le GOAT', # Text à afficher

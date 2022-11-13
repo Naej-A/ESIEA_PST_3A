@@ -1,7 +1,7 @@
 #TODO: faire les fonctions rotation horaire et rotation antihoraire
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
-import ListSpriteRepresentation
+import sample.ListSpriteRepresentation as lsp
 class MapRepresentation:
     ratioPixel = 15
 
@@ -9,9 +9,8 @@ class MapRepresentation:
         self.height = height
         self.width = width
         self._init_carte()
-        self.positionCamera = 0 # 0 = 0° | 1 = 90° | 2 = 180° | 3 = -90°
-        self.listSpriteRepresentation = ListSpriteRepresentation.ListSpriteRepresentation()
-
+        self.positionCamera = 0 # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
+        # self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
 
 
     def _init_carte(self):

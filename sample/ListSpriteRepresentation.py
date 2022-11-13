@@ -1,12 +1,9 @@
-import SpriteRepresentation as sr
+import sample.SpriteRepresentation as sr
 from enum import Enum
 
 # class syntax
-class SpriteEnum(Enum):
-    Mini_block_rouge = 1
 
 class ListSpriteRepresentation:
-    enumObjet = Enum('Color', ['RED', 'GREEN', 'BLUE'])
     def __init__(self):
         self.listSprite = list()
         self._init_All_Sprite()
@@ -23,3 +20,6 @@ class ListSpriteRepresentation:
 
     def findSpriteById(self, idSprite):
         return self.listSprite[idSprite]
+
+class SpriteEnum(Enum):
+    Mini_block_rouge = 1
