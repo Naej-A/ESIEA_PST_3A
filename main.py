@@ -1,20 +1,10 @@
-import os
-import sys
-
 import pyglet
-from pyglet.window import key
-
-def resource_path(relative_path):
-    """ Get absolute path to resource, works for dev and for PyInstaller """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = sys._MEIPASS
-    except Exception:
-        base_path = os.path.abspath(".")
-
-    return os.path.join(base_path, relative_path)
+from sample import MapRepresentation
 
 if __name__ == '__main__':
+
+    map = MapRepresentation.MapRepresentation(5, 5)
+    map.afficheCarteCarreDebug()
 
     window = pyglet.window.Window()
     image = pyglet.resource.image("ressources/Aubin_le_GOAT.jpg") # Image à afficher
@@ -31,7 +21,7 @@ if __name__ == '__main__':
         image.blit((window.width - image.width)/2, (window.height - image.height)/2)
         label.draw()
 
-    pyglet.app.run()
+    # pyglet.app.run()
 
 
 

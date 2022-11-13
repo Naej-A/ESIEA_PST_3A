@@ -94,13 +94,6 @@ if __name__ == '__main__':
                             temp.draw()
 
 
-
-
-
-
-
-
-
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
     # window.push_handlers(event_logger)
