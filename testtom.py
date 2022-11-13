@@ -40,10 +40,6 @@ if __name__ == '__main__':
     Block_bleu_image = pyglet.image.load('ressources/Block_bleu.png',
                                          file=Block_bleu_lecture)  # Attribution de l'image PNG
 
-    # Block_color
-    Block_color_lecture = open('ressources/Block_color.png', 'rb')  # Lecture du fichier en binaire
-    Block_color_image = pyglet.image.load('ressources/Block_color.png',
-                                         file=Block_color_lecture)  # Attribution de l'image PNG
 
     # Gros_block_color
     Gros_block_color_lecture = open('ressources/Gros_block_color.png', 'rb')  # Lecture du fichier en binaire
@@ -90,7 +86,7 @@ if __name__ == '__main__':
                             elif zi == 2:
                                 temp = pyglet.sprite.Sprite(img=Block_rouge_image, y=y_pixel, x=x_pixel)
                             elif zi == 3:
-                                temp = pyglet.sprite.Sprite(img=Block_color_image, y=y_pixel, x=x_pixel)
+                                temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
                             temp.draw()
 
 

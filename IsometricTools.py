@@ -1,7 +1,7 @@
 class IsometricTools:
     def __init__(self, width_window, height_window):
-        self.width_block = 31
-        self.height_block = 30
+        self.width_block = 33
+        self.height_block = 33
         self.origine_x = (width_window - self.width_block) / 2
         self.origine_y = height_window - self.height_block
 
