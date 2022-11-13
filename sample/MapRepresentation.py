@@ -2,12 +2,13 @@
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
 import sample.ListSpriteRepresentation as lsp
+import numpy as np
 class MapRepresentation:
     ratioPixel = 15
 
-    def __init__(self, height, width):
-        self.height = height
-        self.width = width
+    def __init__(self, absysseX, ordonneeY):
+        self.absysseX = absysseX
+        self.ordonneeY = ordonneeY
         self._init_carte()
         self.positionCamera = 0 # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
         self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
@@ -15,17 +16,15 @@ class MapRepresentation:
 
     def _init_carte(self):
         self.representationCarte = []
-        self.representationCarteAxeZ = []
-        for k in range(self.height * self.width):
+        for k in range(self.absysseX * self.ordonneeY):
             self.representationCarte.append(0)
-            self.representationCarteAxeZ.append(0)
         return 0
 
     # ne marche pas encore il faut choper l'index Y et X pour l'affichage
     def afficheCarteCarreDebug(self):
-        tailleAAfficher = self.width + self.width - 1
-        vide = "[z=_;R=_]|"
-        vide = "         |"
+        tailleAAfficher = self.absysseX + self.absysseX - 1
+        vide = "[R=_]|"
+        vide = "     |"
         for i in range(tailleAAfficher):
             print("|", end="")
             nbCaseVide = abs(tailleAAfficher//2 - i)
@@ -36,7 +35,6 @@ class MapRepresentation:
                 if indexLigneCaseRepresente != 0:
                     print(vide, end="")
                 print("["
-                      +"z="+str(self.representationCarteAxeZ[0])+";"
                       +"R="+str(self.representationCarte[0])+"]"
                       +"|" , end="")
             for numVide in range (nbCaseVide):

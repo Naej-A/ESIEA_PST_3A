@@ -10,6 +10,7 @@ class ListSpriteRepresentation:
 
     def _init_All_Sprite(self):
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_rouge.png"))
+        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1, -1], [-1, -1]], "Block_rouge.png"))
         return 0
 
     def findSpriteByImageName(self, name):

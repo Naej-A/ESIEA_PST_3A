@@ -22,7 +22,7 @@ if __name__ == '__main__':
         image.blit((window.width - image.width)/2, (window.height - image.height)/2)
         label.draw()
 
-    # pyglet.app.run()
+    pyglet.app.run()
 
 
 
