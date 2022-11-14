@@ -23,8 +23,8 @@ class MapRepresentation:
     # ne marche pas encore il faut choper l'index Y et X pour l'affichage
     def afficheCarteCarreDebug(self):
         tailleAAfficher = self.absysseX + self.absysseX - 1
-        vide = "[R=_]|"
-        vide = "     |"
+        vide = "R=_|"
+        vide = "   |"
         for i in range(tailleAAfficher):
             print("|", end="")
             nbCaseVide = abs(tailleAAfficher//2 - i)
@@ -34,8 +34,7 @@ class MapRepresentation:
                 index = 0
                 if indexLigneCaseRepresente != 0:
                     print(vide, end="")
-                print("["
-                      +"R="+str(self.representationCarte[0])+"]"
+                print("R="+str(self.representationCarte[0])
                       +"|" , end="")
             for numVide in range (nbCaseVide):
                 print(vide, end="")
