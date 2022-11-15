@@ -46,9 +46,14 @@ class MapRepresentation:
         # ------ code pour changer la carte vers -90 -----
         return 0
 
-    def traductionRotation90Horaire(self):
+    def traductionRotation90HoraireV1(self):
         self.positionCamera = self.positionCamera + 1 % 4
         # ------ code pour changer la carte vers +90 -----
+        temp = ()
+        for x in range(0, self.absysseX):
+            for y in range(self.ordonneeY-1, 0-1, -1):
+                temp.append(self.representationCarte[y*self.ordonneeY + x])
+        self.representationCarte = temp
         return 0
 
     def ajouteSpriteToMap(self):
