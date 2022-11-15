@@ -2,6 +2,8 @@
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
 import sample.ListSpriteRepresentation as lsp
+import pyglet
+# import venv.IsometricTools as isoTools
 import numpy as np
 
 
@@ -93,8 +95,21 @@ class MapRepresentation:
         self.ordonneeY = cache
         return 0
 
-    def ajouteSpriteToMap(self, idSprite):
+    def ajouteSpriteToMap(self, idSprite, x, y):
         #il manque encore la fonction
         return 0
     def getindex(self, x, y):
         return self.representationCarte[x + y * self.absysseX]
+
+    def afficherMap(self):
+        #  WORK IN PROGRESS
+
+        # for x in range(self.absysseX):
+        #     for y in range(self.ordonneeY):
+        #         if self.getindex(x, y) > 0:
+        #
+        # x_pixel, y_pixel = isoTools.coordinateToPixel(x, y)
+        # sprite = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
+        # sprite.draw()
+        return 0
+
