@@ -3,7 +3,7 @@ from sample import MapRepresentation
 
 if __name__ == '__main__':
 
-    map = MapRepresentation.MapRepresentation(15,5)
+    map = MapRepresentation.MapRepresentation(10, 10)
     map.afficheCarteDebug()
 
 

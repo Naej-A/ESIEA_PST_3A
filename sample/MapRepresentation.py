@@ -5,7 +5,6 @@ import sample.ListSpriteRepresentation as lsp
 import numpy as np
 
 
-
 class MapRepresentation:
     ratioPixel = 15
 
@@ -13,9 +12,8 @@ class MapRepresentation:
         self.absysseX = absysseX
         self.ordonneeY = ordonneeY
         self._init_carte()
-        self.positionCamera = 0 # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
+        self.positionCamera = 0  # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
         self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
-
 
     def _init_carte(self):
         self.representationCarte = []
@@ -23,7 +21,7 @@ class MapRepresentation:
             for i in range(self.absysseX):
                 a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
                 self.representationCarte.append(a)
-                    # Format de la liste :
+                # Format de la liste :
 # [x;y , x;y+1 ... x;y+n-1 , x;y+n , x+1;y , x+1;y+1 ... x+1;y+n-1 , x+1;y+n ... x+n-1;y , x+n-1;y+1 ... x+n-1;y+n-1 , x+n-1;y+n , x+n;y , x+n;y+1 ... x+n;y+n-1 , x+n;y+n]
         return 0
 
@@ -59,7 +57,7 @@ class MapRepresentation:
         for i in range(tailleAAfficher):
             print("|", end="")  # print "|" à chaque début de ligne
             for j in range(abs(self.ordonneeY - i - 1)):
-                print(vide, end="")  # affiche le bon noubre de "vide" avant d'afficher la map
+                print(vide, end="")  # affiche le bon nombre de "vide" avant d'afficher la map
             for j in range(min(self.absysseX, self.ordonneeY, i+1, tailleAAfficher - i)):  # giga bordel
                 if j != 0:
                     print(vide, end="")
