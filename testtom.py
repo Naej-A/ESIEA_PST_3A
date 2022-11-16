@@ -1,6 +1,6 @@
 import pyglet
 from pyglet.window import key
-import IsometricTools
+from sample import IsometricTools
 import numpy as np
 import MapGeneration as mg
 

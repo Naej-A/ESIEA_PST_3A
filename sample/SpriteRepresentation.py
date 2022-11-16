@@ -7,7 +7,7 @@ class SpriteRepresentation:
     compteur = 0
 
 
-    def __init__(self, y, x, tabRepresentation, imageName):
+    def __init__(self, x, y, tabRepresentation, imageName):
         SpriteRepresentation.compteur += 1
         self.id = SpriteRepresentation.compteur
 

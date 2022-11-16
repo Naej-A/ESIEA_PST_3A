@@ -79,7 +79,10 @@ class ListSpriteRepresentation:
         return None
 
     def findSpriteById(self, idSprite):
-        return self.listSprite[idSprite]
+        for sprite in self.listSprite:
+            if sprite.id == idSprite:
+                return sprite
+        return None
 
 class SpriteEnum(Enum):
     Mini_block_rouge = 1

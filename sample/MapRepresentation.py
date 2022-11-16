@@ -3,7 +3,7 @@
 #TODO: fonction ajoute spriteRepresentation à representationCarte
 import sample.ListSpriteRepresentation as lsp
 import pyglet
-# import venv.IsometricTools as isoTools
+import sample.IsometricTools as isoTools
 import numpy as np
 
 
@@ -22,7 +22,7 @@ class MapRepresentation:
         for k in range(self.ordonneeY):
             for i in range(self.absysseX):
                 a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
-                self.representationCarte.append(a)
+                self.representationCarte.append(0)
                 # Format de la liste :
 # [x;y , x;y+1 ... x;y+n-1 , x;y+n , x+1;y , x+1;y+1 ... x+1;y+n-1 , x+1;y+n ... x+n-1;y , x+n-1;y+1 ... x+n-1;y+n-1 , x+n-1;y+n , x+n;y , x+n;y+1 ... x+n;y+n-1 , x+n;y+n]
         return 0
@@ -95,10 +95,40 @@ class MapRepresentation:
         self.ordonneeY = cache
         return 0
 
-    def ajouteSpriteToMap(self, idSprite, x, y):
-        #il manque encore la fonction
+    def addSpriteToMap(self, idSprite, xMap, yMap):
+        sprite = self.listSpriteRepresentation.findSpriteById(idSprite)
+        isSpaceFree = True
+        for ySprite in range(len(sprite.tabRepresentation)):
+            for xSprite in range(len(sprite.tabRepresentation[ySprite])):
+                if sprite.tabRepresentation[ySprite][xSprite] != 0:
+                    xTot = xSprite - sprite.xBaseRelativeCoord + xMap
+                    yTot = ySprite - sprite.yBaseRelativeCoord + yMap
+                    if self.representationCarte[xTot + yTot * self.absysseX] != 0:
+                        isSpaceFree = False
+        if isSpaceFree:
+            for ySprite in range(len(sprite.tabRepresentation)):
+                for xSprite in range(len(sprite.tabRepresentation[ySprite])):
+                    if sprite.tabRepresentation[ySprite][xSprite] != 0:
+                        xTot = xSprite - sprite.xBaseRelativeCoord + xMap
+                        yTot = ySprite - sprite.yBaseRelativeCoord + yMap
+                        self.representationCarte[xTot + yTot * self.absysseX] = sprite.tabRepresentation[ySprite][xSprite]
         return 0
-    def getindex(self, x, y):
+
+    def deleteSpriteFromMapGraphic(self, xPixel, yPixel):
+        maths = isoTools.IsometricTools()
+        xMap, yMap = maths.pixel_to_coordinate(xPixel, yPixel)
+        idSprite = self.getIndex(xMap + yMap * self.absysseX)
+        if idSprite < 0:
+            return -1
+        sprite = self.listSpriteRepresentation.findSpriteById(idSprite)
+        for ySprite in range(len(sprite.tabRepresentation)):
+            for xSprite in range(len(sprite.tabRepresentation[ySprite])):
+                if sprite.tabRepresentation[ySprite][xSprite] != 0:
+                    xTot = xSprite - sprite.xBaseRelativeCoord + xMap
+                    yTot = ySprite - sprite.yBaseRelativeCoord + yMap
+                    self.representationCarte[xTot + yTot * self.absysseX] = 0
+        return 0
+    def getIndex(self, x, y):
         return self.representationCarte[x + y * self.absysseX]
 
     def afficherMap(self):
@@ -112,4 +142,3 @@ class MapRepresentation:
         # sprite = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
         # sprite.draw()
         return 0
-

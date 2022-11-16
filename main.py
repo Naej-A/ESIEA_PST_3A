@@ -3,11 +3,11 @@ from sample import MapRepresentation
 
 if __name__ == '__main__':
 
-    map = MapRepresentation.MapRepresentation(5, 20)
+    map = MapRepresentation.MapRepresentation(10, 10)
     map.afficheCarteDebug()
-    map.traductionRotation90Antihoraire()
+    map.addSpriteToMap(1, 5, 5)
     map.afficheCarteDebug()
-    map.traductionRotation90Horaire()
+    map.addSpriteToMap(1, 0, 0)
     map.afficheCarteDebug()
 
 
