@@ -3,6 +3,7 @@ from pyglet.window import key
 from sample import IsometricTools
 import numpy as np
 import MapGeneration as mg
+import sample.MapRepresentation
 
 
 
@@ -19,6 +20,17 @@ if __name__ == '__main__':
     # hauteur de la fenêtre
     height = 700
 
+    mapRep = sample.MapRepresentation.MapRepresentation(50,50)
+
+    # mapRep.addSpriteToMap(1,3,3)
+    # mapRep.addSpriteToMap(2,3,3)
+    # mapRep.afficheCarteDebug()
+    # mapRep.afficheCarteDebug()
+    # mapRep.addSpriteToMap(7,2,3)
+    # mapRep.addSpriteToMap(9,20,20)
+    # mapRep.addSpriteToMap(2,2,6)
+    # mapRep.addSpriteToMap(3,2,5)
+    # mapRep.addSpriteToMap(4,2,4)
 
     # titre du de la fenêtre
     title = "Jeu de la mort"
@@ -72,22 +84,22 @@ if __name__ == '__main__':
     @window.event
     def on_draw():
         window.clear()
-        isoTools = IsometricTools.IsometricTools(height_window=height, width_window=width)
-        for zi in range (z):
-            for yi in range(y):
-                for xi in range(x):
-                    if map[zi, yi, xi] == 1:
-                        x_pixel, y_pixel = isoTools.coordinate_to_pixel_z(xi-16, yi-16, zi)
-                        if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel-zi*15 >= 0 and y_pixel <= window.height-23:
-                            if zi == 0:
-                                temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
-                            elif zi == 1:
-                                temp = pyglet.sprite.Sprite(img=Block_bleu_image, y=y_pixel, x=x_pixel)
-                            elif zi == 2:
-                                temp = pyglet.sprite.Sprite(img=Block_rouge_image, y=y_pixel, x=x_pixel)
-                            elif zi == 3:
-                                temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
-                            temp.draw()
+        mapRep.afficherMap()
+        # for zi in range (z):
+        #     for yi in range(y):
+        #         for xi in range(x):
+        #             if map[zi, yi, xi] == 1:
+        #                 x_pixel, y_pixel = isoTools.coordinate_to_pixel_z(xi-16, yi-16, zi)
+        #                 if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel-zi*15 >= 0 and y_pixel <= window.height-23:
+        #                     if zi == 0:
+        #                         temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
+        #                     elif zi == 1:
+        #                         temp = pyglet.sprite.Sprite(img=Block_bleu_image, y=y_pixel, x=x_pixel)
+        #                     elif zi == 2:
+        #                         temp = pyglet.sprite.Sprite(img=Block_rouge_image, y=y_pixel, x=x_pixel)
+        #                     elif zi == 3:
+        #                         temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
+        #                     temp.draw()
 
 
     # voir ce qui est inscrit sur

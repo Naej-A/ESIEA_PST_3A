@@ -12,6 +12,10 @@ class ListSpriteRepresentation:
     #  c'est sa largeur de sprite, c'est à dire sa largeur qui est 3X plus grande. Et non pas l'arrête du block.
     #  Je penses qu'on va devoir les rediemensionner. On verra ça quand on aura un visuel
     def _init_All_Sprite(self):
+        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_bleu.png"))
+        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_jaune.png"))
+        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_rouge.png"))
+        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_vert.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1, -1, -1],
                                                               [-1, -1, -1],
                                                               [-1, -1, -1]], "Block_bleu.png"))
@@ -65,10 +69,6 @@ class ListSpriteRepresentation:
                                                               [-1, -1, -1, -1, -1],
                                                               [-1, -1, -1, -1, -1],
                                                               [-1, -1, -1, -1, -1]], "Gros_block_vert.png"))
-        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_bleu.png"))
-        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_jaune.png"))
-        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_rouge.png"))
-        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_vert.png"))
 
         return 0
 
@@ -84,5 +84,3 @@ class ListSpriteRepresentation:
                 return sprite
         return None
 
-class SpriteEnum(Enum):
-    Mini_block_rouge = 1

@@ -20,8 +20,8 @@ class SpriteRepresentation:
         pathToImage = os.getcwd() + "/ressources/" + imageName
         if not os.path.isfile(pathToImage): # si l'image n'existe pas lance une erreur
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), imageName)
-        file_lecture = open(pathToImage, 'rb')  # Lecture du fichier en binaire
-        self.pygletSprite = pyglet.image.load(pathToImage, file=file_lecture)  # Attribution de l'image PNG
+        binary_file_image =  open(pathToImage, 'rb')  # Lecture du fichier en binaire
+        self.pygletSprite = pyglet.image.load(pathToImage, file=binary_file_image)  # Attribution de l'image PNG
 
 #
 #  0 | X

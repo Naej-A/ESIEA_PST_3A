@@ -1,6 +1,9 @@
 #TODO: faire les fonctions rotation horaire et rotation antihoraire
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
+import errno
+import os
+
 import sample.ListSpriteRepresentation as lsp
 import pyglet
 import sample.IsometricTools as isoTools
@@ -8,7 +11,7 @@ import numpy as np
 
 
 class MapRepresentation:
-    ratioPixel = 15
+    ratioPixel = 14
 
     def __init__(self, absysseX, ordonneeY):
         self.absysseX = absysseX
@@ -22,7 +25,7 @@ class MapRepresentation:
         for k in range(self.ordonneeY):
             for i in range(self.absysseX):
                 a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
-                self.representationCarte.append(0)
+                self.representationCarte.append(1)
                 # Format de la liste :
 # [x;y , x;y+1 ... x;y+n-1 , x;y+n , x+1;y , x+1;y+1 ... x+1;y+n-1 , x+1;y+n ... x+n-1;y , x+n-1;y+1 ... x+n-1;y+n-1 , x+n-1;y+n , x+n;y , x+n;y+1 ... x+n;y+n-1 , x+n;y+n]
         return 0
@@ -117,7 +120,7 @@ class MapRepresentation:
     def deleteSpriteFromMapGraphic(self, xPixel, yPixel):
         maths = isoTools.IsometricTools()
         xMap, yMap = maths.pixel_to_coordinate(xPixel, yPixel)
-        idSprite = self.getIndex(xMap + yMap * self.absysseX)
+        idSprite = self.getIdAtIndex(xMap + yMap * self.absysseX)
         if idSprite < 0:
             return -1
         sprite = self.listSpriteRepresentation.findSpriteById(idSprite)
@@ -128,17 +131,18 @@ class MapRepresentation:
                     yTot = ySprite - sprite.yBaseRelativeCoord + yMap
                     self.representationCarte[xTot + yTot * self.absysseX] = 0
         return 0
-    def getIndex(self, x, y):
+    def getIdAtIndex(self, x, y):
         return self.representationCarte[x + y * self.absysseX]
 
     def afficherMap(self):
         #  WORK IN PROGRESS
-
-        # for x in range(self.absysseX):
-        #     for y in range(self.ordonneeY):
-        #         if self.getindex(x, y) > 0:
-        #
-        # x_pixel, y_pixel = isoTools.coordinateToPixel(x, y)
-        # sprite = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
-        # sprite.draw()
+          # Attribution de l'image PNG
+        iso = isoTools.IsometricTools(1000,700)
+        for y in range(self.ordonneeY):
+            for x in range(self.absysseX):
+                id = self.getIdAtIndex(x, y)
+                if id > 0:
+                    x_pixel,y_pixel = iso.coordinateToPixel(x,y)
+                    sprite = self.listSpriteRepresentation.findSpriteById(id)
+                    pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
         return 0
