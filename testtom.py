@@ -21,26 +21,66 @@ if __name__ == '__main__':
     width = 1000
     # hauteur de la fenêtre
     height = 700
+    a = 20
+    b = 50
+    mapRep = sample.MapRepresentation.MapRepresentation(a, b)
 
-    mapRep = sample.MapRepresentation.MapRepresentation(100,100)
-    # mapRep.addSpriteToMap(10, 20, 40)
-    for i in range(100):
-        for j in range(100):
-            if (i*j)**2 % 100 == 0:
-                mapRep.addSpriteToMap(5, i, j)
+    # for y in range(100):
+    #     for x in range(100):
+    #         rand3 = random.randint(1, 5)
+    #         if rand3 == 5:
+    #             rand3 = random.randint(1, 5)
+    #         mapRep.addSpriteToMap(rand3, x, y)
+
+    # for i in range(10):
+    #     rand1 = random.randint(1, 4)
+    #     rand2 = random.randint(0, a - 1)
+    #     mapRep.addSpriteToMap(rand1, rand2, 0)
+    # for j in range(1, b - 1):
+    #     for i in range(1, a - 2):
+    #         if mapRep.getIdAtIndex(i, j - 1) > 0:
+    #             if mapRep.getIdAtIndex(i, j - 1) == 1:
+    #                 mapRep.addSpriteToMap(2, i - 1, j)
+    #                 mapRep.addSpriteToMap(2, i, j)
+    #                 mapRep.addSpriteToMap(2, i + 1, j)
+    #             if mapRep.getIdAtIndex(i, j - 1) == 2:
+    #                 rand = random.randint(1, 4)
+    #                 mapRep.addSpriteToMap(rand, i - 1, j)
+    #                 rand = random.randint(1, 4)
+    #                 mapRep.addSpriteToMap(rand, i, j)
+    #                 rand = random.randint(1, 4)
+    #                 mapRep.addSpriteToMap(rand, i + 1, j)
+    #             if mapRep.getIdAtIndex(i, j - 1) == 3:
+    #                 mapRep.representationCarte[i + j * mapRep.absysseX] = 0
+    #             if mapRep.getIdAtIndex(i, j - 1) == 4:
+    #                 mapRep.addSpriteToMap(5, i, j)
+    #                 if mapRep.getIdAtIndex(i, j - 1) == 5:
+    #                     mapRep.addSpriteToMap(5, i, j)
+    #             if mapRep.getIdAtIndex(i - 1, j - 1) > 0 and mapRep.getIdAtIndex(i + 1, j - 1) > 0 and mapRep.getIdAtIndex(i - 1, j - 1) !=  mapRep.getIdAtIndex(i + 1, j - 1):
+    #                 mapRep.addSpriteToMap(mapRep.getIdAtIndex(i, j - 1), i, j)
+    #             else:
+    #                 mapRep.addSpriteToMap(mapRep.getIdAtIndex(i, j - 1), i - 1, j)
+    #                 mapRep.addSpriteToMap(mapRep.getIdAtIndex(i, j - 1), i, j)
+    #                 mapRep.addSpriteToMap(mapRep.getIdAtIndex(i, j - 1), i + 1, j)
+
+    # mapRep.addSpriteToMap(10, 50, 40)
+    # for i in range(100):
+    #     for j in range(100):
+    #         if (i*j)**2 % 99 == 0:
+    #             mapRep.addSpriteToMap(5, i, j)
     # for i in range(500):
-    #     rand1 = random.randint(0, 67)
-    #     rand2 = random.randint(0, 67)
+    #     rand1 = random.randint(0, 97)
+    #     rand2 = random.randint(0, 97)
     #     rand3 = random.randint(6, 9)
     #     mapRep.addSpriteToMap(rand3, rand1, rand2)
     # for i in range(500):
-    #     rand1 = random.randint(10, 59)
-    #     rand2 = random.randint(10, 59)
+    #     rand1 = random.randint(10, 89)
+    #     rand2 = random.randint(10, 89)
     #     mapRep.addSpriteToMap(5, rand1, rand2)
-
-    for i in range (100*100):
-        rand3 = random.randint(1, 4)
-        mapRep.addSpriteToMap(rand3,i%100,i//100)
+    for i in range(b):
+        for j in range(a):
+            rand3 = random.randint(1, 4)
+            mapRep.addSpriteToMap(rand3, j, i)
     mapRep.afficheCarteDebug()
 
 
