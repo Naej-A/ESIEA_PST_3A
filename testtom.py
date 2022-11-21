@@ -22,19 +22,25 @@ if __name__ == '__main__':
     # hauteur de la fenêtre
     height = 700
 
-    mapRep = sample.MapRepresentation.MapRepresentation(70,70)
-    for i in range(500):
-        rand1 = random.randint(10, 59)
-        rand2 = random.randint(10, 59)
-        mapRep.addSpriteToMap(5, rand1, rand2)
-    for i in range(500):
-        rand1 = random.randint(0, 67)
-        rand2 = random.randint(0, 67)
-        mapRep.addSpriteToMap(7, rand1, rand2)
+    mapRep = sample.MapRepresentation.MapRepresentation(100,100)
+    # mapRep.addSpriteToMap(10, 20, 40)
+    for i in range(100):
+        for j in range(100):
+            if (i*j)**2 % 100 == 0:
+                mapRep.addSpriteToMap(5, i, j)
+    # for i in range(500):
+    #     rand1 = random.randint(0, 67)
+    #     rand2 = random.randint(0, 67)
+    #     rand3 = random.randint(6, 9)
+    #     mapRep.addSpriteToMap(rand3, rand1, rand2)
+    # for i in range(500):
+    #     rand1 = random.randint(10, 59)
+    #     rand2 = random.randint(10, 59)
+    #     mapRep.addSpriteToMap(5, rand1, rand2)
 
-    for i in range (70*70):
-        rand3 = random.randint(1, 8)
-        mapRep.addSpriteToMap(1,i%70,i//70)
+    for i in range (100*100):
+        rand3 = random.randint(1, 4)
+        mapRep.addSpriteToMap(rand3,i%100,i//100)
     mapRep.afficheCarteDebug()
 
 
