@@ -1,9 +1,6 @@
 #TODO: faire les fonctions rotation horaire et rotation antihoraire
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
-import errno
-import os
-
 import sample.ListSpriteRepresentation as lsp
 import pyglet
 import sample.IsometricTools as isoTools
@@ -25,7 +22,7 @@ class MapRepresentation:
         for k in range(self.ordonneeY):
             for i in range(self.absysseX):
                 a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
-                self.representationCarte.append(1)
+                self.representationCarte.append(0)
                 # Format de la liste :
 # [x;y , x;y+1 ... x;y+n-1 , x;y+n , x+1;y , x+1;y+1 ... x+1;y+n-1 , x+1;y+n ... x+n-1;y , x+n-1;y+1 ... x+n-1;y+n-1 , x+n-1;y+n , x+n;y , x+n;y+1 ... x+n;y+n-1 , x+n;y+n]
         return 0
