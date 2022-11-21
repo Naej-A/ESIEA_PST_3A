@@ -1,3 +1,5 @@
+import random
+
 import pyglet
 from pyglet.window import key
 from sample import IsometricTools
@@ -20,17 +22,21 @@ if __name__ == '__main__':
     # hauteur de la fenêtre
     height = 700
 
-    mapRep = sample.MapRepresentation.MapRepresentation(50,50)
+    mapRep = sample.MapRepresentation.MapRepresentation(70,70)
+    for i in range(500):
+        rand1 = random.randint(10, 59)
+        rand2 = random.randint(10, 59)
+        mapRep.addSpriteToMap(5, rand1, rand2)
+    for i in range(500):
+        rand1 = random.randint(0, 67)
+        rand2 = random.randint(0, 67)
+        mapRep.addSpriteToMap(7, rand1, rand2)
 
-    # mapRep.addSpriteToMap(1,3,3)
-    # mapRep.addSpriteToMap(2,3,3)
-    # mapRep.afficheCarteDebug()
-    # mapRep.afficheCarteDebug()
-    # mapRep.addSpriteToMap(7,2,3)
-    # mapRep.addSpriteToMap(9,20,20)
-    # mapRep.addSpriteToMap(2,2,6)
-    # mapRep.addSpriteToMap(3,2,5)
-    # mapRep.addSpriteToMap(4,2,4)
+    for i in range (70*70):
+        rand3 = random.randint(1, 8)
+        mapRep.addSpriteToMap(1,i%70,i//70)
+    mapRep.afficheCarteDebug()
+
 
     # titre du de la fenêtre
     title = "Jeu de la mort"

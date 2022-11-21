@@ -135,11 +135,38 @@ class MapRepresentation:
         #  WORK IN PROGRESS
           # Attribution de l'image PNG
         iso = isoTools.IsometricTools(1000,700)
-        for y in range(self.ordonneeY):
-            for x in range(self.absysseX):
+
+        tailleAAfficher = self.absysseX + self.ordonneeY - 1  # Nombre de lignes à afficher
+
+        for i in range(tailleAAfficher):
+            for j in range(min(self.absysseX, self.ordonneeY, i+1, tailleAAfficher - i)):  # giga bordel
+                x = j + max(0, i + 1 - self.ordonneeY)
+                y = (i - j - max(0, i + 1 - self.ordonneeY))
                 id = self.getIdAtIndex(x, y)
                 if id > 0:
-                    x_pixel,y_pixel = iso.coordinateToPixel(x,y)
+                    x_pixel, y_pixel = iso.coordinateToPixel(x, y)
                     sprite = self.listSpriteRepresentation.findSpriteById(id)
+                    y_pixel -= (len(sprite.tabRepresentation[0])) * MapRepresentation.ratioPixel / 3
+                    # x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
                     pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
+
+
+
+
+
+
+
+
+
+
+
+        # for y in range(self.ordonneeY):
+        #     for x in range(self.absysseX):
+        #         id = self.getIdAtIndex(x, y)
+        #         if id > 0:
+        #
+        #             x_pixel,y_pixel = iso.coordinateToPixel(x,y)
+        #             sprite = self.listSpriteRepresentation.findSpriteById(id)
+        #             x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
+        #             pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
         return 0
