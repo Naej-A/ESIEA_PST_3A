@@ -16,7 +16,7 @@ class ListSpriteRepresentation:
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_jaune.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_rouge.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_vert.png"))
-        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Colone_rouge.png"))
+        # self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Colone_rouge.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 2, [[-1, -1, -1],
                                                               [-1, -1, -1],
                                                               [-1, -1, -1]], "Block_bleu.png"))

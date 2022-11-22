@@ -3,19 +3,21 @@
 #TODO: fonction ajoute spriteRepresentation à representationCarte
 import sample.ListSpriteRepresentation as lsp
 import pyglet
-import sample.IsometricTools as isoTools
-import numpy as np
+import sample.IsometricTools as IsometricTools
 
 
 class MapRepresentation:
     ratioPixel = 14
 
-    def __init__(self, absysseX, ordonneeY):
+    def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
+
         self.absysseX = absysseX
         self.ordonneeY = ordonneeY
         self._init_carte()
         self.positionCamera = 0  # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
         self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
+        self.originePixelX = (width_x_window - MapRepresentation.ratioPixel) / 2
+        self.originePixelY = height_y_window - MapRepresentation.ratioPixel
 
     def _init_carte(self):
         self.representationCarte = []
@@ -115,9 +117,8 @@ class MapRepresentation:
         return 0
 
     def deleteSpriteFromMapGraphic(self, xPixel, yPixel):
-        maths = isoTools.IsometricTools()
-        xMap, yMap = maths.pixel_to_coordinate(xPixel, yPixel)
-        idSprite = self.getIdAtIndex(xMap + yMap * self.absysseX)
+        xMap, yMap = IsometricTools.pixel_to_coordinate(self, xPixel, yPixel)
+        idSprite = self.getIdAtIndex(xMap, yMap * self.absysseX)
         if idSprite < 0:
             return -1
         sprite = self.listSpriteRepresentation.findSpriteById(idSprite)
@@ -134,7 +135,6 @@ class MapRepresentation:
     def afficherMap(self):
         #  WORK IN PROGRESS
           # Attribution de l'image PNG
-        iso = isoTools.IsometricTools(1000,700)
 
         tailleAAfficher = self.absysseX + self.ordonneeY - 1  # Nombre de lignes à afficher
 
@@ -144,21 +144,11 @@ class MapRepresentation:
                 y = (i - j - max(0, i + 1 - self.ordonneeY))
                 id = self.getIdAtIndex(x, y)
                 if id > 0:
-                    x_pixel, y_pixel = iso.coordinateToPixel(x, y)
+                    x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, x, y)
                     sprite = self.listSpriteRepresentation.findSpriteById(id)
                     y_pixel -= (len(sprite.tabRepresentation[0])) * MapRepresentation.ratioPixel / 3
                     # x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
                     pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
-
-
-
-
-
-
-
-
-
-
 
         # for y in range(self.ordonneeY):
         #     for x in range(self.absysseX):

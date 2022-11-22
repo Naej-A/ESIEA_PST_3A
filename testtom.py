@@ -22,7 +22,7 @@ if __name__ == '__main__':
     # hauteur de la fenêtre
     height = 700
 
-    mapRep = sample.MapRepresentation.MapRepresentation(100,100)
+    mapRep = sample.MapRepresentation.MapRepresentation(100,100,width,height)
     # mapRep.addSpriteToMap(10, 20, 40)
     for i in range(100):
         for j in range(100):
@@ -48,27 +48,6 @@ if __name__ == '__main__':
     title = "Jeu de la mort"
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
-
-    # Block_vert
-    Block_vert_lecture = open('ressources/Block_vert.png', 'rb')  # Lecture du fichier en binaire
-    Block_vert_image = pyglet.image.load('ressources/Block_vert.png',
-                                         file=Block_vert_lecture)  # Attribution de l'image PNG
-
-    # Block_rouge
-    Block_rouge_lecture = open('ressources/Block_rouge.png', 'rb')  # Lecture du fichier en binaire
-    Block_rouge_image = pyglet.image.load('ressources/Block_rouge.png',
-                                         file=Block_rouge_lecture)  # Attribution de l'image PNG
-
-    # Block_bleu
-    Block_bleu_lecture = open('ressources/Block_bleu.png', 'rb')  # Lecture du fichier en binaire
-    Block_bleu_image = pyglet.image.load('ressources/Block_bleu.png',
-                                         file=Block_bleu_lecture)  # Attribution de l'image PNG
-
-
-    # Gros_block_color
-    Gros_block_color_lecture = open('ressources/Gros_block_color.png', 'rb')  # Lecture du fichier en binaire
-    Gros_block_color_image = pyglet.image.load('ressources/Gros_block_color.png',
-                                               file=Gros_block_color_lecture)  # Attribution de l'image PNG
 
     x = 100  # Dimension x de la map
     y = 100  # Dimension y de la map
