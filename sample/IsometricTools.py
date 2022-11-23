@@ -6,7 +6,7 @@ def coordinateToPixel(mapRep, x_coord, y_coord):
 
     return x_pixel, y_pixel
 
-def pixel_to_coordinate(mapRep, x_pixel, y_pixel):
+def pixelToCoordinate(mapRep, x_pixel, y_pixel):
     x_coord = 2 * (x_pixel - mapRep.originePixelX) / mapRep.ratioPixel - 4 * (y_pixel - mapRep.originePixelY) / mapRep.ratioPixel
     # x_coord = (x_pixel - l'origine) / la moitié de la largeur du block - (y_pixel - l'origine) / le quart de la hauteur du block
     y_coord = - 2 * (x_pixel - mapRep.originePixelX) / mapRep.ratioPixel - 4 * (y_pixel - mapRep.originePixelY) / mapRep.ratioPixel

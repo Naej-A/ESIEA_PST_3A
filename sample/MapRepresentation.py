@@ -117,7 +117,7 @@ class MapRepresentation:
         return 0
 
     def deleteSpriteFromMapGraphic(self, xPixel, yPixel):
-        xMap, yMap = IsometricTools.pixel_to_coordinate(self, xPixel, yPixel)
+        xMap, yMap = IsometricTools.pixelToCoordinate(self, xPixel, yPixel)
         idSprite = self.getIdAtIndex(xMap, yMap * self.absysseX)
         if idSprite < 0:
             return -1
