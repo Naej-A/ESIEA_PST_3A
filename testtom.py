@@ -22,12 +22,12 @@ if __name__ == '__main__':
     # hauteur de la fenêtre
     height = 700
 
-    mapRep = sample.MapRepresentation.MapRepresentation(100,100,width,height)
+    mapRep = sample.MapRepresentation.MapRepresentation(10,10,width,height)
     # mapRep.addSpriteToMap(10, 20, 40)
-    for i in range(100):
-        for j in range(100):
-            if (i*j)**2 % 100 == 0:
-                mapRep.addSpriteToMap(5, i, j)
+    # for i in range(100):
+    #     for j in range(100):
+    #         if (i*j)**2 % 100 == 0:
+    #             mapRep.addSpriteToMap(5, i, j)
     # for i in range(500):
     #     rand1 = random.randint(0, 67)
     #     rand2 = random.randint(0, 67)
@@ -38,9 +38,9 @@ if __name__ == '__main__':
     #     rand2 = random.randint(10, 59)
     #     mapRep.addSpriteToMap(5, rand1, rand2)
 
-    for i in range (100*100):
+    for i in range (10*10):
         rand3 = random.randint(1, 4)
-        mapRep.addSpriteToMap(rand3,i%100,i//100)
+        mapRep.addSpriteToMap(rand3,i%10,i//10)
     mapRep.afficheCarteDebug()
 
 
@@ -48,13 +48,6 @@ if __name__ == '__main__':
     title = "Jeu de la mort"
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
-
-    x = 100  # Dimension x de la map
-    y = 100  # Dimension y de la map
-    z = 4  # Dimension z de la map
-
-    map = np.zeros((z, y, x))  # Création d'un tableau de dimension x, y, z
-    mg.picos(map, 3, 1/200)
 
 
     @window.event
@@ -95,7 +88,7 @@ if __name__ == '__main__':
 
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
-    # window.push_handlers(event_logger)
+    window.push_handlers(event_logger)
 
     pyglet.app.run()
 
