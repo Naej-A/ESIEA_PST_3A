@@ -8,15 +8,12 @@ class ListSpriteRepresentation:
         self.listSprite = list()
         self._init_All_Sprite()
 
-    #  Il y a peu être un problème ici. Les quand un block est 3X plus grand qu'un mini block,
-    #  c'est sa largeur de sprite, c'est à dire sa largeur qui est 3X plus grande. Et non pas l'arrête du block.
-    #  Je penses qu'on va devoir les rediemensionner. On verra ça quand on aura un visuel
     def _init_All_Sprite(self):
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_bleu.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_jaune.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_rouge.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Mini_block_vert.png"))
-        # self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Colone_rouge.png"))
+        self.listSprite.append(sr.SpriteRepresentation(0, 0, [[-1]], "Colone_rouge.png"))
         self.listSprite.append(sr.SpriteRepresentation(0, 2, [[-1, -1, -1],
                                                               [-1, -1, -1],
                                                               [-1, -1, -1]], "Platforme.png"))
