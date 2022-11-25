@@ -7,27 +7,6 @@ if __name__ == '__main__':
 
     map = MapRepresentation.MapRepresentation(10, 10, 1000, 500)
     isoTools = IsometricTools
-    x_coord = 145
-    y_coord = 55
-    print("x_coord = " + str(x_coord) + " | y_coord = " + str(y_coord))
-    x_pixel, y_pixel = isoTools.coordinateToPixel(map, x_coord, y_coord)
-    print("x_pixel = " + str(x_pixel) + " | y_pixel = " + str(y_pixel))
-    x_coord, y_coord = isoTools.pixelToCoordinate(map, x_pixel, y_pixel)
-    print("x_coord = " + str(x_coord) + " | y_coord = " + str(y_coord))
-    x_pixel, y_pixel = isoTools.coordinateToPixel(map, x_coord, y_coord)
-    print("x_pixel = " + str(x_pixel) + " | y_pixel = " + str(y_pixel))
-    x_coord, y_coord = isoTools.pixelToCoordinate(map, x_pixel, y_pixel)
-    print("x_coord = " + str(x_coord) + " | y_coord = " + str(y_coord))
-    x_pixel, y_pixel = isoTools.coordinateToPixel(map, x_coord, y_coord)
-    print("x_pixel = " + str(x_pixel) + " | y_pixel = " + str(y_pixel))
-    x_coord, y_coord = isoTools.pixelToCoordinate(map, x_pixel, y_pixel)
-    print("x_coord = " + str(x_coord) + " | y_coord = " + str(y_coord))
-    x_pixel, y_pixel = isoTools.coordinateToPixel(map, x_coord, y_coord)
-    print("x_pixel = " + str(x_pixel) + " | y_pixel = " + str(y_pixel))
-    x_coord, y_coord = isoTools.pixelToCoordinate(map, x_pixel, y_pixel)
-    print("x_coord = " + str(x_coord) + " | y_coord = " + str(y_coord))
-    x_pixel, y_pixel = isoTools.coordinateToPixel(map, x_coord, y_coord)
-    print("x_pixel = " + str(x_pixel) + " | y_pixel = " + str(y_pixel))
     # map.afficheCarteDebug()
     # map.addSpriteToMap(1, 5, 5)
     # map.afficheCarteDebug()

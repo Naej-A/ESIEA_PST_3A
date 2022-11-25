@@ -145,8 +145,9 @@ class MapRepresentation:
                 id = self.getIdAtIndex(x, y)
                 if id > 0:
                     x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, x, y)
+                    x_pixel -= self.ratioPixel / 2
+                    y_pixel -= self.ratioPixel * 3 / 4
                     sprite = self.listSpriteRepresentation.findSpriteById(id)
-                    y_pixel -= (len(sprite.tabRepresentation[0])) * MapRepresentation.ratioPixel / 3
                     # x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
                     pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
 

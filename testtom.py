@@ -20,9 +20,9 @@ if __name__ == '__main__':
     # largeur de la fenêtre
     width = 1000
     # hauteur de la fenêtre
-    height = 700
+    height = 500
 
-    mapRep = sample.MapRepresentation.MapRepresentation(10,10,width,height)
+    mapRep = sample.MapRepresentation.MapRepresentation(50,50,width,height)
     # mapRep.addSpriteToMap(10, 20, 40)
     # for i in range(100):
     #     for j in range(100):
@@ -38,9 +38,9 @@ if __name__ == '__main__':
     #     rand2 = random.randint(10, 59)
     #     mapRep.addSpriteToMap(5, rand1, rand2)
 
-    for i in range (10*10):
+    for i in range (50*50):
         rand3 = random.randint(1, 4)
-        mapRep.addSpriteToMap(rand3,i%10,i//10)
+        mapRep.addSpriteToMap(rand3,i%50,i//50)
     mapRep.afficheCarteDebug()
 
 
