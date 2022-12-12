@@ -2,8 +2,10 @@
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
 import sample.ListSpriteRepresentation as lsp
+import sample.ListMobs as lm
 import pyglet
 import sample.IsometricTools as IsometricTools
+import sample.Zone as zone
 
 
 class MapRepresentation:
@@ -16,8 +18,10 @@ class MapRepresentation:
         self._init_carte()
         self.positionCamera = 0  # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
         self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
+        self.listMobs = lm.ListMobs()
         self.originePixelX = width_x_window / 2
         self.originePixelY = height_y_window
+        self.spawningZone = zone.Zone(5, 5, 10, 10)
 
     def _init_carte(self):
         self.representationCarte = []
@@ -161,3 +165,12 @@ class MapRepresentation:
         #             x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
         #             pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
         return 0
+
+    def afficherMobs(self):
+        for mob in self.listMobs.listMobsOnMap:
+            x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, mob.x, mob.y)
+            sprite = mob.pygletSprite
+            pathToImage = "ressources/Estaca1A.png"
+            binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
+            pygletSprite = pyglet.image.load(pathToImage, file=binary_file_image)
+            pyglet.sprite.Sprite(img=pygletSprite, y=y_pixel, x=x_pixel).draw()

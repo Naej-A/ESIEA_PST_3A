@@ -6,6 +6,7 @@ from sample import IsometricTools
 import numpy as np
 import MapGeneration as mg
 import sample.MapRepresentation
+import sample.ListMobs as lm
 
 
 
@@ -44,6 +45,9 @@ if __name__ == '__main__':
     mapRep.afficheCarteDebug()
 
 
+    mapRep.listMobs.spawnMultipleMobs(mapRep.spawningZone, 2, 1, 0, 0, 0)
+
+
     # titre du de la fenêtre
     title = "Jeu de la mort"
 
@@ -69,6 +73,7 @@ if __name__ == '__main__':
     def on_draw():
         window.clear()
         mapRep.afficherMap()
+        mapRep.afficherMobs()
         # for zi in range (z):
         #     for yi in range(y):
         #         for xi in range(x):
