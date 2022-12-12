@@ -6,7 +6,7 @@ import os
 class Mobs:
     compteur = 0
 
-    def __init__(self, x, y, pv, speed, mobName):
+    def __init__(self, x, y, pv, speed, mobName, imageName):
         Mobs.compteur += 1
         self.id = Mobs.compteur
         self.x = x
@@ -15,7 +15,6 @@ class Mobs:
         self.speed = speed
         self.mobName = mobName
 
-        imageName = mobName + ".png"
         pathToImage = os.getcwd() + "/ressources/" + imageName
         if not os.path.isfile(pathToImage):  # si l'image n'existe pas lance une erreur
             raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), imageName)

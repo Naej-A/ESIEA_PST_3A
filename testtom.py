@@ -40,12 +40,15 @@ if __name__ == '__main__':
     #     mapRep.addSpriteToMap(5, rand1, rand2)
 
     for i in range (50*50):
-        rand3 = random.randint(1, 4)
+        rand3 = random.randint(2, 2)
         mapRep.addSpriteToMap(rand3,i%50,i//50)
     mapRep.afficheCarteDebug()
 
 
-    mapRep.listMobs.spawnMultipleMobs(mapRep.spawningZone, 2, 1, 0, 0, 0)
+    mapRep.listMobs.spawnMultipleMobs(mapRep.spawningZone, 2, 1, 10, 12, 5)
+    print("affichage coords mobs")
+    for i in range(len(mapRep.listMobs.listMobsOnMap)):
+        print("x=" + str(mapRep.listMobs.listMobsOnMap[i].x) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].y))
 
 
     # titre du de la fenêtre

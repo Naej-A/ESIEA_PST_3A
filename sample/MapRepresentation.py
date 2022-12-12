@@ -21,7 +21,7 @@ class MapRepresentation:
         self.listMobs = lm.ListMobs()
         self.originePixelX = width_x_window / 2
         self.originePixelY = height_y_window
-        self.spawningZone = zone.Zone(5, 5, 10, 10)
+        self.spawningZone = zone.Zone(0, 0, 50, 50)
 
     def _init_carte(self):
         self.representationCarte = []
@@ -167,10 +167,7 @@ class MapRepresentation:
         return 0
 
     def afficherMobs(self):
+        self.listMobs.order()
         for mob in self.listMobs.listMobsOnMap:
             x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, mob.x, mob.y)
-            sprite = mob.pygletSprite
-            pathToImage = "ressources/Estaca1A.png"
-            binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
-            pygletSprite = pyglet.image.load(pathToImage, file=binary_file_image)
-            pyglet.sprite.Sprite(img=pygletSprite, y=y_pixel, x=x_pixel).draw()
+            pyglet.sprite.Sprite(img=mob.pygletSprite, y=y_pixel, x=x_pixel).draw()
