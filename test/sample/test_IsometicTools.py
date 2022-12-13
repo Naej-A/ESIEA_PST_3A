@@ -11,7 +11,7 @@ from unittest.mock import MagicMock
 def test_coordinateToPixel(mockMapRepresentation):
     width = 1000
     height = 1000
-    mapRep = MapRepresentation.MapRepresentation(10,10,width,height)
+    mapRep = MapRepresentation.GameProgress(10, 10, width, height)
     mapRep.ratioPixel = 10
     mapRep.originePixelX = 0
     mapRep.originePixelY = 0
@@ -38,7 +38,7 @@ def test_coordinateToPixel(mockMapRepresentation):
 def test_pixelToCoordinate(mockMapRepresentation):
     width = 1000
     height = 1000
-    mapRep = MapRepresentation.MapRepresentation(10,10,width,height)
+    mapRep = MapRepresentation.GameProgress(10, 10, width, height)
     mapRep.ratioPixel = 10
     mapRep.originePixelX = 0
     mapRep.originePixelY = 0

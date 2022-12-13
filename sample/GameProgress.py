@@ -8,7 +8,7 @@ import sample.IsometricTools as IsometricTools
 import sample.Zone as zone
 
 
-class MapRepresentation:
+class GameProgress:
     ratioPixel = 14
 
     def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
@@ -21,7 +21,8 @@ class MapRepresentation:
         self.listMobs = lm.ListMobs()
         self.originePixelX = width_x_window / 2
         self.originePixelY = height_y_window
-        self.spawningZone = zone.Zone(0, 0, 50, 50)
+        self.spawningZone = zone.Zone(0, 45, 5, 50)
+        self.targetZone = zone.Zone(45, 0, 50, 5)
 
     def _init_carte(self):
         self.representationCarte = []
@@ -171,3 +172,4 @@ class MapRepresentation:
         for mob in self.listMobs.listMobsOnMap:
             x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, mob.x, mob.y)
             pyglet.sprite.Sprite(img=mob.pygletSprite, y=y_pixel, x=x_pixel).draw()
+        self.listMobs.moveMobs(self.targetZone)

@@ -4,8 +4,7 @@ import pyglet
 from pyglet.window import key
 from sample import IsometricTools
 import numpy as np
-import MapGeneration as mg
-import sample.GameProgress
+import sample.GameProgress as gp
 import sample.ListMobs as lm
 
 
@@ -23,7 +22,7 @@ if __name__ == '__main__':
     # hauteur de la fenêtre
     height = 500
 
-    mapRep = sample.MapRepresentation.MapRepresentation(50,50,width,height)
+    mapRep = gp.GameProgress(50, 50, width, height)
     # mapRep.addSpriteToMap(10, 20, 40)
     # for i in range(100):
     #     for j in range(100):
@@ -45,7 +44,7 @@ if __name__ == '__main__':
     mapRep.afficheCarteDebug()
 
 
-    mapRep.listMobs.spawnMultipleMobs(mapRep.spawningZone, 2, 1, 10, 12, 5)
+    mapRep.listMobs.spawnMultipleMobs(mapRep.spawningZone, mapRep.targetZone, 5, 2, 1, 0, 0)
     print("affichage coords mobs")
     for i in range(len(mapRep.listMobs.listMobsOnMap)):
         print("x=" + str(mapRep.listMobs.listMobsOnMap[i].x) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].y))
