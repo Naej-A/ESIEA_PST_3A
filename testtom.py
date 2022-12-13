@@ -5,7 +5,7 @@ from pyglet.window import key
 from sample import IsometricTools
 import numpy as np
 import MapGeneration as mg
-import sample.MapRepresentation
+import sample.GameProgress
 import sample.ListMobs as lm
 
 

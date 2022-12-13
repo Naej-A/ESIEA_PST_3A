@@ -1,7 +1,7 @@
 #TODO: faire les fonctions rotation horaire et rotation antihoraire
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
-import sample.ListSpriteRepresentation as lsp
+import sample.ListBlock as lsp
 import sample.ListMobs as lm
 import pyglet
 import sample.IsometricTools as IsometricTools

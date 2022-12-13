@@ -1,4 +1,4 @@
-import sample.Mobs as m
+import sample.mob.Mobs as m
 import random
 from copy import deepcopy
 

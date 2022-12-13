@@ -1,5 +1,5 @@
 import sample.IsometricTools as IsometricTools
-import sample.MapRepresentation as MapRepresentation
+import sample.GameProgress as MapRepresentation
 import pytest
 import pytest_mock
 from unittest.mock import patch

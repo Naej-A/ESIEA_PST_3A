@@ -1,5 +1,5 @@
 import pyglet
-from sample import MapRepresentation
+from sample import GameProgress
 from sample import IsometricTools
 
 if __name__ == '__main__':

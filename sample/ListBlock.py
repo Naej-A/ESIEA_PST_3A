@@ -1,4 +1,4 @@
-import sample.SpriteRepresentation as sr
+import sample.Block as sr
 from enum import Enum
 
 # class syntax
