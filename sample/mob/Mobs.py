@@ -3,7 +3,7 @@ import pyglet
 import errno
 import os
 import math
-class Mobs:
+class Mobs():
     compteur = 0
 
     def __init__(self, x, y, pv, speed, mobName, imageName):
@@ -17,6 +17,8 @@ class Mobs:
         self.destinationY = None
         self.step = 0
         self.mobName = mobName
+        self.idPath = None
+        self.idZone = -1
 
         pathToImage = os.getcwd() + "/ressources/" + imageName
         if not os.path.isfile(pathToImage):  # si l'image n'existe pas lance une erreur
@@ -24,17 +26,27 @@ class Mobs:
         binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
         self.pygletSprite = pyglet.image.load(pathToImage, file=binary_file_image)  # Attribution de l'image PNG
 
-    def changeDestination(self, zone):
+    def findDestination(self, path):
+        zone = path[self.idZone]
         self.destinationX = random.randrange(zone.minX, zone.maxX)
-        self.destinationX = random.randrange(zone.minY, zone.maxY)
-        return zone
+        self.destinationY = random.randrange(zone.minY, zone.maxY)
 
-    def move(self, zone):
+    def move(self, level):
         if (round(self.x) == round(self.destinationX) and round(self.y) == round(self.destinationY)):
-            self.changeDestination(zone)
-            return None
+            self.idZone += 1
+            if self.idPath == 1:
+                path = level.path1
+            if self.idPath == 2:
+                path = level.path2
+            if self.idPath == 3:
+                path = level.path3
+            if self.idZone >= len(path):
+                return False
+            self.findDestination(path)
+            return True
         distanceRemaning = math.sqrt(pow(self.destinationX - self.x, 2) + pow(self.destinationY - self.y, 2))
         self.x = self.x + self.speed * (self.destinationX - self.x) / distanceRemaning
         self.y = self.y + self.speed * (self.destinationY - self.y) / distanceRemaning
+        return True
 
 

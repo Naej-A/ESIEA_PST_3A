@@ -28,27 +28,29 @@ class ListMobs:
                 return sprite
         return None
 
-    def spawnMob(self, spawningZone,targetZone, id):
+    def spawnMob(self, spawningZone, id):
         mob = self.findSpriteById(id)
+        mob.idPath = random.randint(1, 3)
         mob.x = random.randrange(spawningZone.minX, spawningZone.maxX)
         mob.y = random.randrange(spawningZone.minY, spawningZone.maxY)
-        mob.destinationX = random.randrange(targetZone.minX, targetZone.maxX)
-        mob.destinationY = random.randrange(targetZone.minY, targetZone.maxY)
+        mob.destinationX = mob.x
+        mob.destinationY = mob.y
         self.listMobsOnMap.append(deepcopy(mob))
         print("A mob spawned in x=" + str(mob.x) + " y=" + str(mob.y))
         return None
 
-    def spawnMultipleMobs(self, spawningZone, targetZone, numberMonsterId1, numberMonsterId2, numberMonsterId3, numberMonsterId4, numberMonsterId5):
+    def spawnMultipleMobs(self, level, numberMonsterId1, numberMonsterId2, numberMonsterId3, numberMonsterId4, numberMonsterId5):
+        spawningZone = level.spawningZone
         for i in range(numberMonsterId1):
-            self.spawnMob(spawningZone, targetZone, 1)
+            self.spawnMob(spawningZone, 1)
         for i in range(numberMonsterId2):
-            self.spawnMob(spawningZone, targetZone, 2)
+            self.spawnMob(spawningZone, 2)
         for i in range(numberMonsterId3):
-            self.spawnMob(spawningZone, targetZone, 3)
+            self.spawnMob(spawningZone, 3)
         for i in range(numberMonsterId4):
-            self.spawnMob(spawningZone, targetZone, 4)
+            self.spawnMob(spawningZone, 4)
         for i in range(numberMonsterId5):
-            self.spawnMob(spawningZone, targetZone, 5)
+            self.spawnMob(spawningZone, 5)
 
     def order(self):
         templsit = list()
@@ -62,6 +64,7 @@ class ListMobs:
         self.listMobsOnMap = templsit
         return self.listMobsOnMap
 
-    def moveMobs(self, zone):
+    def moveMobs(self, level):
         for mob in self.listMobsOnMap:
-            mob.move(zone)
+            if not mob.move(level): #Si le mob n'a pas bougé (donce si il est au bout)
+                self.listMobsOnMap.remove(mob)

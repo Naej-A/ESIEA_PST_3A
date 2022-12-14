@@ -44,7 +44,7 @@ if __name__ == '__main__':
     mapRep.afficheCarteDebug()
 
 
-    mapRep.listMobs.spawnMultipleMobs(mapRep.spawningZone, mapRep.targetZone, 5, 2, 1, 0, 0)
+    mapRep.listMobs.spawnMultipleMobs(mapRep.level, 15, 0, 0, 0, 0)
     print("affichage coords mobs")
     for i in range(len(mapRep.listMobs.listMobsOnMap)):
         print("x=" + str(mapRep.listMobs.listMobsOnMap[i].x) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].y))

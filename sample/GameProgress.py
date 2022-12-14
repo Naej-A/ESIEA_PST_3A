@@ -5,7 +5,7 @@ import sample.ListBlock as lsp
 import sample.ListMobs as lm
 import pyglet
 import sample.IsometricTools as IsometricTools
-import sample.Zone as zone
+import sample.Level as lvl
 
 
 class GameProgress:
@@ -21,9 +21,7 @@ class GameProgress:
         self.listMobs = lm.ListMobs()
         self.originePixelX = width_x_window / 2
         self.originePixelY = height_y_window
-        self.spawningZone = zone.Zone(0, 45, 5, 50)
-        self.targetZone = zone.Zone(45, 0, 50, 5)
-
+        self.level = lvl.Level()
     def _init_carte(self):
         self.representationCarte = []
         for k in range(self.ordonneeY):
@@ -172,4 +170,4 @@ class GameProgress:
         for mob in self.listMobs.listMobsOnMap:
             x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, mob.x, mob.y)
             pyglet.sprite.Sprite(img=mob.pygletSprite, y=y_pixel, x=x_pixel).draw()
-        self.listMobs.moveMobs(self.targetZone)
+        self.listMobs.moveMobs(self.level)
