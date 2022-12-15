@@ -48,17 +48,29 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     @staticmethod
     def createEducationBlock1A():
-        listField =  list()
+        listField = list()
+        listField.append(educationField(None, "computerScience", 5, 10, 3, "attack"))
+        listField.append(educationField(None, "livingLanguage", 5, 10, 3, "slowing"))
+        listField.append(educationField(None, "electronics", 5, 10, 3, "reload"))
+        listField.append(educationField(None, "projectManagement", 5, 10, 3, "alliesIncrease"))
         return listField
 
     @staticmethod
     def createEducationBlock2A():
-        listField =  list()
+        listField = list()
+        listField.append(educationField(None, "2A_1", 5, 10, 3, "attack"))
+        listField.append(educationField(None, "2A_2", 5, 10, 3, "slowing"))
+        listField.append(educationField(None, "2A_3", 5, 10, 3, "reload"))
+        listField.append(educationField(None, "2A_4", 5, 10, 3, "alliesIncrease"))
         return listField
 
     @staticmethod
     def createEducationBlock3A():
-        listField =  list()
+        listField = list()
+        listField.append(educationField(None, "3A_1", 5, 10, 3, "attack"))
+        listField.append(educationField(None, "3A_2", 5, 10, 3, "slowing"))
+        listField.append(educationField(None, "3A_3", 5, 10, 3, "reload"))
+        listField.append(educationField(None, "3A_4", 5, 10, 3, "alliesIncrease"))
         return listField
 
 # ===== fonction graphique =======
@@ -78,13 +90,35 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
 
 class educationField:
-    def __init__(self, father, name, maxLevel, basePrice, intToAddToStat, year):
-        self.father = father
+    def __init__(self, precedentEvolution, name, maxLevel, price, intToAddToStat, nameStatToAdd):
+        self.precedentEvolution = precedentEvolution
+        self.nextEvolution = None
         self.name = name
-        self.children = list()
-        self.isBuyable = False
         self.maxLevel = maxLevel
-        self.currentLevel = 0
-        self.basePrice = basePrice
+        self.price = price
         self.intToAddToStat = intToAddToStat
-        self.year = year
+        self.nameStatToAdd = nameStatToAdd
+        self.isBuyable = False
+        self.currentLevel = 0
+        self.level = 0
+        self._initTreeToMaxLevel(price, intToAddToStat)
+
+    def _initTreeToMaxLevel(self, basePrice, baseIntToAddToStat):
+        """
+        init the tree of evolution
+        :param basePrice: le prix minimum auquel
+        :param baseIntToAddToStat: the minimum int stat
+        :return: an education field instance
+        """
+        if not self.precedentEvolution :
+            self.level = 0
+        else:
+            self.level = self.precedentEvolution + 1
+
+        if self.level >= self.maxLevel:
+            return None
+
+        self.nextEvolution = educationField(self, self.name, self.maxLevel, basePrice * self.level,
+                                            self.intToAddToStat * self.level, self.nameStatToAdd)
+        self.nextEvolution._initTreeToMaxLevel(basePrice, baseIntToAddToStat)
+        return self
