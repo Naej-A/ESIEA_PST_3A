@@ -22,14 +22,13 @@ class GameProgress:
         self.originePixelX = width_x_window / 2
         self.originePixelY = height_y_window
         self.level = lvl.Level()
+
     def _init_carte(self):
         self.representationCarte = []
         for k in range(self.ordonneeY):
             for i in range(self.absysseX):
                 a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
                 self.representationCarte.append(0)
-                # Format de la liste :
-# [x;y , x;y+1 ... x;y+n-1 , x;y+n , x+1;y , x+1;y+1 ... x+1;y+n-1 , x+1;y+n ... x+n-1;y , x+n-1;y+1 ... x+n-1;y+n-1 , x+n-1;y+n , x+n;y , x+n;y+1 ... x+n;y+n-1 , x+n;y+n]
         return 0
 
     # ne marche pas encore il faut choper l'index Y et X pour l'affichage
