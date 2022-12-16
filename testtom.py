@@ -20,7 +20,7 @@ if __name__ == '__main__':
     # largeur de la fenêtre
     width = 1000
     # hauteur de la fenêtre
-    height = 500
+    height = 700
 
     mapRep = gp.GameProgress(50, 50, width, height)
     # mapRep.addSpriteToMap(10, 20, 40)
@@ -43,8 +43,10 @@ if __name__ == '__main__':
         mapRep.addSpriteToMap(rand3,i%50,i//50)
     mapRep.afficheCarteDebug()
 
+    mobToSpawn = {"Estaca1A": 15, "Estaca2A": 2, "Estaca3A": 6}
 
-    mapRep.listMobs.spawnMultipleMobs(mapRep.level, 15, 0, 0, 0, 0)
+
+    mapRep.listMobs.spawnMultipleMobs(mapRep.level, mobToSpawn)
     print("affichage coords mobs")
     for i in range(len(mapRep.listMobs.listMobsOnMap)):
         print("x=" + str(mapRep.listMobs.listMobsOnMap[i].x) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].y))

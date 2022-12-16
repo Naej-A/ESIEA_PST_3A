@@ -17,3 +17,12 @@ class Level:
             x = random.randint(0, 45)
             y = random.randint(0, 45)
             path.append(zone.Zone(x, y, x+5, y+5))
+
+    def findPathById(self, mob):
+        if mob.idPath == 1:
+            return self.path1
+        if mob.idPath == 2:
+            return self.path2
+        if mob.idPath == 3:
+            return self.path3
+        return None
