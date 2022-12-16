@@ -9,7 +9,7 @@ class ListMobs:
         self.listMobsOnMap = list()
 
     def _init_All_Mobs(self):
-        self.listMobsOriginels.append(m.Mobs(0, 0, 100, 1, "Estaca1A", "Estaca1A.png"))
+        self.listMobsOriginels.append(m.Mobs(0, 0, 100, 1, "Estaca1A", "Tux.png"))
         self.listMobsOriginels.append(m.Mobs(0, 0, 150, 0.2, "Estaca2A", "Estaca2A.png"))
         self.listMobsOriginels.append(m.Mobs(0, 0, 50, 0.5, "Estaca3A", "Estaca3A.png"))
         self.listMobsOriginels.append(m.Mobs(0, 0, 250, 0.3, "Estaca4A", "Estaca4A.png"))
