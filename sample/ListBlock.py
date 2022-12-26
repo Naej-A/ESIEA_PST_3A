@@ -71,6 +71,10 @@ class ListSpriteRepresentation:
                                                               [-1, -1, -1, -1, -1],
                                                               [-1, -1, -1, -1, -1]], "Gros_block_vert.png"))
 
+        self.listSprite.append(sr.SpriteRepresentation(0,0, [[-1, -1, -1],
+                                                            [-1, -1, -1],
+                                                            [-1, -1, -1]], "UwU_Tower.png"))
+
         return 0
 
     def findSpriteByImageName(self, name):

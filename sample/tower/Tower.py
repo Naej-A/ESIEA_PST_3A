@@ -1,9 +1,10 @@
 import pyglet
+import sample.IsometricTools as IsoTools
 class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
-    def __init__(self, img, x, y, name):
-        super().__init__(img, x, y)
-        self.x = x
-        self.y = y
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, name):
+        super().__init__(img, xPixel, yPixel)
+        self.xBlock = xBlock
+        self.yBlock = yBlock
         self.name = name
         self.year = 1
         self.evolutionBlock = Tower.getEvolutionBlock(self.year)
@@ -76,6 +77,7 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 # ===== fonction graphique =======
     def on_mouse_motion(self, x, y, dx, dy):
         if (x >= self.x and x < self.x + self.width and y >= self.y and y < self.y + self.height):
+            print("estPasséDessus")
             pass
 
     def on_mouse_press(self, x, y, button, modifiers):
@@ -113,7 +115,7 @@ class educationField:
         if not self.precedentEvolution :
             self.level = 0
         else:
-            self.level = self.precedentEvolution + 1
+            self.level = self.precedentEvolution.level + 1
 
         if self.level >= self.maxLevel:
             return None

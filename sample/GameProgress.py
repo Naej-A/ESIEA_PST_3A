@@ -6,13 +6,13 @@ import sample.ListMobs as lm
 import pyglet
 import sample.IsometricTools as IsometricTools
 import sample.Level as lvl
+import sample.tower.Tower as Tower
 
 
 class GameProgress:
     ratioPixel = 14
 
     def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
-
         self.absysseX = absysseX
         self.ordonneeY = ordonneeY
         self._init_carte()
@@ -23,6 +23,9 @@ class GameProgress:
         self.originePixelY = height_y_window
         self.level = lvl.Level()
 
+        self._initTower()
+
+
     def _init_carte(self):
         self.representationCarte = []
         for k in range(self.ordonneeY):
@@ -30,6 +33,14 @@ class GameProgress:
                 a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
                 self.representationCarte.append(0)
         return 0
+
+    def _initTower(self):
+        self.listTower = list()
+        xBlock = 10
+        yBlock = 10
+        xPixel, yPixel = IsometricTools.coordinateToPixel(self, xBlock, yBlock)
+        self.listTower.append(Tower.Tower(self.listSpriteRepresentation.findSpriteByImageName("UwU_Tower.png").pygletSprite, xPixel, yPixel, xBlock, yBlock, "nom" ))
+
 
     # ne marche pas encore il faut choper l'index Y et X pour l'affichage
     def afficheCarteCarreDebug(self):
@@ -131,27 +142,33 @@ class GameProgress:
                     yTot = ySprite - sprite.yBaseRelativeCoord + yMap
                     self.representationCarte[xTot + yTot * self.absysseX] = 0
         return 0
+
     def getIdAtIndex(self, x, y):
         return self.representationCarte[x + y * self.absysseX]
 
     def afficherMap(self):
         #  WORK IN PROGRESS
           # Attribution de l'image PNG
+        # ------------------ Antoine - Affichage des tours --------------
+        self.drawListOfSprite(self.listTower)
 
-        tailleAAfficher = self.absysseX + self.ordonneeY - 1  # Nombre de lignes à afficher
+        # ------------------ Tom - Affichage de ___ --------------
 
-        for i in range(tailleAAfficher):
-            for j in range(min(self.absysseX, self.ordonneeY, i+1, tailleAAfficher - i)):  # giga bordel
-                x = j + max(0, i + 1 - self.ordonneeY)
-                y = (i - j - max(0, i + 1 - self.ordonneeY))
-                id = self.getIdAtIndex(x, y)
-                if id > 0:
-                    x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, x, y)
-                    x_pixel -= self.ratioPixel / 2
-                    y_pixel -= self.ratioPixel * 3 / 4
-                    sprite = self.listSpriteRepresentation.findSpriteById(id)
-                    # x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
-                    pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
+        # tailleAAfficher = self.absysseX + self.ordonneeY - 1  # Nombre de lignes à afficher
+        # for i in range(tailleAAfficher):
+        #     for j in range(min(self.absysseX, self.ordonneeY, i+1, tailleAAfficher - i)):  # giga bordel
+        #         x = j + max(0, i + 1 - self.ordonneeY)
+        #         y = (i - j - max(0, i + 1 - self.ordonneeY))
+        #         id = self.getIdAtIndex(x, y)
+        #         if id > 0:
+        #             x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, x, y)
+        #             x_pixel -= self.ratioPixel / 2
+        #             y_pixel -= self.ratioPixel * 3 / 4
+        #             sprite = self.listSpriteRepresentation.findSpriteById(id)
+        #             # x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
+        #             pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
+
+        #----------------- Fin Tom
 
         # for y in range(self.ordonneeY):
         #     for x in range(self.absysseX):
@@ -163,6 +180,11 @@ class GameProgress:
         #             x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
         #             pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
         return 0
+
+    @staticmethod
+    def drawListOfSprite(listSprite):
+        for sprite in listSprite:
+            sprite.draw()
 
     def afficherMobs(self):
         self.listMobs.order()

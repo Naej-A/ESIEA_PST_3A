@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
 
     @window.event
-    def on_mouse_press(x, y, button):
+    def on_mouse_press(x, y, button,modifier):
         if button == mouse.LEFT:
             print('The left mouse button was pressed. X: ' + str(x) + " Y: " + str(y))
 
@@ -96,7 +96,8 @@ if __name__ == '__main__':
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
     window.push_handlers(event_logger)
-
+    for tower in mapRep.listTower:
+        window.push_handlers(tower)
     pyglet.app.run()
 
 # ---------------- Minimum with image -------------------
