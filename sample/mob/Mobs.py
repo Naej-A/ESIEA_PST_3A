@@ -27,23 +27,17 @@ class Mobs():
         self.pygletSprite = pyglet.image.load(pathToImage, file=binary_file_image)  # Attribution de l'image PNG
 
     def findDestination(self, path):
-        zone = path[self.idZone]
-        self.destinationX = random.randrange(zone.minX, zone.maxX)
-        self.destinationY = random.randrange(zone.minY, zone.maxY)
+        if self.idZone < len(path):
+            zone = path[self.idZone]
+            self.destinationX = random.randrange(zone.minX, zone.maxX)
+            self.destinationY = random.randrange(zone.minY, zone.maxY)
+            return True
+        return False
 
     def move(self, level):
         if (round(self.x) == round(self.destinationX) and round(self.y) == round(self.destinationY)):
             self.idZone += 1
-            if self.idPath == 1:
-                path = level.path1
-            if self.idPath == 2:
-                path = level.path2
-            if self.idPath == 3:
-                path = level.path3
-            if self.idZone >= len(path):
-                return False
-            self.findDestination(path)
-            return True
+            return self.findDestination(level.findPathById(self))
         distanceRemaning = math.sqrt(pow(self.destinationX - self.x, 2) + pow(self.destinationY - self.y, 2))
         self.x = self.x + self.speed * (self.destinationX - self.x) / distanceRemaning
         self.y = self.y + self.speed * (self.destinationY - self.y) / distanceRemaning

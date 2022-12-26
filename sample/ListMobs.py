@@ -9,14 +9,14 @@ class ListMobs:
         self.listMobsOnMap = list()
 
     def _init_All_Mobs(self):
-        self.listMobsOriginels.append(m.Mobs(0, 0, 100, 1, "Estaca1A", "Estaca1A.png"))
+        self.listMobsOriginels.append(m.Mobs(0, 0, 100, 1, "Estaca1A", "Tux.png"))
         self.listMobsOriginels.append(m.Mobs(0, 0, 150, 0.2, "Estaca2A", "Estaca2A.png"))
         self.listMobsOriginels.append(m.Mobs(0, 0, 50, 0.5, "Estaca3A", "Estaca3A.png"))
         self.listMobsOriginels.append(m.Mobs(0, 0, 250, 0.3, "Estaca4A", "Estaca4A.png"))
         self.listMobsOriginels.append(m.Mobs(0, 0, 500, 0.35, "Estaca5A", "Estaca5A.png"))
 
 
-    def findSpriteByImageName(self, name):
+    def findSpriteByeName(self, name):
         for sprite in self.listMobsOriginels:
             if sprite.mobName == name:
                 return sprite
@@ -28,8 +28,8 @@ class ListMobs:
                 return sprite
         return None
 
-    def spawnMob(self, spawningZone, id):
-        mob = self.findSpriteById(id)
+    def spawnMob(self, spawningZone, name):
+        mob = self.findSpriteByeName(name)
         mob.idPath = random.randint(1, 3)
         mob.x = random.randrange(spawningZone.minX, spawningZone.maxX)
         mob.y = random.randrange(spawningZone.minY, spawningZone.maxY)
@@ -39,18 +39,11 @@ class ListMobs:
         print("A mob spawned in x=" + str(mob.x) + " y=" + str(mob.y))
         return None
 
-    def spawnMultipleMobs(self, level, numberMonsterId1, numberMonsterId2, numberMonsterId3, numberMonsterId4, numberMonsterId5):
+    def spawnMultipleMobs(self, level, mobDictionary):
         spawningZone = level.spawningZone
-        for i in range(numberMonsterId1):
-            self.spawnMob(spawningZone, 1)
-        for i in range(numberMonsterId2):
-            self.spawnMob(spawningZone, 2)
-        for i in range(numberMonsterId3):
-            self.spawnMob(spawningZone, 3)
-        for i in range(numberMonsterId4):
-            self.spawnMob(spawningZone, 4)
-        for i in range(numberMonsterId5):
-            self.spawnMob(spawningZone, 5)
+        for mobToSpawn in mobDictionary.keys():
+            for numberOfMobsToSpawn in range(mobDictionary.get(mobToSpawn)):
+                self.spawnMob(spawningZone, mobToSpawn)
 
     def order(self):
         templsit = list()
