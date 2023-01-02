@@ -43,4 +43,7 @@ class Mobs():
         self.y = self.y + self.speed * (self.destinationY - self.y) / distanceRemaning
         return True
 
+    def hitByShoot(self, shoot):
+        self.pv -= shoot.damage
+        shoot.onHitEffect()
 

@@ -61,3 +61,13 @@ class ListMobs:
         for mob in self.listMobsOnMap:
             if not mob.move(level): #Si le mob n'a pas bougé (donce si il est au bout)
                 self.listMobsOnMap.remove(mob)
+
+    def removeDeadmobs(self):
+        mobNumber = 0
+        while mobNumber < len(self.listMobsOnMap):
+            mob = self.listMobsOnMap[mobNumber]
+            if mob.pv <= 0:
+                self.listMobsOnMap.remove(mob)
+            else:
+                mobNumber += 1
+
