@@ -6,11 +6,11 @@ from sample import IsometricTools
 import numpy as np
 import sample.GameProgress as gp
 import sample.ListMobs as lm
-
+import sample.gui.DisplayCharacteristics as DisplayCharacteristics
 
 
 def draw_map(height_Map, width_Map):
-    # largeur de la fenêtre
+    # largeur de la fenêtrep
     width = 1000
     # hauteur de la fenêtre
     height = 700
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
 
     @window.event
-    def on_key_press(symbol):
+    def on_key_press(symbol, modif):
         if symbol == key.ESCAPE:
             print('The escape key was pressed.')
             window.close()
@@ -78,6 +78,7 @@ if __name__ == '__main__':
         window.clear()
         mapRep.afficherMap()
         mapRep.afficherMobs()
+        DisplayCharacteristics.DisplayCharacteristics.drawDetailObject()
         # for zi in range (z):
         #     for yi in range(y):
         #         for xi in range(x):

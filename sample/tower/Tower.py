@@ -1,5 +1,7 @@
 import pyglet
 import sample.IsometricTools as IsoTools
+import sample.gui.DisplayCharacteristics as DisplayCharacteristics
+
 class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     def __init__(self, img, xPixel, yPixel, xBlock, yBlock, name):
         super().__init__(img, xPixel, yPixel)
@@ -13,6 +15,8 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.shootRadius = 0
         self.description = ""
         self.major = None
+        self.displayCharacteristics = DisplayCharacteristics.DisplayCharacteristics()
+        self.isDetailsShown = False
         #plus tard on peut avoir des sous classe d'étudiant qui représente les natures
 
     def studentCanPassNextYear(self):
@@ -77,7 +81,12 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 # ===== fonction graphique =======
     def on_mouse_motion(self, x, y, dx, dy):
         if (x >= self.x and x < self.x + self.width and y >= self.y and y < self.y + self.height):
-            print("estPasséDessus")
+            self.displayCharacteristics.dispatch_event('on_showCharacteristique', self)
+            self.isDetailsShown = True
+            return
+        elif self.isDetailsShown:
+            self.isDetailsShown = False
+            self.displayCharacteristics.dispatch_event("on_unShowCharacteristique")
             pass
 
     def on_mouse_press(self, x, y, button, modifiers):
@@ -86,7 +95,7 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
             y >= self.y and y < self.y + self.height):
             # Dispatch the custom event
             print(self.name)
-            #self.dispatch_event('on_clank')
+            self.displayCharacteristics.characteristique(self)
             return True
 
 
