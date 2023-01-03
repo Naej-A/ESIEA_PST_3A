@@ -6,7 +6,7 @@ import math
 class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     compteur = 0
 
-    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, imageName):
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName):
         super().__init__(img, xPixel, yPixel)
         Mobs.compteur += 1
         self.id = Mobs.compteur

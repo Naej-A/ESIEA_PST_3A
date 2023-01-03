@@ -1,3 +1,7 @@
+import os
+
+import pyglet
+
 import sample.mob.Mobs as m
 import random
 from copy import deepcopy
@@ -9,11 +13,14 @@ class ListMobs:
         self.listMobsOnMap = list()
 
     def _init_All_Mobs(self):
-        self.listMobsOriginels.append(m.Mobs(None, 0, 0, 0, 0, 100, 1, "Estaca1A", "Tux.png"))
-        self.listMobsOriginels.append(m.Mobs(None, 0, 0, 0, 0, 150, 0.2, "Estaca2A", "Estaca2A.png"))
-        self.listMobsOriginels.append(m.Mobs(None, 0, 0, 0, 0, 50, 0.5, "Estaca3A", "Estaca3A.png"))
-        self.listMobsOriginels.append(m.Mobs(None, 0, 0, 0, 0, 250, 0.3, "Estaca4A", "Estaca4A.png"))
-        self.listMobsOriginels.append(m.Mobs(None, 0, 0, 0, 0, 500, 0.35, "Estaca5A", "Estaca5A.png"))
+        pathToImage = os.getcwd() +"/ressources/" + "Estaca1A.png"
+        binary_file_image =  open(pathToImage, 'rb')  # Lecture du fichier en binaire
+        image = pyglet.image.load(pathToImage, file=binary_file_image)
+        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 100, 1, "Estaca1A"))
+        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 150, 0.2, "Estaca2A"))
+        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 50, 0.5, "Estaca3A"))
+        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 250, 0.3, "Estaca4A"))
+        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 500, 0.35, "Estaca5A"))
 
 
     def findSpriteByeName(self, name):
@@ -40,10 +47,11 @@ class ListMobs:
         return None
 
     def spawnMultipleMobs(self, level, mobDictionary):
-        spawningZone = level.spawningZone
-        for mobToSpawn in mobDictionary.keys():
-            for numberOfMobsToSpawn in range(mobDictionary.get(mobToSpawn)):
-                self.spawnMob(spawningZone, mobToSpawn)
+        # spawningZone = level.spawningZone
+        # for mobToSpawn in mobDictionary.keys():
+        #     for numberOfMobsToSpawn in range(mobDictionary.get(mobToSpawn)):
+        #         self.spawnMob(spawningZone, mobToSpawn)
+        return
 
     def order(self):
         templsit = list()
