@@ -3,6 +3,7 @@ import pyglet
 import errno
 import os
 import math
+import sample.IsometricTools as IsometricTools
 class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     compteur = 0
 
@@ -10,8 +11,8 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         super().__init__(img, xPixel, yPixel)
         Mobs.compteur += 1
         self.id = Mobs.compteur
-        self.x = xBlock
-        self.y = yBlock
+        self.xBlock = xBlock
+        self.yBlock = yBlock
         self.pv = pv
         self.speed = speed
         self.destinationX = None
@@ -30,15 +31,17 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         return False
 
     def move(self, level):
-        if round(self.x) == round(self.destinationX) and round(self.y) == round(self.destinationY):
+        if round(self.xBlock) == round(self.destinationX) and round(self.yBlock) == round(self.destinationY):
             self.idZone += 1
             return self.findDestination(level.findPathById(self))
-        distanceRemaning = math.sqrt(pow(self.destinationX - self.x, 2) + pow(self.destinationY - self.y, 2))
-        self.x = self.x + self.speed * (self.destinationX - self.x) / distanceRemaning
-        self.y = self.y + self.speed * (self.destinationY - self.y) / distanceRemaning
+        distanceRemaning = math.sqrt(pow(self.destinationX - self.xBlock, 2) + pow(self.destinationY - self.yBlock, 2))
+        self.xBlock = self.xBlock + self.speed * (self.destinationX - self.xBlock) / distanceRemaning
+        self.yBlock = self.yBlock + self.speed * (self.destinationY - self.yBlock) / distanceRemaning
         return True
 
     def hitByShoot(self, shoot):
         self.pv -= shoot.damage
         shoot.onHitEffect()
 
+    def updatePixelCoordinates(self, gameProgress):
+        self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)

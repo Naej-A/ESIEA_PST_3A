@@ -17,10 +17,16 @@ def draw_map(height_Map, width_Map):
 
 
 if __name__ == '__main__':
+
     # largeur de la fenêtre
     width = 1000
     # hauteur de la fenêtre
     height = 700
+
+    # titre du de la fenêtre
+    title = "Jeu de la mort"
+
+    window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
 
     mapRep = gp.GameProgress(50, 50, width, height)
     # mapRep.addSpriteToMap(10, 20, 40)
@@ -49,13 +55,12 @@ if __name__ == '__main__':
     mapRep.listMobs.spawnMultipleMobs(mapRep.level, mobToSpawn)
     print("affichage coords mobs")
     for i in range(len(mapRep.listMobs.listMobsOnMap)):
-        print("x=" + str(mapRep.listMobs.listMobsOnMap[i].x) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].y))
+        print("x=" + str(mapRep.listMobs.listMobsOnMap[i].xBlock) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].yBlock))
 
 
-    # titre du de la fenêtre
-    title = "Jeu de la mort"
 
-    window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
+
+
 
 
     @window.event
@@ -79,22 +84,6 @@ if __name__ == '__main__':
         mapRep.afficherMap()
         mapRep.afficherMobs()
         DisplayCharacteristics.DisplayCharacteristics.drawDetailObject()
-        # for zi in range (z):
-        #     for yi in range(y):
-        #         for xi in range(x):
-        #             if map[zi, yi, xi] == 1:
-        #                 x_pixel, y_pixel = isoTools.coordinate_to_pixel_z(xi-16, yi-16, zi)
-        #                 if x_pixel >= 0 and x_pixel <= window.width-30 and y_pixel-zi*15 >= 0 and y_pixel <= window.height-23:
-        #                     if zi == 0:
-        #                         temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
-        #                     elif zi == 1:
-        #                         temp = pyglet.sprite.Sprite(img=Block_bleu_image, y=y_pixel, x=x_pixel)
-        #                     elif zi == 2:
-        #                         temp = pyglet.sprite.Sprite(img=Block_rouge_image, y=y_pixel, x=x_pixel)
-        #                     elif zi == 3:
-        #                         temp = pyglet.sprite.Sprite(img=Block_vert_image, y=y_pixel, x=x_pixel)
-        #                     temp.draw()
-
 
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()

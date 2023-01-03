@@ -4,53 +4,58 @@ import pyglet
 
 import sample.mob.Mobs as m
 import random
-from copy import deepcopy
 
 class ListMobs:
     def __init__(self):
-        self.listMobsOriginels = list()
-        self._init_All_Mobs()
+        # self.listMobsOriginels = list()
+        # self._init_All_Mobs()
         self.listMobsOnMap = list()
 
-    def _init_All_Mobs(self):
-        pathToImage = os.getcwd() +"/ressources/" + "Estaca1A.png"
-        binary_file_image =  open(pathToImage, 'rb')  # Lecture du fichier en binaire
-        image = pyglet.image.load(pathToImage, file=binary_file_image)
-        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 100, 1, "Estaca1A"))
-        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 150, 0.2, "Estaca2A"))
-        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 50, 0.5, "Estaca3A"))
-        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 250, 0.3, "Estaca4A"))
-        self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 500, 0.35, "Estaca5A"))
+    # def _init_All_Mobs(self):
+    #     pathToImage = os.getcwd() +"/ressources/" + "Estaca1A.png"
+    #     binary_file_image =  open(pathToImage, 'rb')  # Lecture du fichier en binaire
+    #     image = pyglet.image.load(pathToImage, file=binary_file_image)
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 100, 1, "Estaca1A"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 150, 0.2, "Estaca2A"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 50, 0.5, "Estaca3A"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 250, 0.3, "Estaca4A"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 500, 0.35, "Estaca5A"))
 
 
-    def findSpriteByeName(self, name):
-        for sprite in self.listMobsOriginels:
-            if sprite.mobName == name:
-                return sprite
-        return None
+    # def findSpriteByeName(self, name):
+    #     for sprite in self.listMobsOriginels:
+    #         if sprite.mobName == name:
+    #             return sprite
+    #     return None
 
-    def findSpriteById(self, idSprite):
-        for sprite in self.listMobsOriginels:
-            if sprite.id == idSprite:
-                return sprite
-        return None
+    # def findSpriteById(self, idSprite):
+    #     for sprite in self.listMobsOriginels:
+    #         if sprite.id == idSprite:
+    #             return sprite
+    #     return None
 
     def spawnMob(self, spawningZone, name):
-        mob = self.findSpriteByeName(name)
+        directory = "ressources/" + name
+        files = os.listdir(directory)
+        random_file = random.choice(files)
+        pathToImage = os.path.join(directory, random_file)
+        binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
+        image = pyglet.image.load(pathToImage, file=binary_file_image)
+        mob = m.Mobs(image, 0, 0, 0, 0, 100, 1, name)
         mob.idPath = random.randint(1, 3)
-        mob.x = random.randrange(spawningZone.minX, spawningZone.maxX)
-        mob.y = random.randrange(spawningZone.minY, spawningZone.maxY)
-        mob.destinationX = mob.x
-        mob.destinationY = mob.y
-        self.listMobsOnMap.append(deepcopy(mob))
-        print("A mob spawned in x=" + str(mob.x) + " y=" + str(mob.y))
+        mob.xBlock = random.randrange(spawningZone.minX, spawningZone.maxX)
+        mob.yBlock = random.randrange(spawningZone.minY, spawningZone.maxY)
+        mob.destinationX = mob.xBlock
+        mob.destinationY = mob.yBlock
+        self.listMobsOnMap.append(mob)
+        print("A mob spawned in x=" + str(mob.xBlock) + " y=" + str(mob.yBlock))
         return None
 
     def spawnMultipleMobs(self, level, mobDictionary):
-        # spawningZone = level.spawningZone
-        # for mobToSpawn in mobDictionary.keys():
-        #     for numberOfMobsToSpawn in range(mobDictionary.get(mobToSpawn)):
-        #         self.spawnMob(spawningZone, mobToSpawn)
+        spawningZone = level.spawningZone
+        for mobToSpawn in mobDictionary.keys():
+            for numberOfMobsToSpawn in range(mobDictionary.get(mobToSpawn)):
+                self.spawnMob(spawningZone, mobToSpawn)
         return
 
     def order(self):
@@ -58,7 +63,7 @@ class ListMobs:
         while len(self.listMobsOnMap) > 0:
             higherMob = self.listMobsOnMap[0]
             for mob in self.listMobsOnMap:
-                if (mob.x + mob.y) < (higherMob.x + higherMob.y):
+                if (mob.xBlock + mob.yBlock) < (higherMob.xBlock + higherMob.yBlock):
                     higherMob = mob
             templsit.append(higherMob)
             self.listMobsOnMap.remove(higherMob)

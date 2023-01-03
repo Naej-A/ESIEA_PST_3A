@@ -22,6 +22,8 @@ class GameProgress:
         self.originePixelX = width_x_window / 2
         self.originePixelY = height_y_window
         self.level = lvl.Level()
+        self.listTower = list()
+
 
         self._initTower()
 
@@ -35,11 +37,11 @@ class GameProgress:
         return 0
 
     def _initTower(self):
-        self.listTower = list()
         xBlock = 10
         yBlock = 10
         xPixel, yPixel = IsometricTools.coordinateToPixel(self, xBlock, yBlock)
         self.listTower.append(Tower.Tower(self.listSpriteRepresentation.findSpriteByImageName("UwU_Tower.png").pygletSprite, xPixel, yPixel, xBlock, yBlock, "nom" ))
+
 
 
     # ne marche pas encore il faut choper l'index Y et X pour l'affichage
@@ -184,11 +186,23 @@ class GameProgress:
     @staticmethod
     def drawListOfSprite(listSprite):
         for sprite in listSprite:
+            print(sprite)
             sprite.draw()
+
 
     def afficherMobs(self):
         self.listMobs.order()
         for mob in self.listMobs.listMobsOnMap:
-            x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, mob.x, mob.y)
-            pyglet.sprite.Sprite(img=mob.pygletSprite, y=y_pixel, x=x_pixel).draw()
+            mob.updatePixelCoordinates(self)
+            mob.draw()
         self.listMobs.moveMobs(self.level)
+
+    def playGame(self):
+
+        #Choix des étudiants
+        #Positionement des étudiants
+        #Boucle de vagues
+            #améliorations
+
+        #end game = boite aux lettres reprise
+        return None

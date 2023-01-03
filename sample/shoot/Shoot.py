@@ -15,11 +15,11 @@ class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         return None
 
     def move(self):
-        if round(self.x) == round(self.target.x) and round(self.y) == round(self.target.y):
+        if round(self.x) == round(self.target.xBlock) and round(self.y) == round(self.target.yBlock):
             self.target.hitByShoot(self)
             return False
         else:
-            distanceRemaning = math.sqrt(pow(self.target.x - self.x, 2) + pow(self.target.y - self.y, 2))
-            self.x = self.x + self.speed * (self.target.x - self.x) / distanceRemaning
-            self.y = self.y + self.speed * (self.target.y - self.y) / distanceRemaning
+            distanceRemaning = math.sqrt(pow(self.target.xBlock - self.x, 2) + pow(self.target.yBlock - self.y, 2))
+            self.x = self.x + self.speed * (self.target.xBlock - self.x) / distanceRemaning
+            self.y = self.y + self.speed * (self.target.yBlock - self.y) / distanceRemaning
             return True
