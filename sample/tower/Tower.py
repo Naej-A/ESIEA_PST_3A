@@ -91,12 +91,14 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def on_mouse_press(self, x, y, button, modifiers):
         # Check if the mouse click occurred inside the sprite
-        if (x >= self.x and x < self.x + self.width and
-            y >= self.y and y < self.y + self.height):
+        if (x >= self.x and x < self.x + self.width and y >= self.y and y < self.y + self.height):
             # Dispatch the custom event
-            print(self.name)
-            self.displayCharacteristics.characteristique(self)
+            self.displayCharacteristics.dispatch_event('on_clickShowCharacteristique', self)
             return True
+        else:
+            self.displayCharacteristics.dispatch_event('on_clickUnShowCharacteristique')
+            pass
+
 
 
 
