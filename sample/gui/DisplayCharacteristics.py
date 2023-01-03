@@ -15,7 +15,7 @@ class DisplayCharacteristics(pyglet.event.EventDispatcher):
             if isinstance(objectToDetails, Tower.Tower):
                 print("tower")
                 print(objectToDetails.name)
-                label = pyglet.text.Label(objectToDetails.name,
+                label = pyglet.text.Label(str(objectToDetails.year),
                                           font_name='Times New Roman',
                                           font_size=36,
                                           x=200, y=200,

@@ -1,19 +1,21 @@
 import math
-class Shoot():
+import pyglet
 
-    def __init__(self, mobTarget, speed, damage, x, y):
+class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, mobTarget, speed, damage):
+        super().__init__(img, xPixel, yPixel)
         self.target = mobTarget
         self.speed = speed
         self.damage = damage
-        self.x = x
-        self.y = y
+        self.x = xBlock
+        self.y = yBlock
 
     def onHitEffect(self):
         # Fonction à surcharger dans les classes filles pour ajouter des effets lorsque que le tire atteint sa cible
         return None
 
     def move(self):
-        if (round(self.x) == round(self.target.x) and round(self.y) == round(self.target.y)):
+        if round(self.x) == round(self.target.x) and round(self.y) == round(self.target.y):
             self.target.hitByShoot(self)
             return False
         else:

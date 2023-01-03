@@ -3,14 +3,15 @@ import pyglet
 import errno
 import os
 import math
-class Mobs():
+class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     compteur = 0
 
-    def __init__(self, x, y, pv, speed, mobName, imageName):
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, imageName):
+        super().__init__(img, xPixel, yPixel)
         Mobs.compteur += 1
         self.id = Mobs.compteur
-        self.x = x
-        self.y = y
+        self.x = xBlock
+        self.y = yBlock
         self.pv = pv
         self.speed = speed
         self.destinationX = None
@@ -19,12 +20,6 @@ class Mobs():
         self.mobName = mobName
         self.idPath = None
         self.idZone = -1
-
-        pathToImage = os.getcwd() + "/ressources/" + imageName
-        if not os.path.isfile(pathToImage):  # si l'image n'existe pas lance une erreur
-            raise FileNotFoundError(errno.ENOENT, os.strerror(errno.ENOENT), imageName)
-        binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
-        self.pygletSprite = pyglet.image.load(pathToImage, file=binary_file_image)  # Attribution de l'image PNG
 
     def findDestination(self, path):
         if self.idZone < len(path):
@@ -35,7 +30,7 @@ class Mobs():
         return False
 
     def move(self, level):
-        if (round(self.x) == round(self.destinationX) and round(self.y) == round(self.destinationY)):
+        if round(self.x) == round(self.destinationX) and round(self.y) == round(self.destinationY):
             self.idZone += 1
             return self.findDestination(level.findPathById(self))
         distanceRemaning = math.sqrt(pow(self.destinationX - self.x, 2) + pow(self.destinationY - self.y, 2))
