@@ -35,7 +35,7 @@ class ListMobs:
     #     return None
 
     def spawnMob(self, spawningZone, name):
-        directory = "ressources/Estaca1A/Animation" #+ name
+        directory = "ressources/" + name #+ name
         files = os.listdir(directory)
         # random_file = random.choice(files)
         frameList = list()
@@ -49,7 +49,7 @@ class ListMobs:
 
         if name == "Estaca1A":
             HP = 100
-            SPEED = 1
+            SPEED = 0.1
         elif name == "Estaca2A":
             HP = 150
             SPEED = 0.2
