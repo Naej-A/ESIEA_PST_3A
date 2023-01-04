@@ -35,13 +35,38 @@ class ListMobs:
     #     return None
 
     def spawnMob(self, spawningZone, name):
-        directory = "ressources/" + name
+        directory = "ressources/Estaca1A/Animation" #+ name
         files = os.listdir(directory)
-        random_file = random.choice(files)
-        pathToImage = os.path.join(directory, random_file)
-        binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
-        image = pyglet.image.load(pathToImage, file=binary_file_image)
-        mob = m.Mobs(image, 0, 0, 0, 0, 100, 1, name)
+        # random_file = random.choice(files)
+        frameList = list()
+        for image in files:
+            pathToImage = os.path.join(directory, image)
+            binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
+            sprit = pyglet.image.load(pathToImage, file=binary_file_image)
+            frameList.append(sprit)
+
+
+
+        if name == "Estaca1A":
+            HP = 100
+            SPEED = 1
+        elif name == "Estaca2A":
+            HP = 150
+            SPEED = 0.2
+        elif name == "Estaca3A":
+            HP = 50
+            SPEED = 0.5
+        elif name == "Estaca4A":
+            HP = 250
+            SPEED = 0.3
+        elif name == "Estaca5A":
+            HP = 500
+            SPEED = 0.35
+        else:
+            return None
+        image = pyglet.image.Animation.from_image_sequence(frameList, 0.05/SPEED)
+        mob = m.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
+
         mob.idPath = random.randint(1, 3)
         mob.xBlock = random.randrange(spawningZone.minX, spawningZone.maxX)
         mob.yBlock = random.randrange(spawningZone.minY, spawningZone.maxY)

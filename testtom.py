@@ -49,7 +49,7 @@ if __name__ == '__main__':
         mapRep.addSpriteToMap(rand3,i%50,i//50)
     mapRep.afficheCarteDebug()
 
-    mobToSpawn = {"Estaca1A": 15, "Estaca2A": 2, "Estaca3A": 6, "Estaca4A": 6}
+    mobToSpawn = {"Estaca1A": 50, "Estaca2A": 50, "Estaca3A": 50, "Estaca4A": 50}
 
 
     mapRep.listMobs.spawnMultipleMobs(mapRep.level, mobToSpawn)
