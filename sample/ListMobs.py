@@ -12,14 +12,14 @@ class ListMobs:
         self.listMobsOnMap = list()
 
     # def _init_All_Mobs(self):
-    #     pathToImage = os.getcwd() +"/ressources/" + "Estaca1A.png"
+    #     pathToImage = os.getcwd() +"/ressources/" + "Student.png"
     #     binary_file_image =  open(pathToImage, 'rb')  # Lecture du fichier en binaire
     #     image = pyglet.image.load(pathToImage, file=binary_file_image)
-    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 100, 1, "Estaca1A"))
-    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 150, 0.2, "Estaca2A"))
-    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 50, 0.5, "Estaca3A"))
-    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 250, 0.3, "Estaca4A"))
-    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 500, 0.35, "Estaca5A"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 100, 1, "Student"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 150, 0.2, "Energic"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 50, 0.5, "Engineer"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 250, 0.3, "GoMuscu"))
+    #     self.listMobsOriginels.append(m.Mobs(image, 0, 0, 0, 0, 500, 0.35, "Vehicule"))
 
 
     # def findSpriteByeName(self, name):
@@ -44,24 +44,21 @@ class ListMobs:
             binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
             sprit = pyglet.image.load(pathToImage, file=binary_file_image)
             frameList.append(sprit)
-
-
-
-        if name == "Estaca1A":
+        if name == "Student":
             HP = 100
             SPEED = 0.1
-        elif name == "Estaca2A":
-            HP = 150
-            SPEED = 0.2
-        elif name == "Estaca3A":
-            HP = 50
-            SPEED = 0.5
-        elif name == "Estaca4A":
-            HP = 250
-            SPEED = 0.3
-        elif name == "Estaca5A":
+        elif name == "Energic":
+            HP = 100
+            SPEED = 0.15
+        elif name == "Vehicule":
+            HP = 2000
+            SPEED = 0.03
+        elif name == "GoMuscu":
             HP = 500
-            SPEED = 0.35
+            SPEED = 0.12
+        elif name == "Engineer":
+            HP = 1
+            SPEED = 0.08
         else:
             return None
         image = pyglet.image.Animation.from_image_sequence(frameList, 0.05/SPEED)

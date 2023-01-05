@@ -14,8 +14,8 @@ class Level:
 
     def _init_path(self, path):
         for i in range(5):
-            x = random.randint(0, 45)
-            y = random.randint(0, 45)
+            x = random.randint(0, 70)
+            y = random.randint(0, 70)
             path.append(zone.Zone(x, y, x+5, y+5))
 
     def findPathById(self, mob):
