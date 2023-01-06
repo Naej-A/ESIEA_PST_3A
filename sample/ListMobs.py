@@ -57,11 +57,14 @@ class ListMobs:
             HP = 500
             SPEED = 0.12
         elif name == "Engineer":
-            HP = 1
+            HP = 70
             SPEED = 0.08
+        elif name == "Bulldozer":
+            HP = 10
+            SPEED = 0.2
         else:
             return None
-        image = pyglet.image.Animation.from_image_sequence(frameList, 0.05/SPEED)
+        image = pyglet.image.Animation.from_image_sequence(frameList, 0.01/SPEED)
         mob = m.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
 
         mob.idPath = random.randint(1, 3)
