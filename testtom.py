@@ -10,25 +10,26 @@ import sample.gui.DisplayCharacteristics as DisplayCharacteristics
 from sample.gui.GamePhaseEvents import GamePhaseEvents
 from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
 from sample.GAMEPHASE import GAMEPHASE
+from sample.scene.SceneInGame import SceneInGame
 from pyglet.window import mouse
 
 
 if __name__ == '__main__':
 
     # largeur de la fenêtre
-    width = 1920
+    width = 1280
     # hauteur de la fenêtre
-    height = 1080
+    height = 720
     image = pyglet.resource.image('ressources/background/menu_bg.jpeg')
     # titre du de la fenêtre
-    title = "Jeu de la mort"
+    title = "Battle for the boîte aux lettres"
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
 
-    ############## widget ##############
-    batch = pyglet.graphics.Batch()
-    ############## fin widget ##########
+    gameScene = SceneInGame(window=window, frameRate=60)
 
+
+    """
     mapRep = gp.GameProgress(50, 50, width, height)
 
     for i in range (50*50):
@@ -42,6 +43,7 @@ if __name__ == '__main__':
     print("affichage coords mobs")
     for i in range(len(mapRep.listMobs.listMobsOnMap)):
         print("x=" + str(mapRep.listMobs.listMobsOnMap[i].xBlock) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].yBlock))
+    """
 
     @window.event
     def on_key_press(symbol, modif):
@@ -56,19 +58,12 @@ if __name__ == '__main__':
 
     @window.event
     def on_draw():
-
         window.clear()
-        image.blit(0, 0)
-        batch.draw() # draw les widget
-        print(GamePhaseEvents.getCurrentGamePhase().name)
-        mapRep.afficherMap()
-        mapRep.afficherMobs()
-        DisplayCharacteristics.DisplayCharacteristics.drawDetailObject()
+        gameScene.drawScene()
 
     ############## widget ##############
     frame = pyglet.gui.Frame(window, order=6)
-    frame.add_widget(NextGamePhaseWidget(300, 100, GAMEPHASE.GAME, batch))
-    frame.add_widget(NextGamePhaseWidget(300, 0, GAMEPHASE.PLACING_STUDENT, batch))
+    gameScene.initWidget(frame)
     ############## fin widget ##########
 
 
@@ -76,8 +71,8 @@ if __name__ == '__main__':
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
     window.push_handlers(event_logger)
-    for tower in mapRep.listTower:
-        window.push_handlers(tower)
+    # for tower in mapRep.listTower:
+    #     window.push_handlers(tower)
     pyglet.app.run()
 
 # ---------------- Minimum with image -------------------

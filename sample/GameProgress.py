@@ -86,32 +86,6 @@ class GameProgress:
             print()  # retour chariot
         return 0
 
-    def traductionRotation90Antihoraire(self):
-        self.positionCamera = self.positionCamera - 1 % 4
-        # ------ code pour changer la carte vers -90 -----
-        temp = list()
-        for x in range(self.absysseX - 1, 0 - 1, -1):
-            for y in range(self.ordonneeY):
-                temp.append(self.representationCarte[x + y * self.absysseX])
-        self.representationCarte = temp
-        cache = self.absysseX
-        self.absysseX = self.ordonneeY
-        self.ordonneeY = cache
-        return 0
-
-    def traductionRotation90Horaire(self):
-        self.positionCamera = self.positionCamera + 1 % 4
-        # ------ code pour changer la carte vers +90 -----
-        temp = list()
-        for x in range(0, self.absysseX):
-            for y in range(self.ordonneeY-1, 0-1, -1):
-                temp.append(self.representationCarte[y*self.absysseX + x])
-        self.representationCarte = temp
-        cache = self.absysseX
-        self.absysseX = self.ordonneeY
-        self.ordonneeY = cache
-        return 0
-
     def addSpriteToMap(self, idSprite, xMap, yMap):
         sprite = self.listSpriteRepresentation.findSpriteById(idSprite)
         isSpaceFree = True
