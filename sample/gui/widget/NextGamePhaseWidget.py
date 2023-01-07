@@ -18,7 +18,7 @@ class NextGamePhaseWidget(pyglet.gui.widgets.PushButton):
             raise ValueError("GAMEPHASE object is neither GAME or PLACING_STUDENT")
 
         super(NextGamePhaseWidget, self).__init__(x=xPixel, y=yPixel, pressed=pressed, depressed=pressed, hover=hover, batch=batch, group=None)
-        self.set_handler('on_press', self.push_button_handler)
+        self.set_handler('on_release', self.push_button_handler)
 
 
     def push_button_handler(self):

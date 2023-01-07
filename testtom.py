@@ -12,20 +12,14 @@ from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
 from sample.GAMEPHASE import GAMEPHASE
 from pyglet.window import mouse
 
-def draw_map(height_Map, width_Map):
-    # largeur de la fenêtrep
-    width = 1000
-    # hauteur de la fenêtre
-    height = 700
-
 
 if __name__ == '__main__':
 
     # largeur de la fenêtre
-    width = 1000
+    width = 1920
     # hauteur de la fenêtre
-    height = 700
-
+    height = 1080
+    image = pyglet.resource.image('ressources/background/menu_bg.jpeg')
     # titre du de la fenêtre
     title = "Jeu de la mort"
 
@@ -62,7 +56,9 @@ if __name__ == '__main__':
 
     @window.event
     def on_draw():
+
         window.clear()
+        image.blit(0, 0)
         batch.draw() # draw les widget
         print(GamePhaseEvents.getCurrentGamePhase().name)
         mapRep.afficherMap()
