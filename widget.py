@@ -1,16 +1,24 @@
 import pyglet
+from sample.gui.GamePhaseEvents import GamePhaseEvents
+from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
+from sample.GAMEPHASE import GAMEPHASE
 
 window = pyglet.window.Window(540, 500, caption="Widget Example")
 batch = pyglet.graphics.Batch()
 pyglet.gl.glClearColor(0.8, 0.8, 0.8, 1.0)
 
-
 @window.event
 def on_draw():
     window.clear()
     batch.draw()
+    print(GamePhaseEvents.getCurrentGamePhase().name)
 
+frame = pyglet.gui.Frame(window, order=6)
 
+frame.add_widget(NextGamePhaseWidget(300,100,GAMEPHASE.GAME,batch))
+frame.add_widget(NextGamePhaseWidget(300,0,GAMEPHASE.PLACING_STUDENT,batch))
+
+"""
 ####################################
 # load resources to use for Widgets:
 ####################################
@@ -51,7 +59,6 @@ def text_entry_handler(text):
 ###############################
 
 # A Frame instance to hold all Widgets:
-frame = pyglet.gui.Frame(window, order=4)
 
 
 togglebutton = pyglet.gui.ToggleButton(100, 400, pressed=pressed, depressed=depressed, hover=hover, batch=batch)
@@ -77,6 +84,7 @@ text_entry = pyglet.gui.TextEntry("Enter Your Name", 100, 100, 150, batch=batch)
 frame.add_widget(text_entry)
 text_entry.set_handler('on_commit', text_entry_handler)
 text_entry_label = pyglet.text.Label("Text: None", x=300, y=100, batch=batch, color=(0, 0, 0, 255))
+"""
 
 
 pyglet.app.run()

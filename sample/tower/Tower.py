@@ -2,6 +2,15 @@ import pyglet
 import sample.IsometricTools as IsoTools
 import sample.gui.DisplayCharacteristics as DisplayCharacteristics
 
+class FieldToEvolveNotFound(Exception):
+    "Raised when the fild to evolve is not found"
+    pass
+
+class StatToAddNotFound(Exception):
+    "Raised when the fild to evolve is not found"
+    pass
+
+
 class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     def __init__(self, img, xPixel, yPixel, xBlock, yBlock, name):
         super().__init__(img, xPixel, yPixel)
@@ -10,9 +19,10 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.name = name
         self.year = 1
         self.evolutionBlock = Tower.getEvolutionBlock(self.year)
-        self.attackPower = 0
-        self.reloadSpeed = 0
-        self.shootRadius = 0
+        self.attack = 0
+        self.attackSpeed = 0
+        self.range = 0
+        self.curiosity = 0
         self.description = ""
         self.major = None
         self.displayCharacteristics = DisplayCharacteristics.DisplayCharacteristics()
@@ -55,28 +65,49 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     def createEducationBlock1A():
         listField = list()
         listField.append(educationField(None, "computerScience", 5, 10, 3, "attack"))
-        listField.append(educationField(None, "livingLanguage", 5, 10, 3, "slowing"))
-        listField.append(educationField(None, "electronics", 5, 10, 3, "reload"))
-        listField.append(educationField(None, "projectManagement", 5, 10, 3, "alliesIncrease"))
+        listField.append(educationField(None, "livingLanguage", 5, 10, 3, "attackSpeed"))
+        listField.append(educationField(None, "electronics", 5, 10, 3, "range"))
+        listField.append(educationField(None, "projectManagement", 5, 10, 3, "curiosity"))
         return listField
 
     @staticmethod
     def createEducationBlock2A():
         listField = list()
         listField.append(educationField(None, "2A_1", 5, 10, 3, "attack"))
-        listField.append(educationField(None, "2A_2", 5, 10, 3, "slowing"))
-        listField.append(educationField(None, "2A_3", 5, 10, 3, "reload"))
-        listField.append(educationField(None, "2A_4", 5, 10, 3, "alliesIncrease"))
+        listField.append(educationField(None, "2A_2", 5, 10, 3, "attackSpeed"))
+        listField.append(educationField(None, "2A_3", 5, 10, 3, "range"))
+        listField.append(educationField(None, "2A_4", 5, 10, 3, "curiosity"))
         return listField
 
     @staticmethod
     def createEducationBlock3A():
         listField = list()
         listField.append(educationField(None, "3A_1", 5, 10, 3, "attack"))
-        listField.append(educationField(None, "3A_2", 5, 10, 3, "slowing"))
-        listField.append(educationField(None, "3A_3", 5, 10, 3, "reload"))
-        listField.append(educationField(None, "3A_4", 5, 10, 3, "alliesIncrease"))
+        listField.append(educationField(None, "3A_2", 5, 10, 3, "attackSpeed"))
+        listField.append(educationField(None, "3A_3", 5, 10, 3, "range"))
+        listField.append(educationField(None, "3A_4", 5, 10, 3, "curiosity"))
         return listField
+
+    def increaseLevelEducationField(self, educationFieldToSearch):
+        for tempEducationField in self.evolutionBlock:
+            if tempEducationField == educationFieldToSearch:
+                tempEducationField = tempEducationField.nextEvolution
+                if tempEducationField.nameStatToAdd == "attack":
+                    self.attack += tempEducationField.intToAddToStat
+                    return
+                if tempEducationField.nameStatToAdd == "attackSpeed":
+                    self.attackSpeed += tempEducationField.intToAddToStat
+                    return
+                if tempEducationField.nameStatToAdd == "range":
+                    self.range += tempEducationField.intToAddToStat
+                    return
+                if tempEducationField.nameStatToAdd == "curiosity":
+                    self.attack += tempEducationField.intToAddToStat
+                    return
+            raise StatToAddNotFound
+        raise FieldToEvolveNotFound
+
+
 
 # ===== fonction graphique =======
     def on_mouse_motion(self, x, y, dx, dy):
