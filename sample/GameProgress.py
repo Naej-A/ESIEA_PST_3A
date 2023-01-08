@@ -179,4 +179,5 @@ class GameProgress:
             #améliorations
 
         #end game = boite aux lettres reprise
+
         return None

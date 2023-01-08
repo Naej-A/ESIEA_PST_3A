@@ -52,42 +52,42 @@ class ListMobs:
             FRAMERATE = 0.1
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1)
         elif name == "Energic":
             HP = 100
             SPEED = 1.5
             FRAMERATE = 0.067
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1)
         elif name == "Vehicule":
             HP = 2000
             SPEED = 0.3
             FRAMERATE = 0.2
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = MobsDying.MobsDying(image, 0, 0, 0, 0, HP, SPEED, name)
+            mob = MobsDying.MobsDying(image, 0, 0, 0, 0, HP, SPEED, name, 2)
         elif name == "GoMuscu":
             HP = 500
             SPEED = 1.2
             FRAMERATE = 0.083
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1.25)
         elif name == "Engineer":
             HP = 70
             SPEED = 0.8
             FRAMERATE = 0.125
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = MobsSpawners.MobsSpawners(image, 0, 0, 0, 0, HP, SPEED, name)
+            mob = MobsSpawners.MobsSpawners(image, 0, 0, 0, 0, HP, SPEED, name, 1)
         elif name == "Bulldozer":
             HP = 10
             SPEED = 2
             FRAMERATE = 0.05
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1)
         else:
             return None
 

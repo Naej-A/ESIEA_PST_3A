@@ -3,7 +3,7 @@ import sample.Zone as Zone
 
 class MobsSpawners(Mobs):
 
-    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName):
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, scale):
         super().__init__(img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName)
         if mobName == "Engineer":
             self.spawnedMobName = "Bulldozer"

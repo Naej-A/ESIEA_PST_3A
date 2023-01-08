@@ -7,7 +7,7 @@ import sample.IsometricTools as IsometricTools
 class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     compteur = 0
 
-    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName):
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, scale):
         super().__init__(img, xPixel, yPixel)
         Mobs.compteur += 1
         self.id = Mobs.compteur
