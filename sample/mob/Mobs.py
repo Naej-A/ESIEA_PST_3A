@@ -22,6 +22,7 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.idPath = None
         self.idZone = -1
         self.slowTokens = list()
+        self.scale_x = 1
 
     def findDestination(self, path):
         if self.idZone < len(path):
@@ -31,19 +32,30 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
             return True
         return False
 
-    def move(self, level):
-        if len(self.slowTokens) > 0:
-            slowFactor = round((max(self.slowTokens)+5)/10) + 1
+    def orientSprite(self):
+        if self.destinationY - self.destinationX < self.yBlock - self.xBlock:
+            self.scale_x = 1
         else:
-            slowFactor = 0
-        speed = self.speed * (1 - slowFactor)
-        if round(self.xBlock) == round(self.destinationX) and round(self.yBlock) == round(self.destinationY):
+            self.scale_x = -1
+
+    def move(self, level):
+        self.orientSprite()
+        slowFactor = self.getSlowFactor()
+        speed = 0.12 * self.speed * (1 - slowFactor)
+        distanceRemaning = math.sqrt(pow(self.destinationX - self.xBlock, 2) + pow(self.destinationY - self.yBlock, 2))
+        if distanceRemaning < self.speed:
             self.idZone += 1
             return self.findDestination(level.findPathById(self))
-        distanceRemaning = math.sqrt(pow(self.destinationX - self.xBlock, 2) + pow(self.destinationY - self.yBlock, 2))
         self.xBlock = self.xBlock + speed * (self.destinationX - self.xBlock) / distanceRemaning
         self.yBlock = self.yBlock + speed * (self.destinationY - self.yBlock) / distanceRemaning
         return True
+
+    def getSlowFactor(self):
+        if len(self.slowTokens) > 0:
+            slowFactor = round((max(self.slowTokens) + 5) / 10) + 1
+        else:
+            slowFactor = 0
+        return slowFactor
 
     def hitByShoot(self, shoot):
         self.pv -= shoot.damage

@@ -1,6 +1,8 @@
 import pyglet
 import sample.IsometricTools as IsoTools
 import sample.gui.DisplayCharacteristics as DisplayCharacteristics
+import sample.shoot.Shoot as Shoot
+import math
 
 class FieldToEvolveNotFound(Exception):
     "Raised when the fild to evolve is not found"
@@ -107,7 +109,21 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
             raise StatToAddNotFound
         raise FieldToEvolveNotFound
 
-
+    def shooting(self, ListMob, ListShoot):
+        farrestMobInRange = None
+        for mob in ListMob:
+            if math.sqrt(pow(mob.xBlock - self.xBlock, 2) + pow(mob.yBlock - self.yBlock, 2)) <= self.range: #Est-ce que le mob est dans la range de la tour
+                if farrestMobInRange != None:
+                    if mob.idZone >= farrestMobInRange.idZone:
+                        if math.sqrt(pow(mob.xBlock - mob.destinationX, 2) + pow(mob.yBlock - mob.destinationY, 2)) < math.sqrt(pow(farrestMobInRange.xBlock - farrestMobInRange.destinationX, 2) + pow(farrestMobInRange.yBlock - farrestMobInRange.destinationY, 2)): #Est-ce le mob est plus proche de la fin que le farrestMobInRange
+                            farrestMobInRange = mob
+                else:
+                    farrestMobInRange = mob
+        if farrestMobInRange != None:
+            shoot = Shoot.Shoot(0, 0, self.xBlock, self.yBlock, farrestMobInRange, 2, self.attack) #Vitesse du projectile à gérer, pour l'instant à 2
+            ListShoot.append(shoot)
+            return True
+        return False
 
 # ===== fonction graphique =======
     def on_mouse_motion(self, x, y, dx, dy):

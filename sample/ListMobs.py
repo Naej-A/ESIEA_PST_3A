@@ -46,25 +46,31 @@ class ListMobs:
             frameList.append(sprit)
         if name == "Student":
             HP = 100
-            SPEED = 0.1
+            SPEED = 1
+            FRAMERATE = 0.1
         elif name == "Energic":
             HP = 100
-            SPEED = 0.15
+            SPEED = 1.5
+            FRAMERATE = 0.067
         elif name == "Vehicule":
             HP = 2000
-            SPEED = 0.03
+            SPEED = 0.3
+            FRAMERATE = 0.2
         elif name == "GoMuscu":
             HP = 500
-            SPEED = 0.12
+            SPEED = 1.2
+            FRAMERATE = 0.083
         elif name == "Engineer":
             HP = 70
-            SPEED = 0.08
+            SPEED = 0.8
+            FRAMERATE = 0.125
         elif name == "Bulldozer":
             HP = 10
-            SPEED = 0.2
+            SPEED = 2
+            FRAMERATE = 0.05
         else:
             return None
-        image = pyglet.image.Animation.from_image_sequence(frameList, 0.01/SPEED)
+        image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
         mob = m.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
 
         mob.idPath = random.randint(1, 3)

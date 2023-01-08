@@ -12,7 +12,8 @@ from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
 from sample.GAMEPHASE import GAMEPHASE
 from sample.scene.SceneInGame import SceneInGame
 from pyglet.window import mouse
-
+import sample.shoot.Shoot as Shoot
+import sample.mob.Mobs as mob
 
 if __name__ == '__main__':
 
@@ -27,6 +28,9 @@ if __name__ == '__main__':
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
 
     gameScene = SceneInGame(window=window, frameRate=60)
+
+
+
 
 
     """
