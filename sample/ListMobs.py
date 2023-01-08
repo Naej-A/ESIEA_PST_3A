@@ -2,7 +2,9 @@ import os
 
 import pyglet
 
-import sample.mob.Mobs as m
+import sample.mob.Mobs as Mobs
+import sample.mob.MobsSpawners as MobsSpawners
+import sample.mob.MobsDying as MobsDying
 import random
 
 class ListMobs:
@@ -48,30 +50,47 @@ class ListMobs:
             HP = 100
             SPEED = 1
             FRAMERATE = 0.1
+
+            image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
         elif name == "Energic":
             HP = 100
             SPEED = 1.5
             FRAMERATE = 0.067
+
+            image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
         elif name == "Vehicule":
             HP = 2000
             SPEED = 0.3
             FRAMERATE = 0.2
+
+            image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
+            mob = MobsDying.MobsDying(image, 0, 0, 0, 0, HP, SPEED, name)
         elif name == "GoMuscu":
             HP = 500
             SPEED = 1.2
             FRAMERATE = 0.083
+
+            image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
         elif name == "Engineer":
             HP = 70
             SPEED = 0.8
             FRAMERATE = 0.125
+
+            image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
+            mob = MobsSpawners.MobsSpawners(image, 0, 0, 0, 0, HP, SPEED, name)
         elif name == "Bulldozer":
             HP = 10
             SPEED = 2
             FRAMERATE = 0.05
+
+            image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
         else:
             return None
-        image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-        mob = m.Mobs(image, 0, 0, 0, 0, HP, SPEED, name)
+
 
         mob.idPath = random.randint(1, 3)
         mob.xBlock = random.randrange(spawningZone.minX, spawningZone.maxX)
@@ -80,7 +99,7 @@ class ListMobs:
         mob.destinationY = mob.yBlock
         self.listMobsOnMap.append(mob)
         print("A mob spawned in x=" + str(mob.xBlock) + " y=" + str(mob.yBlock))
-        return None
+        return mob
 
     def spawnMultipleMobs(self, level, mobDictionary):
         spawningZone = level.spawningZone

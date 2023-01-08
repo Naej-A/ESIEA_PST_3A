@@ -1,5 +1,6 @@
 import math
 import pyglet
+import sample.IsometricTools as IsometricTools
 
 class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     def __init__(self, xPixel, yPixel, xBlock, yBlock, mobTarget, speed, damage):
@@ -33,3 +34,6 @@ class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
             self.scale_x = 1
         else:
             self.scale_x = -1
+
+    def updatePixelCoordinates(self, gameProgress):
+        self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)
