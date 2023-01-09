@@ -5,6 +5,8 @@ from sample.gui.DisplayCharacteristics import DisplayCharacteristics
 from sample.gui.GamePhaseEvents import GamePhaseEvents
 from sample.GAMEPHASE import GAMEPHASE
 from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
+from sample.gui.events.EventManagement import EventManagement
+
 
 
 class SceneInGame(Scene):
@@ -12,41 +14,50 @@ class SceneInGame(Scene):
         super().__init__(window, frameRate)
         self.gameReprersentation = GameProgress(50, 50, window.width, window.height)
         self.gameReprersentation.playGame()
-        self.batchWidgetSelect = pyglet.graphics.Batch()
-        self.batchWidgetPlace = pyglet.graphics.Batch()
-        self.batchWidgetGame = pyglet.graphics.Batch()
-        for tower in self.gameReprersentation.listTower:
-            window.push_handlers(tower)
+        self.batchWidget = pyglet.graphics.Batch()
+        GamePhaseEvents.setGameScene(self)
+        self.frame = None
+        self.currentWidgetList = list()
 
 
 
-    def initWidget(self, frame):
+    def initWidgetByGamePhase(self):
+        if not self.frame:
+            self.frame = pyglet.gui.Frame(self.window, order=6)
+        self.batchWidget = pyglet.graphics.Batch()
 
-        ########### select student widget ###########
-        frame.add_widget(NextGamePhaseWidget(300, 0, GAMEPHASE.PLACING_STUDENT, self.batchWidgetSelect ))
-        ########### place student widget  ###########
-        frame.add_widget(NextGamePhaseWidget(300, 100, GAMEPHASE.GAME, self.batchWidgetPlace ))
-        ###########      game widget      ###########
+        for widget in self.currentWidgetList:
+            self.frame.remove_widget(widget)
+        self.currentWidgetList = list()
 
-
-        return None
+        if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.STUDENT_SELECT:
+            nextPhaseWidget = NextGamePhaseWidget(300, 0, GAMEPHASE.PLACING_STUDENT, self.batchWidget)
+            self.frame.add_widget(nextPhaseWidget)
+            self.currentWidgetList.append(nextPhaseWidget)
+        elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
+            nextPhaseWidget = NextGamePhaseWidget(300, 100, GAMEPHASE.GAME, self.batchWidget)
+            self.frame.add_widget(nextPhaseWidget)
+            self.currentWidgetList.append(nextPhaseWidget)
+        elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
+            return
 
     def drawScene(self):
         self.window.clear()
         print(GamePhaseEvents.getCurrentGamePhase().name)
+        self.batchWidget.draw()
         if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.STUDENT_SELECT:
-            self.batchWidgetSelect.draw()
-            print("est passé")
+            return
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
-            self.batchWidgetPlace.draw()
+            return
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
-            self.batchWidgetGame.draw()
             self.gameReprersentation.afficherMap()
             self.gameReprersentation.afficherMobs()
 
         DisplayCharacteristics.drawDetailObject()
 
-    def initHandlers(self):
-        for tower in self.gameReprersentation.listTower:
-            self.window.push_handlers(tower)
+    def InitCustomEventsByGamePhase(self):
+        EventManagement.resetCustomEventStack()
+        if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
+            for tower in self.gameReprersentation.listTower:
+                EventManagement.addEvent(tower)
 

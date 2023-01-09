@@ -2,6 +2,7 @@ import random
 
 import pyglet
 from pyglet.window import key
+from sample.gui.events.EventManagement import EventManagement
 from sample import IsometricTools
 import numpy as np
 import sample.GameProgress as gp
@@ -26,7 +27,7 @@ if __name__ == '__main__':
     title = "Battle for the boîte aux lettres"
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
-
+    EventManagement.setWindow(window)
     gameScene = SceneInGame(window=window, frameRate=60)
 
 
@@ -66,16 +67,16 @@ if __name__ == '__main__':
         gameScene.drawScene()
 
     ############## widget ##############
-    frame = pyglet.gui.Frame(window, order=6)
-    gameScene.initWidget(frame)
+    # gameScene.initWidget(frame)
     ############## fin widget ##########
 
+    frame = gameScene.initWidgetByGamePhase()
 
 
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
     window.push_handlers(event_logger)
-    gameScene.initHandlers()
+
     pyglet.app.run()
 
 # ---------------- Minimum with image -------------------
