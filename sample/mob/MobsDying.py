@@ -1,10 +1,10 @@
-import sample.mob.Mobs as Mobs
+from sample.mob.Mobs import Mobs
 import sample.Zone as Zone
 
 class MobsDying(Mobs):
 
     def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, scale):
-        super().__init__(img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName)
+        super().__init__(img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, scale)
         if mobName == "Vehicule":
             self.spawnedMobName = "Student"
             self.numberMobsSpawned = 3

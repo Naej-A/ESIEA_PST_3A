@@ -46,3 +46,7 @@ class SceneInGame(Scene):
 
         DisplayCharacteristics.drawDetailObject()
 
+    def initHandlers(self):
+        for tower in self.gameReprersentation.listTower:
+            self.window.push_handlers(tower)
+
