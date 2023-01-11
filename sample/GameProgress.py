@@ -168,7 +168,6 @@ class GameProgress:
     @staticmethod
     def drawListOfSprite(listSprite):
         for sprite in listSprite:
-            print(sprite)
             sprite.draw()
 
 
