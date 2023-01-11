@@ -3,8 +3,8 @@ import sample.Zone as Zone
 
 class MobsSpawners(Mobs):
 
-    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, scale):
-        super().__init__(img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, scale)
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, tear, mobName, scale):
+        super().__init__(img, xPixel, yPixel, xBlock, yBlock, pv, speed, tear, mobName, scale)
         if mobName == "Engineer":
             self.spawnedMobName = "Bulldozer"
             self.castCooldown = 3 * 60 #Fait spawn un bulldozer toutes les 3 secondes

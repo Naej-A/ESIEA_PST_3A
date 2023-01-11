@@ -1,6 +1,8 @@
 #TODO: faire les fonctions rotation horaire et rotation antihoraire
 #TODO: faire un affichage de debug correcte car pour l'instant cela marche uniquement avec les maps carré
 #TODO: fonction ajoute spriteRepresentation à representationCarte
+import random
+
 import sample.ListBlock as lsp
 import sample.ListMobs as lm
 import pyglet
@@ -24,6 +26,11 @@ class GameProgress:
         self.level = lvl.Level()
         self.listTower = list()
         self.PV = 10
+        self.listShoot = list()
+        self.yearNumber = 0
+        self.estacaTears = 0
+        self.spawnRate = 0
+        self.spawnCounter = 0
 
 
         self._initTower()
@@ -173,7 +180,7 @@ class GameProgress:
         self.listMobs.moveMobs(self.level)
 
     def playGame(self):
-
+        self.yearNumber += 1
 
         #Choix des étudiants
         #Positionement des étudiants

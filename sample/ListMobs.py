@@ -49,52 +49,58 @@ class ListMobs:
         if name == "Student":
             HP = 100
             SPEED = 1
+            TEAR = 30
             FRAMERATE = 0.1
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 1)
         elif name == "Energic":
             HP = 100
             SPEED = 1.5
+            TEAR = 60
             FRAMERATE = 0.067
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 1)
         elif name == "Vehicule":
             HP = 2000
             SPEED = 0.3
+            TEAR = 500
             FRAMERATE = 0.2
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = MobsDying.MobsDying(image, 0, 0, 0, 0, HP, SPEED, name, 2)
+            mob = MobsDying.MobsDying(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 2)
         elif name == "GoMuscu":
             HP = 500
             SPEED = 1.2
+            TEAR = 150
             FRAMERATE = 0.083
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1.25)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 1.25)
         elif name == "Engineer":
             HP = 70
             SPEED = 0.8
+            TEAR = 50
             FRAMERATE = 0.125
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = MobsSpawners.MobsSpawners(image, 0, 0, 0, 0, HP, SPEED, name, 1)
+            mob = MobsSpawners.MobsSpawners(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 1)
         elif name == "Bulldozer":
             HP = 10
             SPEED = 2
+            TEAR = 5
             FRAMERATE = 0.05
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, name, 1)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 1)
         else:
             return None
 
 
         mob.idPath = random.randint(1, 3)
-        mob.xBlock = random.randrange(spawningZone.minX, spawningZone.maxX)
-        mob.yBlock = random.randrange(spawningZone.minY, spawningZone.maxY)
+
+        mob.xBlock, mob.yBlock = spawningZone.getPosition()
         mob.destinationX = mob.xBlock
         mob.destinationY = mob.yBlock
         self.listMobsOnMap.append(mob)

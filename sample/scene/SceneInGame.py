@@ -18,6 +18,9 @@ class SceneInGame(Scene):
         GamePhaseEvents.setGameScene(self)
         self.frame = None
         self.currentWidgetList = list()
+        image = open('ressources/background/Map.png', 'rb')  # Lecture du fichier en binaire
+        self.map = pyglet.image.load('ressources/background/Map.png', file=image)
+
 
 
 
@@ -43,6 +46,7 @@ class SceneInGame(Scene):
 
     def drawScene(self):
         self.window.clear()
+        self.map.blit(0, 0, 0)
         print(GamePhaseEvents.getCurrentGamePhase().name)
         self.batchWidget.draw()
         if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.STUDENT_SELECT:

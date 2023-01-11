@@ -7,7 +7,7 @@ import sample.IsometricTools as IsometricTools
 class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     compteur = 0
 
-    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, mobName, scale):
+    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, pv, speed, tear, mobName, scale):
         super().__init__(img, xPixel, yPixel)
         Mobs.compteur += 1
         self.id = Mobs.compteur
@@ -15,6 +15,7 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.yBlock = yBlock
         self.pv = pv
         self.speed = speed
+        self.tear = tear
         self.destinationX = None
         self.destinationY = None
         self.step = 0
@@ -23,12 +24,12 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.idZone = -1
         self.slowTokens = list()
         self.scale_x = 1
+        self.scale = scale
 
     def findDestination(self, path):
         if self.idZone < len(path):
             zone = path[self.idZone]
-            self.destinationX = random.randrange(zone.minX, zone.maxX)
-            self.destinationY = random.randrange(zone.minY, zone.maxY)
+            self.destinationX, self.destinationY = zone.getPosition()
             return True
         return False
 
@@ -63,7 +64,7 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def updatePixelCoordinates(self, gameProgress):
         self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)
-        # Décalage du sprite lié à sa taille
+        self.x -= self.width*self.scale*self.scale_x/2
 
     def onDeathEffect(self, gameProgress):
         return None
