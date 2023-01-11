@@ -63,6 +63,7 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def updatePixelCoordinates(self, gameProgress):
         self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)
+        # Décalage du sprite lié à sa taille
 
     def onDeathEffect(self, gameProgress):
         return None

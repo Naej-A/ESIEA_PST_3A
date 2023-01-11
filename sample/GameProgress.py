@@ -23,6 +23,7 @@ class GameProgress:
         self.originePixelY = height_y_window
         self.level = lvl.Level()
         self.listTower = list()
+        self.PV = 10
 
 
         self._initTower()
@@ -172,6 +173,7 @@ class GameProgress:
         self.listMobs.moveMobs(self.level)
 
     def playGame(self):
+
 
         #Choix des étudiants
         #Positionement des étudiants
