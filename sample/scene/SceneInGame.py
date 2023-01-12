@@ -22,8 +22,8 @@ class SceneInGame(Scene):
         GamePhaseEvents.setGameScene(self)
         self.frame = None
         self.currentWidgetList = list()
-        image = open('ressources/background/Map.png', 'rb')  # Lecture du fichier en binaire
-        self.map = pyglet.image.load('ressources/background/Map.png', file=image)
+        image = open('ressources/background/Dinguerie.png', 'rb')  # Lecture du fichier en binaire
+        self.map = pyglet.image.load('ressources/background/Dinguerie.png', file=image)
 
 
 
