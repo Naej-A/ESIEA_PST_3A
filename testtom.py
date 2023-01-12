@@ -13,6 +13,7 @@ from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
 from sample.GAMEPHASE import GAMEPHASE
 from sample.scene.SceneInGame import SceneInGame
 from pyglet.window import mouse
+from pyglet.gl import *
 import sample.shoot.Shoot as Shoot
 import sample.mob.Mobs as mob
 
@@ -30,25 +31,6 @@ if __name__ == '__main__':
     EventManagement.setWindow(window)
     gameScene = SceneInGame(window=window, frameRate=60)
 
-
-
-
-
-    """
-    mapRep = gp.GameProgress(50, 50, width, height)
-
-    for i in range (50*50):
-        rand3 = random.randint(2, 2)
-        mapRep.addSpriteToMap(rand3,i%50,i//50)
-
-    mobToSpawn = {"Student": 50, "Energic": 50, "Engineer": 50, "GoMuscu": 50, "Vehicule":50}
-
-
-    mapRep.listMobs.spawnMultipleMobs(mapRep.level, mobToSpawn)
-    print("affichage coords mobs")
-    for i in range(len(mapRep.listMobs.listMobsOnMap)):
-        print("x=" + str(mapRep.listMobs.listMobsOnMap[i].xBlock) + " y=" + str(mapRep.listMobs.listMobsOnMap[i].yBlock))
-    """
 
     @window.event
     def on_key_press(symbol, modif):
@@ -75,7 +57,7 @@ if __name__ == '__main__':
 
     # voir ce qui est inscrit sur
     event_logger = pyglet.window.event.WindowEventLogger()
-    window.push_handlers(event_logger)
+    # window.push_handlers(event_logger)
 
     pyglet.app.run()
 

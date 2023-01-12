@@ -91,22 +91,28 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         return listField
 
     def increaseLevelEducationField(self, educationFieldToSearch):
+        compteur = 0
         for tempEducationField in self.evolutionBlock:
             if tempEducationField == educationFieldToSearch:
+                if not tempEducationField.nextEvolution: # si la prochaine évolution est vide (none)
+                    return tempEducationField
                 tempEducationField = tempEducationField.nextEvolution
+                print("int stat to add :"+ str(tempEducationField.intToAddToStat))
+                self.evolutionBlock[compteur] = tempEducationField
                 if tempEducationField.nameStatToAdd == "attack":
                     self.attack += tempEducationField.intToAddToStat
-                    return
+                    return tempEducationField
                 if tempEducationField.nameStatToAdd == "attackSpeed":
                     self.attackSpeed += tempEducationField.intToAddToStat
-                    return
+                    return tempEducationField
                 if tempEducationField.nameStatToAdd == "range":
                     self.range += tempEducationField.intToAddToStat
-                    return
+                    return tempEducationField
                 if tempEducationField.nameStatToAdd == "curiosity":
                     self.attack += tempEducationField.intToAddToStat
-                    return
-            raise StatToAddNotFound
+                    return tempEducationField
+                raise StatToAddNotFound
+            compteur += 1
         raise FieldToEvolveNotFound
 
     def shooting(self, ListMob, ListShoot):
@@ -124,6 +130,16 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
             ListShoot.append(shoot)
             return True
         return False
+
+    def __str__(self):
+        return "[name :" + self.name +  \
+               " | year : " + str(self.year) + \
+               " | attack : " + str(self.attack) + \
+               " | attackSpeed : " + str(self.attackSpeed) + \
+               " | range :" + str(self.range) + \
+               " | curiosity : " + str(self.curiosity) + \
+               " | description : " + str(self.description) + \
+                "]"
 
 # ===== fonction graphique =======
     def on_mouse_motion(self, x, y, dx, dy):
@@ -143,7 +159,7 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
             self.displayCharacteristics.dispatch_event('on_clickShowCharacteristique', self)
             return True
         else:
-            self.displayCharacteristics.dispatch_event('on_clickUnShowCharacteristique')
+            self.displayCharacteristics.dispatch_event('on_clickUnShowCharacteristique', x, y)
             pass
 
 
@@ -177,8 +193,8 @@ class educationField:
 
         if self.level >= self.maxLevel:
             return None
-
+        print(self.intToAddToStat * self.level)
         self.nextEvolution = educationField(self, self.name, self.maxLevel, basePrice * self.level,
-                                            self.intToAddToStat * self.level, self.nameStatToAdd)
+                                            baseIntToAddToStat * self.level, self.nameStatToAdd)
         self.nextEvolution._initTreeToMaxLevel(basePrice, baseIntToAddToStat)
         return self

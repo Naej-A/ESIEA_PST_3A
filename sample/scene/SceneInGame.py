@@ -6,6 +6,10 @@ from sample.gui.GamePhaseEvents import GamePhaseEvents
 from sample.GAMEPHASE import GAMEPHASE
 from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
 from sample.gui.events.EventManagement import EventManagement
+from sample.gui.widget.AmeliorationWidget import AmeliorationWidget
+
+#import à retirer ensuite
+from sample.tower.Tower import Tower
 
 
 
@@ -23,10 +27,14 @@ class SceneInGame(Scene):
 
 
 
+    def addWidget(self, widget):
+        self.frame.add_widget(widget)
+        self.currentWidgetList.append(widget)
 
     def initWidgetByGamePhase(self):
         if not self.frame:
             self.frame = pyglet.gui.Frame(self.window, order=6)
+            DisplayCharacteristics.setFrameForWidgets(pyglet.gui.Frame(self.window, order=6))
         self.batchWidget = pyglet.graphics.Batch()
 
         for widget in self.currentWidgetList:
@@ -34,11 +42,9 @@ class SceneInGame(Scene):
         self.currentWidgetList = list()
 
         if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.STUDENT_SELECT:
-            nextPhaseWidget = NextGamePhaseWidget(300, 0, GAMEPHASE.PLACING_STUDENT, self.batchWidget)
-            self.frame.add_widget(nextPhaseWidget)
-            self.currentWidgetList.append(nextPhaseWidget)
+            self.addWidget(NextGamePhaseWidget(1100, 100, GAMEPHASE.PLACING_STUDENT, self.batchWidget))
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
-            nextPhaseWidget = NextGamePhaseWidget(300, 100, GAMEPHASE.GAME, self.batchWidget)
+            nextPhaseWidget = NextGamePhaseWidget(1100, 100, GAMEPHASE.GAME, self.batchWidget)
             self.frame.add_widget(nextPhaseWidget)
             self.currentWidgetList.append(nextPhaseWidget)
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
