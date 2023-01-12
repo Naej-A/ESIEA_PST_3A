@@ -16,6 +16,7 @@ from sample.gui.GamePhaseEvents import GamePhaseEvents
 
 class GameProgress:
     ratioPixel = 14
+    estacaTears = 0
 
     def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
         self.absysseX = absysseX
@@ -31,7 +32,6 @@ class GameProgress:
         self.PV = 10
         self.listShoot = list()
         self.yearNumber = 0
-        self.estacaTears = 0
         self.spawnRate = 0
         self.spawnCounter = 0
         self.mobToSpawn = list()
@@ -50,11 +50,11 @@ class GameProgress:
         return 0
 
     def _initTower(self):
-        xBlock = 10
-        yBlock = 10
-        xPixel, yPixel = IsometricTools.coordinateToPixel(self, xBlock, yBlock)
-        self.listTower.append(Tower.Tower(self.listSpriteRepresentation.findSpriteByImageName("UwU_Tower.png").pygletSprite, xPixel, yPixel, xBlock, yBlock, "nom"))
-
+        xBlock = 37
+        yBlock = 80
+        tower = Tower.Tower(0, 0, xBlock, yBlock, "nom")
+        tower.updatePixelCoordinates(self)
+        self.listTower.append(tower)
 
 
     # ne marche pas encore il faut choper l'index Y et X pour l'affichage
@@ -168,7 +168,6 @@ class GameProgress:
         #         pass
         #
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
-            self.yearNumber += 1
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
             return
@@ -187,8 +186,13 @@ class GameProgress:
         elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
             pyglet.clock.unschedule(self.updateGame)
             pyglet.clock.unschedule(self.endWave)
+            self.goNextYear()
             return
 
+    def goNextYear(self):
+        self.yearNumber += 1
+        for tower in self.listTower:
+            tower.studentPassNextYear()
 
 
     def spawnMob(self, *args):
@@ -209,6 +213,7 @@ class GameProgress:
         for mob in self.listMobs.listMobsOnMap:
             if mob.pv <= 0:
                 mob.onDeathEffect(self)
+                GameProgress.estacaTears += mob.tear
                 self.listMobs.listMobsOnMap.remove(mob)
         for shoot in self.listShoot:
             if shoot.target not in self.listMobs.listMobsOnMap:
@@ -240,7 +245,7 @@ class GameProgress:
     def towerShoot(self):
         for tower in self.listTower:
             if tower.attackCooldown <= 0:
-                if tower.shooting(self.listMobs.listMobsOnMap, self.listShoot):
+                if tower.shooting(self):
                     tower.attackCooldown = round(60 / tower.attackSpeed)
             else:
                 tower.attackCooldown -= 1
@@ -257,3 +262,10 @@ class GameProgress:
         if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
             self.gamePhaseEventDispasher.dispatch_event('on_changeGamePhase', GAMEPHASE.STUDENT_SELECT)
 
+    @staticmethod
+    def buy(price):
+        if GameProgress.estacaTears >= price:
+            GameProgress.estacaTears -= price
+            return True
+        else:
+            return False

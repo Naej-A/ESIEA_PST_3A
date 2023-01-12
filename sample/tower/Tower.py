@@ -3,6 +3,7 @@ import sample.IsometricTools as IsoTools
 import sample.gui.DisplayCharacteristics as DisplayCharacteristics
 import sample.shoot.Shoot as Shoot
 import math
+import sample.IsometricTools as IsometricTools
 
 class FieldToEvolveNotFound(Exception):
     "Raised when the fild to evolve is not found"
@@ -14,8 +15,11 @@ class StatToAddNotFound(Exception):
 
 
 class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
-    def __init__(self, img, xPixel, yPixel, xBlock, yBlock, name):
+    def __init__(self, xPixel, yPixel, xBlock, yBlock, name):
+        image = open('ressources/ESIEA/ESIEA1A.png', 'rb')  # Lecture du fichier en binaire
+        img = pyglet.image.load('ressources/ESIEA/ESIEA1A.png', file=image)
         super().__init__(img, xPixel, yPixel)
+        self.scale = 1.7
         self.xBlock = xBlock
         self.yBlock = yBlock
         self.name = name
@@ -24,7 +28,7 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.attack = 0
         self.attackSpeed = 2 #Nombre de tirs par secondes
         self.attackCooldown = 0
-        self.range = 10000000
+        self.range = 20
         self.curiosity = 0
         self.description = ""
         self.major = None
@@ -46,6 +50,10 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def studentPassNextYear(self):
         self.year += 1
+        print("passe à l'année suivante")
+        pathToImage = "ressources/ESIEA/ESIEA" + str(self.year) + "A.png"
+        image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
+        self.image = pyglet.image.load(pathToImage, file=image)
         self.evolutionBlock = Tower.getEvolutionBlock(self.year)
 
     def upgradeEducationField(self, educationnalField):
@@ -116,7 +124,9 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
             compteur += 1
         raise FieldToEvolveNotFound
 
-    def shooting(self, ListMob, ListShoot):
+    def shooting(self, gameProgress):
+        ListMob = gameProgress.listMobs.listMobsOnMap
+        ListShoot = gameProgress.listShoot
         farrestMobInRange = None
         for mob in ListMob:
             if math.sqrt(pow(mob.xBlock - self.xBlock, 2) + pow(mob.yBlock - self.yBlock, 2)) <= self.range: #Est-ce que le mob est dans la range de la tour
@@ -127,10 +137,20 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
                 else:
                     farrestMobInRange = mob
         if farrestMobInRange != None:
-            shoot = Shoot.Shoot(0, 0, self.xBlock, self.yBlock, farrestMobInRange, 2, self.attack) #Vitesse du projectile à gérer, pour l'instant à 2
+            shoot = Shoot.Shoot(0, 0, self.xBlock - 10, self.yBlock - 10, farrestMobInRange, 2, self.attack) #Vitesse du projectile à gérer, pour l'instant à 2
             ListShoot.append(shoot)
+            if farrestMobInRange.yBlock - farrestMobInRange.xBlock < self.yBlock - self.xBlock:
+                self.scale_x = 1
+            else:
+                self.scale_x = -1
+            self.updatePixelCoordinates(gameProgress)
+
             return True
         return False
+
+    def updatePixelCoordinates(self, gameProgress):
+        self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)
+        self.x -= self.width * self.scale_x / 2
 
     def __str__(self):
         return "[name :" + self.name +  \
