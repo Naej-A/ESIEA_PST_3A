@@ -10,6 +10,7 @@ import sample.IsometricTools as IsometricTools
 import sample.Level as lvl
 import sample.tower.Tower as Tower
 from sample.GAMEPHASE import GAMEPHASE
+from sample.SCENESTATE import SCENESTATE
 from sample.gui.GamePhaseEvents import GamePhaseEvents
 
 
@@ -33,7 +34,7 @@ class GameProgress:
         self.estacaTears = 0
         self.spawnRate = 0
         self.spawnCounter = 0
-        self.listSpawnMob = list()
+        self.mobToSpawn = list()
 
 
         self._initTower()
@@ -183,37 +184,71 @@ class GameProgress:
 
     def playGame(self):
         self.yearNumber += 1
-
-        #Choix des étudiants
-        while GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
-            #création des tours
-            pass
-        #Positionement des étudiants
-        while GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
-            pass
-        #Boucle de vagues
+        # #
+        # # # #Choix des étudiants
+        # while  SCENESTATE.GAME_RUNNING and self.PV > 0:
+        #     while GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
+        #         #création des tours
+        #         pass
+        #     # # # #Positionement des étudiants
+        #     while GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+        #         pass
+        #
+        #
+        #         # #Boucle de vagues
         self.choseSpawnList()
         pyglet.clock.schedule_interval(self.spawnMob, 0.1)
         pyglet.clock.schedule_interval(self.updateGame, 1/60)
         while GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
-            if len(self.listMobs.listMobsOnMap) == 0 and len(self.listSpawnMob) == 0:
+            if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
                 pyglet.clock.unschedule(self.updateGame)
 
 
-            #améliorations
+                #améliorations
 
-        #end game = boite aux lettres reprise
+            #end game = boite aux lettres reprise
 
         return None
 
-    def spawnMob(self):
-
-        # mettre la connerie
-        pyglet.clock.unschedule(self.spawnMob)
+    def spawnMob(self, *args):
+        self.spawnCounter += 1
+        if self.spawnCounter >= self.spawnRate:
+            self.listMobs.spawnMob(self.level.spawningZone, self.mobToSpawn[0])
+            self.mobToSpawn = self.mobToSpawn[1:]
+        if len(self.mobToSpawn) <= self.yearNumber * 2 + 1:
+            self.spawnRate = 1
+        if len(self.mobToSpawn) == 0:
+            pyglet.clock.unschedule(self.spawnMob)
         return
 
-    def updateGame(self):
+    def updateGame(self, *args):
+        self.listMobs.moveMobs(self.level)
+        self.towerShoot()
+        for shoot in self.listShoot:
+            shoot.move()
         return
 
     def choseSpawnList(self):
+        tearToSpend = self.yearNumber * self.yearNumber * 50 + 300
+        thisdict = {"Student": 30, "Engineer": 50, "Energic": 60, "GoMuscu": 150, "Vehicule": 500}
+        poolMob = list()
+        self.mobToSpawn = list()
+        for mobName in thisdict.keys():
+            if tearToSpend >= thisdict[mobName]:
+                poolMob.append(mobName)
+        while tearToSpend >= 30:
+            mobName = random.choice(poolMob)
+            self.mobToSpawn.append(mobName)
+            tearToSpend -= thisdict[mobName]
+            if tearToSpend < 500:
+                for mobName in poolMob:
+                    if tearToSpend < thisdict[mobName]:
+                        poolMob.remove(mobName)
+        self.mobToSpawn.append("Student")
+        self.spawnRate = 600/len(self.mobToSpawn)
+        self.spawnRate = max(self.spawnRate, 1)
+        self.spawnRate = min(self.spawnRate, 50)
+        self.spawnCounter = 0
+
+    def towerShoot(self):
         return
