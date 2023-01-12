@@ -20,14 +20,13 @@ class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def move(self):
         self.orientSprite()
-        distanceRemaning = math.sqrt(pow(self.target.xBlock - self.x, 2) + pow(self.target.yBlock - self.y, 2))
+        distanceRemaning = math.sqrt(pow(self.target.xBlock - self.xBlock, 2) + pow(self.target.yBlock - self.yBlock, 2))
         if distanceRemaning < self.speed:
             self.target.hitByShoot(self)
             return False
-        else:
-            self.x = self.x + self.speed * (self.target.xBlock - self.xBlock) / distanceRemaning
-            self.y = self.y + self.speed * (self.target.yBlock - self.yBlock) / distanceRemaning
-            return True
+        self.xBlock = self.xBlock + self.speed * (self.target.xBlock - self.xBlock) / distanceRemaning
+        self.yBlock = self.yBlock + self.speed * (self.target.yBlock - self.yBlock) / distanceRemaning
+        return True
 
     def orientSprite(self):
         if self.target.yBlock - self.target.xBlock < self.yBlock - self.xBlock:
@@ -37,3 +36,4 @@ class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def updatePixelCoordinates(self, gameProgress):
         self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)
+        self.x -= self.width * self.scale_x / 2

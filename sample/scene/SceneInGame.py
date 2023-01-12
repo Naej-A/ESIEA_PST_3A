@@ -53,7 +53,7 @@ class SceneInGame(Scene):
     def drawScene(self):
         self.window.clear()
         self.map.blit(0, 0, 0)
-        print(GamePhaseEvents.getCurrentGamePhase().name)
+        # print(GamePhaseEvents.getCurrentGamePhase().name)
         self.batchWidget.draw()
 
 
@@ -62,7 +62,8 @@ class SceneInGame(Scene):
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
             return
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
-            self.gameReprersentation.afficherMap()
+            self.gameReprersentation.afficherTowers()
+            self.gameReprersentation.afficherShoots()
             self.gameReprersentation.afficherMobs()
             # if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
             #     pyglet.clock.unschedule(self.updateGame)

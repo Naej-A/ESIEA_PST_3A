@@ -22,8 +22,9 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.year = 1
         self.evolutionBlock = Tower.getEvolutionBlock(self.year)
         self.attack = 0
-        self.attackSpeed = 0
-        self.range = 0
+        self.attackSpeed = 2 #Nombre de tirs par secondes
+        self.attackCooldown = 0
+        self.range = 10000000
         self.curiosity = 0
         self.description = ""
         self.major = None

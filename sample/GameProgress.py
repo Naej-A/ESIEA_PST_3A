@@ -135,39 +135,12 @@ class GameProgress:
     def getIdAtIndex(self, x, y):
         return self.representationCarte[x + y * self.absysseX]
 
-    def afficherMap(self):
-        #  WORK IN PROGRESS
-          # Attribution de l'image PNG
-        # ------------------ Antoine - Affichage des tours --------------
+    def afficherTowers(self):
         self.drawListOfSprite(self.listTower)
+        return 0
 
-        # ------------------ Tom - Affichage de ___ --------------
-
-        # tailleAAfficher = self.absysseX + self.ordonneeY - 1  # Nombre de lignes à afficher
-        # for i in range(tailleAAfficher):
-        #     for j in range(min(self.absysseX, self.ordonneeY, i+1, tailleAAfficher - i)):  # giga bordel
-        #         x = j + max(0, i + 1 - self.ordonneeY)
-        #         y = (i - j - max(0, i + 1 - self.ordonneeY))
-        #         id = self.getIdAtIndex(x, y)
-        #         if id > 0:
-        #             x_pixel, y_pixel = IsometricTools.coordinateToPixel(self, x, y)
-        #             x_pixel -= self.ratioPixel / 2
-        #             y_pixel -= self.ratioPixel * 3 / 4
-        #             sprite = self.listSpriteRepresentation.findSpriteById(id)
-        #             # x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
-        #             pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
-
-        #----------------- Fin Tom
-
-        # for y in range(self.ordonneeY):
-        #     for x in range(self.absysseX):
-        #         id = self.getIdAtIndex(x, y)
-        #         if id > 0:
-        #
-        #             x_pixel,y_pixel = iso.coordinateToPixel(x,y)
-        #             sprite = self.listSpriteRepresentation.findSpriteById(id)
-        #             x_pixel -= (len(sprite.tabRepresentation[0]) + 1) * MapRepresentation.ratioPixel / 2
-        #             pyglet.sprite.Sprite(img=sprite.pygletSprite, y=y_pixel, x=x_pixel).draw()
+    def afficherShoots(self):
+        self.drawListOfSprite(self.listShoot)
         return 0
 
     @staticmethod
@@ -223,7 +196,7 @@ class GameProgress:
         if self.spawnCounter >= self.spawnRate:
             self.listMobs.spawnMob(self.level.spawningZone, self.mobToSpawn[0])
             self.mobToSpawn = self.mobToSpawn[1:]
-        if len(self.mobToSpawn) <= self.yearNumber * 2 + 1:
+        if len(self.mobToSpawn) <= self.yearNumber * 2 - 1:
             self.spawnRate = 1
         if len(self.mobToSpawn) == 0:
             pyglet.clock.unschedule(self.spawnMob)
@@ -232,8 +205,14 @@ class GameProgress:
     def updateGame(self, *args):
         self.listMobs.moveMobs(self.level)
         self.towerShoot()
+        self.updateShoot()
+        for mob in self.listMobs.listMobsOnMap:
+            if mob.pv <= 0:
+                mob.onDeathEffect(self)
+                self.listMobs.listMobsOnMap.remove(mob)
         for shoot in self.listShoot:
-            shoot.move()
+            if shoot.target not in self.listMobs.listMobsOnMap:
+                self.listShoot.remove(shoot)
         return
 
     def choseSpawnList(self):
@@ -259,7 +238,18 @@ class GameProgress:
         self.spawnCounter = 0
 
     def towerShoot(self):
-        return
+        for tower in self.listTower:
+            if tower.attackCooldown <= 0:
+                if tower.shooting(self.listMobs.listMobsOnMap, self.listShoot):
+                    tower.attackCooldown = round(60 / tower.attackSpeed)
+            else:
+                tower.attackCooldown -= 1
+
+    def updateShoot(self):
+        for shoot in self.listShoot:
+            if not shoot.move():
+                self.listShoot.remove(shoot)
+            shoot.updatePixelCoordinates(self)
 
     def endWave(self, *agrs):
         if self.PV <= 0:

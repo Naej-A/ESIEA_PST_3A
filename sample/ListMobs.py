@@ -93,7 +93,7 @@ class ListMobs:
             FRAMERATE = 0.05
 
             image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
-            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 1)
+            mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 0.2)
         else:
             return None
 
@@ -103,8 +103,39 @@ class ListMobs:
         mob.xBlock, mob.yBlock = spawningZone.getPosition()
         mob.destinationX = mob.xBlock
         mob.destinationY = mob.yBlock
+        print(self.listMobsOnMap)
         self.listMobsOnMap.append(mob)
-        print("A mob spawned in x=" + str(mob.xBlock) + " y=" + str(mob.yBlock))
+        print(self.listMobsOnMap)
+        print("A " + name + " spawned in x=" + str(mob.xBlock) + " y=" + str(mob.yBlock))
+        return mob
+
+    def spawnMobBulldozer(self, spawningZone, mobCaster):
+        directory = "ressources/Bulldozer"
+        files = os.listdir(directory)
+        frameList = list()
+        for image in files:
+            pathToImage = os.path.join(directory, image)
+            binary_file_image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
+            sprit = pyglet.image.load(pathToImage, file=binary_file_image)
+            frameList.append(sprit)
+        name = "Bulldozer"
+        HP = 10
+        SPEED = 2
+        TEAR = 5
+        FRAMERATE = 0.05
+
+        image = pyglet.image.Animation.from_image_sequence(frameList, FRAMERATE)
+        mob = Mobs.Mobs(image, 0, 0, 0, 0, HP, SPEED, TEAR, name, 0.2)
+        mob.idPath = mobCaster.idPath
+        mob.idZone = mobCaster.idZone - 1
+
+        mob.xBlock, mob.yBlock = spawningZone.getPosition()
+        mob.destinationX = mob.xBlock
+        mob.destinationY = mob.yBlock
+        print(self.listMobsOnMap)
+        self.listMobsOnMap.append(mob)
+        print(self.listMobsOnMap)
+        print("A " + name + " spawned in x=" + str(mob.xBlock) + " y=" + str(mob.yBlock))
         return mob
 
     def spawnMultipleMobs(self, level, mobDictionary):

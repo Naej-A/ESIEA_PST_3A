@@ -8,7 +8,7 @@ class MobsDying(Mobs):
         super().__init__(img, xPixel, yPixel, xBlock, yBlock, pv, speed, tear, mobName, scale)
         if mobName == "Vehicule":
             self.spawnedMobName = "Student"
-            self.numberMobsSpawned = 3
+            self.numberMobsSpawned = 10
             self.spawnRange = 3
 
 
