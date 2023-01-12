@@ -184,7 +184,6 @@ class GameProgress:
         self.listMobs.moveMobs(self.level)
 
     def initPhase(self):
-        self.yearNumber += 1
         # #
         # # # #Choix des étudiants
         # while  SCENESTATE.GAME_RUNNING and self.PV > 0:
@@ -196,6 +195,7 @@ class GameProgress:
         #         pass
         #
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
+            self.yearNumber += 1
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
             return
@@ -203,6 +203,8 @@ class GameProgress:
             self.choseSpawnList()
             pyglet.clock.schedule_interval(self.spawnMob, 0.1)
             pyglet.clock.schedule_interval(self.updateGame, 1/60)
+            pyglet.clock.schedule_interval(self.endWave, 1)
+
 
     def unInitPhase(self):
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
@@ -211,6 +213,7 @@ class GameProgress:
             return
         elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
             pyglet.clock.unschedule(self.updateGame)
+            pyglet.clock.unschedule(self.endWave)
             return
 
 
@@ -257,3 +260,10 @@ class GameProgress:
 
     def towerShoot(self):
         return
+
+    def endWave(self, *agrs):
+        if self.PV <= 0:
+            a = 1
+        if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
+            self.gamePhaseEventDispasher.dispatch_event('on_changeGamePhase', GAMEPHASE.STUDENT_SELECT)
+
