@@ -38,6 +38,7 @@ class GameProgress:
 
 
         self._initTower()
+        self.initPhase()
 
 
     def _init_carte(self):
@@ -52,7 +53,7 @@ class GameProgress:
         xBlock = 10
         yBlock = 10
         xPixel, yPixel = IsometricTools.coordinateToPixel(self, xBlock, yBlock)
-        self.listTower.append(Tower.Tower(self.listSpriteRepresentation.findSpriteByImageName("UwU_Tower.png").pygletSprite, xPixel, yPixel, xBlock, yBlock, "nom" ))
+        self.listTower.append(Tower.Tower(self.listSpriteRepresentation.findSpriteByImageName("UwU_Tower.png").pygletSprite, xPixel, yPixel, xBlock, yBlock, "nom"))
 
 
 
@@ -182,7 +183,7 @@ class GameProgress:
             mob.draw()
         self.listMobs.moveMobs(self.level)
 
-    def playGame(self):
+    def initPhase(self):
         self.yearNumber += 1
         # #
         # # # #Choix des étudiants
@@ -194,14 +195,23 @@ class GameProgress:
         #     while GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
         #         pass
         #
-        #
-        #         # #Boucle de vagues
-        self.choseSpawnList()
-        pyglet.clock.schedule_interval(self.spawnMob, 0.1)
-        pyglet.clock.schedule_interval(self.updateGame, 1/60)
-        while GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
-            if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
-                pyglet.clock.unschedule(self.updateGame)
+        if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
+            return
+        elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+            return
+        elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
+            self.choseSpawnList()
+            pyglet.clock.schedule_interval(self.spawnMob, 0.1)
+            pyglet.clock.schedule_interval(self.updateGame, 1/60)
+
+    def unInitPhase(self):
+        if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
+            return
+        elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+            return
+        elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
+            pyglet.clock.unschedule(self.updateGame)
+            return
 
 
                 #améliorations

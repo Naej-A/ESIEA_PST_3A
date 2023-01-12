@@ -17,7 +17,6 @@ class SceneInGame(Scene):
     def __init__(self, window, frameRate):
         super().__init__(window, frameRate)
         self.gameReprersentation = GameProgress(50, 50, window.width, window.height)
-        self.gameReprersentation.playGame()
         self.batchWidget = pyglet.graphics.Batch()
         GamePhaseEvents.setGameScene(self)
         self.frame = None
@@ -62,6 +61,8 @@ class SceneInGame(Scene):
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
             self.gameReprersentation.afficherMap()
             self.gameReprersentation.afficherMobs()
+            # if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
+            #     pyglet.clock.unschedule(self.updateGame)
 
         DisplayCharacteristics.drawDetailObject()
 
