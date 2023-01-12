@@ -23,6 +23,7 @@ class SceneInGame(Scene):
         self.currentWidgetList = list()
         image = open('ressources/background/Dinguerie.png', 'rb')  # Lecture du fichier en binaire
         self.map = pyglet.image.load('ressources/background/Dinguerie.png', file=image)
+        self.pastGamePhase = None
 
 
 
@@ -54,6 +55,8 @@ class SceneInGame(Scene):
         self.map.blit(0, 0, 0)
         print(GamePhaseEvents.getCurrentGamePhase().name)
         self.batchWidget.draw()
+
+
         if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.STUDENT_SELECT:
             return
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
