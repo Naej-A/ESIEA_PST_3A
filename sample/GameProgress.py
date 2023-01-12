@@ -36,7 +36,7 @@ class GameProgress:
         self.spawnCounter = 0
         self.mobToSpawn = list()
 
-
+        self.gamePhaseEventDispasher = GamePhaseEvents()
         self._initTower()
         self.initPhase()
 

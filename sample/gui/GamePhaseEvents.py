@@ -11,7 +11,6 @@ class GamePhaseEvents(pyglet.event.EventDispatcher):
         GamePhaseEvents._gameScene = gameScene
         GamePhaseEvents._gameScene.InitCustomEventsByGamePhase()
 
-
     def on_changeGamePhase(self, gamePhase):
         GamePhaseEvents._gameScene.gameReprersentation.unInitPhase()
         GamePhaseEvents._gamePhase = gamePhase
