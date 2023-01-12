@@ -208,7 +208,7 @@ class GameProgress:
 
             #end game = boite aux lettres reprise
 
-        return None
+        return SCENESTATE.GAMEOVER
 
     def spawnMob(self, *args):
         self.spawnCounter += 1
