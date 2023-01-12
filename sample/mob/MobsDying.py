@@ -1,5 +1,6 @@
 from sample.mob.Mobs import Mobs
 import sample.Zone as Zone
+import sample.IsometricTools as IsometricTools
 
 class MobsDying(Mobs):
 

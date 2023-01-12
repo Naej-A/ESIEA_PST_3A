@@ -64,7 +64,7 @@ class Mobs(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def updatePixelCoordinates(self, gameProgress):
         self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)
-        self.x -= self.width*self.scale*self.scale_x/2
+        self.x -= self.width*self.scale_x/2
 
     def onDeathEffect(self, gameProgress):
         return None
