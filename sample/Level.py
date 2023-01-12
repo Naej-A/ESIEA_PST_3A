@@ -39,6 +39,7 @@ class Level:
             path.append(zone.Zone(0, 50, 3, 52))
             path.append(zone.Zone(95, 30, 98, 33))
             path.append(zone.Zone(95, 60, 98, 60))
+
             path.append(zone.Zone(101, 53, 103, 55))
 
 
