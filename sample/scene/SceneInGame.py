@@ -7,7 +7,7 @@ from sample.GAMEPHASE import GAMEPHASE
 from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
 from sample.gui.events.EventManagement import EventManagement
 from sample.gui.widget.AmeliorationWidget import AmeliorationWidget
-
+from sample.gui.events.PlacingStudentEvent import PlacingStudentEvent
 #import à retirer ensuite
 from sample.tower.Tower import Tower
 
@@ -35,7 +35,9 @@ class SceneInGame(Scene):
         if not self.frame:
             self.frame = pyglet.gui.Frame(self.window, order=6)
             DisplayCharacteristics.setFrameForWidgets(pyglet.gui.Frame(self.window, order=6))
+            PlacingStudentEvent.setFrameForWidgets(pyglet.gui.Frame(self.window, order=6))
         self.batchWidget = pyglet.graphics.Batch()
+        PlacingStudentEvent.resetPlacingStudent()
 
         for widget in self.currentWidgetList:
             self.frame.remove_widget(widget)
@@ -45,6 +47,9 @@ class SceneInGame(Scene):
             self.addWidget(NextGamePhaseWidget(1100, 100, GAMEPHASE.PLACING_STUDENT, self.batchWidget))
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
             nextPhaseWidget = NextGamePhaseWidget(1100, 100, GAMEPHASE.GAME, self.batchWidget)
+
+            PlacingStudentEvent.initWidget()
+
             self.frame.add_widget(nextPhaseWidget)
             self.currentWidgetList.append(nextPhaseWidget)
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
@@ -60,11 +65,12 @@ class SceneInGame(Scene):
         if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.STUDENT_SELECT:
             return
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
-            return
+            PlacingStudentEvent.drawWidget()
+            self.gameReprersentation.afficherTowers()
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
+            self.gameReprersentation.afficherMobs()
             self.gameReprersentation.afficherTowers()
             self.gameReprersentation.afficherShoots()
-            self.gameReprersentation.afficherMobs()
             # if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
             #     pyglet.clock.unschedule(self.updateGame)
 

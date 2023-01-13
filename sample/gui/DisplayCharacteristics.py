@@ -59,6 +59,7 @@ class DisplayCharacteristics(pyglet.event.EventDispatcher):
         if objectToDetails:
             if isinstance(objectToDetails, Tower.Tower):
                 tower = DisplayCharacteristics.objectToDetails
+                # print(tower)
                 drawTower(tower)
                 pass
 
@@ -66,7 +67,7 @@ class DisplayCharacteristics(pyglet.event.EventDispatcher):
             if isinstance(objectToDetailsOnClick, Tower.Tower):
                 tower = DisplayCharacteristics.objectToDetailsOnClick
                 drawTower(tower)
-                print(len(DisplayCharacteristics.currentWidgetList))
+                # print(len(DisplayCharacteristics.currentWidgetList))
 
 
 
@@ -111,9 +112,12 @@ class DisplayCharacteristics(pyglet.event.EventDispatcher):
         if estPasse:
             pass
         else:
+            for widget in DisplayCharacteristics.currentWidgetList:
+                DisplayCharacteristics._frame.remove_widget(widget)
             DisplayCharacteristics.objectToDetailsOnClick = None
             DisplayCharacteristics.currentWidgetList = list()
             DisplayCharacteristics.batchWidget = pyglet.graphics.Batch()
+
 
 DisplayCharacteristics.register_event_type('on_showCharacteristique')
 DisplayCharacteristics.register_event_type('on_unShowCharacteristique')

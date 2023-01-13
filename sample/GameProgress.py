@@ -17,6 +17,7 @@ from sample.gui.GamePhaseEvents import GamePhaseEvents
 class GameProgress:
     ratioPixel = 14
     estacaTears = 0
+    listTowerToPlace = list()
 
     def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
         self.absysseX = absysseX
@@ -170,6 +171,10 @@ class GameProgress:
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+            for tower in self.listTower:
+                GameProgress.listTowerToPlace.append(tower)
+                tower.xBlock = 10000000
+                tower.updatePixelCoordinates(self)
             return
         elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
             self.choseSpawnList()
@@ -182,10 +187,14 @@ class GameProgress:
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+
             return
         elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
             pyglet.clock.unschedule(self.updateGame)
             pyglet.clock.unschedule(self.endWave)
+            for tower in self.listTower:
+                if tower.year >= 5:
+                    self.listTower.remove(tower)
             self.goNextYear()
             return
 
@@ -244,6 +253,7 @@ class GameProgress:
 
     def towerShoot(self):
         for tower in self.listTower:
+            print(tower)
             if tower.attackCooldown <= 0:
                 if tower.shooting(self):
                     tower.attackCooldown = round(60 / tower.attackSpeed)
@@ -261,6 +271,18 @@ class GameProgress:
             a = 1
         if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
             self.gamePhaseEventDispasher.dispatch_event('on_changeGamePhase', GAMEPHASE.STUDENT_SELECT)
+
+    @staticmethod
+    def placeTower(widget):
+        if GameProgress.listTowerToPlace:
+            tower = GameProgress.listTowerToPlace.pop(0)
+            tower.x = widget.x + 33
+            tower.y = widget.y + 14
+            tower.xBlock, tower.yBlock = IsometricTools.pixelToCoordinate2(tower.x, tower.y)
+            tower.x -= tower.width * tower.scale_x/2
+            return True
+        else:
+            return False
 
     @staticmethod
     def buy(price):
