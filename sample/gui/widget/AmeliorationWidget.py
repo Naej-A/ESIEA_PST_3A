@@ -29,7 +29,6 @@ class AmeliorationWidget(PushButton):
     def push_button_handler(self):
         if Economy.buy(self.educationField.price):
             self.educationField = self.tower.increaseLevelEducationField(self.educationField)
-        # print(self.tower)
 
 
     def drawComplement(self):

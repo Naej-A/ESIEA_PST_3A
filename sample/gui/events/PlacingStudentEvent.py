@@ -17,7 +17,7 @@ class PlacingStudentEvent(EventDispatcher):
     def drawWidget():
         PlacingStudentEvent.batchWidget.draw()
         for widget in PlacingStudentEvent.currentWidgetList:
-            if isinstance(widget,SelectStudentWidget):
+            if isinstance(widget, SelectStudentWidget):
                 widget.drawComplement()
 
         PlacingStudentEvent.currentlistTowerToPlaceLength = len(PlacingStudentEvent.listTowerToPlace)

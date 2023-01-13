@@ -155,12 +155,10 @@ class GameProgress:
         self.spawnRate = 600/len(self.mobToSpawn)
         self.spawnRate = max(self.spawnRate, 1)
         self.spawnRate = min(self.spawnRate, 50)
-        print(self.spawnRate)
         self.spawnCounter = 0
 
     def towerShoot(self):
         for tower in self.listTower:
-            print(tower)
             if tower.attackCooldown <= 0:
                 if tower.shooting(self):
                     tower.attackCooldown = round(60 / tower.attackSpeed)

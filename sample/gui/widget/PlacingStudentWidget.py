@@ -16,7 +16,6 @@ class PlacingStudentWidget(PushButton):
         self.set_handler('on_release', self.push_button_handler)
 
     def push_button_handler(self):
-        print("utilisé")
         if not self.isUsed:
             self.isUsed = GameProgress.placeTower(self)
             self._hover_img = self._pressed_img

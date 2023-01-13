@@ -74,7 +74,6 @@ class SceneInGame(Scene):
     def drawScene(self):
         self.window.clear()
         self.map.blit(0, 0, 0)
-        # print(GamePhaseEvents.getCurrentGamePhase().name)
         self.batchWidget.draw()
         self.spritTears.draw()
         self.spritPV.draw()

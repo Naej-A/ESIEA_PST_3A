@@ -149,7 +149,7 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def increaseLevelEducationField(self, educationFieldToSearch):
         compteur = 0
-        print(educationFieldToSearch)
+
         for tempEducationField in self.evolutionBlock:
             if tempEducationField == educationFieldToSearch:
                 if not tempEducationField.nextEvolution: # si la prochaine évolution est vide (none)
@@ -170,7 +170,6 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
                     return tempEducationField
                 raise StatToAddNotFound
             compteur += 1
-        print(educationFieldToSearch)
         raise FieldToEvolveNotFound
 
     def shooting(self, gameProgress):
