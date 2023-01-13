@@ -68,9 +68,9 @@ class SceneInGame(Scene):
             PlacingStudentEvent.drawWidget()
             self.gameReprersentation.afficherTowers()
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAME:
+            self.gameReprersentation.afficherMobs()
             self.gameReprersentation.afficherTowers()
             self.gameReprersentation.afficherShoots()
-            self.gameReprersentation.afficherMobs()
             # if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
             #     pyglet.clock.unschedule(self.updateGame)
 

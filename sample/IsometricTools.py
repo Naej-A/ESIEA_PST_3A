@@ -26,13 +26,11 @@ def coordinate_to_pixel_z(mapRep, x_coord, y_coord, z_coord):
 
     return x_pixel, y_pixel
 
-def coordinateToPixel2( x_coord, y_coord):
-    x_pixel = 0.5 * 14 * (x_coord - y_coord) + 640
+def pixelToCoordinate2(x_pixel, y_pixel):
 
-    # x_pixel = l'origine + la moitié de la largeur du block * x_coord - la moitié de la largeur du block * y_coord
+    x_coord = (2 * (x_pixel - 640) / 14 - 4 * (y_pixel + 14 / 4 - 720) / 14) / 2
+    # x_coord = (x_pixel - l'origine) / la moitié de la largeur du block - (y_pixel - l'origine) / le quart de la hauteur du block
+    y_coord = (- 2 * (x_pixel - 640) / 14 - 4 * (y_pixel + 14 / 4 - 720) / 14) / 2
+    # y_coord = - ((x_pixel - l'origine) / la moitié de la largeur du block) - (y_pixel - l'origine) / le quart de la hauteur du block
 
-    y_pixel = -0.25 * 14 * (x_coord + y_coord) + 720 - 14 / 4
-
-    # y_pixel = l'origine - le quarte de la hauteur du block * x_coord -e quarte de la hauteur du block * y_coord
-
-    return x_pixel, y_pixel
+    return x_coord, y_coord

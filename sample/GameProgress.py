@@ -171,6 +171,10 @@ class GameProgress:
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+            for tower in self.listTower:
+                GameProgress.listTowerToPlace.append(tower)
+                tower.xBlock = 10000000
+                tower.updatePixelCoordinates(self)
             return
         elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
             self.choseSpawnList()
@@ -183,16 +187,13 @@ class GameProgress:
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
-            for tower in self.listTower:
-                GameProgress.listTowerToPlace.append(tower)
-                tower.xBlock = 10000000
 
             return
         elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
             pyglet.clock.unschedule(self.updateGame)
             pyglet.clock.unschedule(self.endWave)
             for tower in self.listTower:
-                if tower.level >= 5:
+                if tower.year >= 5:
                     self.listTower.remove(tower)
             self.goNextYear()
             return
@@ -252,6 +253,7 @@ class GameProgress:
 
     def towerShoot(self):
         for tower in self.listTower:
+            print(tower)
             if tower.attackCooldown <= 0:
                 if tower.shooting(self):
                     tower.attackCooldown = round(60 / tower.attackSpeed)
