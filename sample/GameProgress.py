@@ -274,10 +274,15 @@ class GameProgress:
 
     @staticmethod
     def placeTower(widget):
-        tower = GameProgress.listTowerToPlace.pop(0)
-        tower.x = widget.x
-        tower.y = widget.y
-        tower.xBlock, tower.yBlock = IsometricTools.coordinateToPixel2(tower.x, tower.y)
+        if GameProgress.listTowerToPlace:
+            tower = GameProgress.listTowerToPlace.pop(0)
+            tower.x = widget.x + 33
+            tower.y = widget.y + 14
+            tower.xBlock, tower.yBlock = IsometricTools.pixelToCoordinate2(tower.x, tower.y)
+            tower.x -= tower.width * tower.scale_x/2
+            return True
+        else:
+            return False
 
     @staticmethod
     def buy(price):

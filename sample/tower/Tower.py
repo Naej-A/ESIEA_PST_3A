@@ -209,6 +209,10 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
                " | range :" + str(self.range) + \
                " | curiosity : " + str(self.curiosity) + \
                " | description : " + str(self.description) + \
+               " | x : " + str(self.x) + \
+               " | y : " + str(self.y) + \
+               " | xBloc : " + str(self.xBlock) + \
+               " | yBloc : " + str(self.yBlock) + \
                 "]"
 
 # ===== fonction graphique =======

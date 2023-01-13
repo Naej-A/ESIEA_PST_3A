@@ -18,6 +18,6 @@ class PlacingStudentWidget(PushButton):
     def push_button_handler(self):
         print("utilisé")
         if not self.isUsed:
-            self.isUsed = True
-            GameProgress.placeTower(self)
+            self.isUsed = GameProgress.placeTower(self)
+
 

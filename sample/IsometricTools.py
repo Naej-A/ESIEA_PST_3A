@@ -1,5 +1,7 @@
 def coordinateToPixel(mapRep, x_coord, y_coord):
     x_pixel = 0.5 * mapRep.ratioPixel * (x_coord - y_coord) + mapRep.originePixelX
+    print("opx"+str(mapRep.originePixelX))
+    print("opy"+str(mapRep.originePixelY))
 
     # x_pixel = l'origine + la moitié de la largeur du block * x_coord - la moitié de la largeur du block * y_coord
 

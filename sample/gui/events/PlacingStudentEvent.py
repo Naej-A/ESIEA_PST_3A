@@ -26,8 +26,8 @@ class PlacingStudentEvent(EventDispatcher):
     def resetPlacingStudent():
         for widget in PlacingStudentEvent.currentWidgetList:
             PlacingStudentEvent._frame.remove_widget(widget)
-        currentWidgetList = list()
-        batchWidget = pyglet.graphics.Batch()
+        PlacingStudentEvent.currentWidgetList = list()
+        PlacingStudentEvent.batchWidget = pyglet.graphics.Batch()
 
     # @staticmethod
     # def placeStudent(frame):
