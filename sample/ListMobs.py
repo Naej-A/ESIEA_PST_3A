@@ -157,10 +157,13 @@ class ListMobs:
         self.listMobsOnMap = templsit
         return self.listMobsOnMap
 
-    def moveMobs(self, level):
+    def moveMobs(self, gameProgress):
+
         for mob in self.listMobsOnMap:
-            if not mob.move(level): #Si le mob n'a pas bougé (donce si il est au bout)
+            if not mob.move(gameProgress.level): #Si le mob n'a pas bougé (donce si il est au bout)
                 self.listMobsOnMap.remove(mob)
+                gameProgress.PV -= 1
+
 
     def removeDeadmobs(self):
         mobNumber = 0

@@ -4,10 +4,11 @@ import sample.IsometricTools as IsometricTools
 
 class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
     def __init__(self, xPixel, yPixel, xBlock, yBlock, mobTarget, speed, damage):
-        pathToImage = "ressources/knob.png"
+        pathToImage = "ressources/Tux.png"
         image = open(pathToImage, 'rb')
         sprit = pyglet.image.load(pathToImage, file=image)
         super().__init__(sprit, xPixel, yPixel)
+        self.scale = 0.5
         self.target = mobTarget
         self.speed = speed
         self.damage = damage
@@ -29,11 +30,12 @@ class Shoot(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         return True
 
     def orientSprite(self):
-        if self.target.yBlock - self.target.xBlock < self.yBlock - self.xBlock:
-            self.scale_x = 1
+        if self.target.yBlock + self.target.xBlock < self.yBlock + self.xBlock:
+            self.scale_y = 1
         else:
-            self.scale_x = -1
+            self.scale_y = -1
 
     def updatePixelCoordinates(self, gameProgress):
         self.x, self.y = IsometricTools.coordinateToPixel(gameProgress, self.xBlock, self.yBlock)
-        self.x -= self.width * self.scale_x / 2
+        self.x -= self.width / 2
+        self.y -= self.height * self.scale_y / 2

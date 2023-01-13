@@ -3,6 +3,7 @@ from sample.gui.GamePhaseEvents import GamePhaseEvents
 from pyglet.gui.widgets import PushButton
 from sample.GAMEPHASE import GAMEPHASE
 from pyglet.gl import *
+from sample.Economy import Economy
 
 class AmeliorationWidget(PushButton):
     def __init__(self, xPixel, yPixel, tower, educationField, batch):
@@ -26,7 +27,8 @@ class AmeliorationWidget(PushButton):
 
 
     def push_button_handler(self):
-        self.educationField = self.tower.increaseLevelEducationField(self.educationField)
+        if Economy.buy(self.educationField.price):
+            self.educationField = self.tower.increaseLevelEducationField(self.educationField)
         # print(self.tower)
 
 

@@ -11,8 +11,8 @@ class NextGamePhaseWidget(PushButton):
 
         self.gamePhase = nextGamePhase
         if nextGamePhase == GAMEPHASE.PLACING_STUDENT:
-            pressed = pyglet.resource.image('ressources/gui/widget/NextGamePhaseWidget/place_student.png')
-            hover = pyglet.resource.image('ressources/gui/widget/NextGamePhaseWidget/place_student_HOOVER.png')
+            pressed = pyglet.resource.image('ressources/gui/widget/NextGamePhaseWidget/jouer.png')
+            hover = pyglet.resource.image('ressources/gui/widget/NextGamePhaseWidget/jouer_HOOVER.png')
         elif nextGamePhase == GAMEPHASE.GAME:
             pressed = pyglet.resource.image('ressources/gui/widget/NextGamePhaseWidget/ready_to_fight.png')
             hover = pyglet.resource.image('ressources/gui/widget/NextGamePhaseWidget/ready_to_fight_HOOVER.png')

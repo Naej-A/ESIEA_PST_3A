@@ -12,11 +12,11 @@ import sample.tower.Tower as Tower
 from sample.GAMEPHASE import GAMEPHASE
 from sample.SCENESTATE import SCENESTATE
 from sample.gui.GamePhaseEvents import GamePhaseEvents
+from sample.Economy import Economy
 
 
 class GameProgress:
     ratioPixel = 14
-    estacaTears = 0
     listTowerToPlace = list()
 
     def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
@@ -38,7 +38,6 @@ class GameProgress:
         self.mobToSpawn = list()
 
         self.gamePhaseEventDispasher = GamePhaseEvents()
-        self._initTower()
         self.initPhase()
 
 
@@ -49,13 +48,6 @@ class GameProgress:
                 a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
                 self.representationCarte.append(0)
         return 0
-
-    def _initTower(self):
-        xBlock = 37
-        yBlock = 80
-        tower = Tower.Tower(0, 0, xBlock, yBlock, "nom")
-        tower.updatePixelCoordinates(self)
-        self.listTower.append(tower)
 
 
     # ne marche pas encore il faut choper l'index Y et X pour l'affichage
@@ -155,7 +147,7 @@ class GameProgress:
         for mob in self.listMobs.listMobsOnMap:
             mob.updatePixelCoordinates(self)
             mob.draw()
-        self.listMobs.moveMobs(self.level)
+        self.listMobs.moveMobs(self)
 
     def initPhase(self):
         # #
@@ -168,7 +160,8 @@ class GameProgress:
         #     while GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
         #         pass
         #
-        if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
+        if GAMEPHASE.MENU == GamePhaseEvents.getCurrentGamePhase():
+            self.hiring()
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
             for tower in self.listTower:
@@ -196,6 +189,8 @@ class GameProgress:
                 if tower.year >= 5:
                     self.listTower.remove(tower)
             self.goNextYear()
+            Economy.estacaTears += 300
+
             return
 
     def goNextYear(self):
@@ -209,6 +204,7 @@ class GameProgress:
         if self.spawnCounter >= self.spawnRate:
             self.listMobs.spawnMob(self.level.spawningZone, self.mobToSpawn[0])
             self.mobToSpawn = self.mobToSpawn[1:]
+            self.spawnCounter = 0
         if len(self.mobToSpawn) <= self.yearNumber * 2 - 1:
             self.spawnRate = 1
         if len(self.mobToSpawn) == 0:
@@ -216,17 +212,20 @@ class GameProgress:
         return
 
     def updateGame(self, *args):
-        self.listMobs.moveMobs(self.level)
+        self.listMobs.moveMobs(self)
         self.towerShoot()
         self.updateShoot()
         for mob in self.listMobs.listMobsOnMap:
             if mob.pv <= 0:
                 mob.onDeathEffect(self)
-                GameProgress.estacaTears += mob.tear
+                Economy.estacaTears += mob.tear
                 self.listMobs.listMobsOnMap.remove(mob)
         for shoot in self.listShoot:
             if shoot.target not in self.listMobs.listMobsOnMap:
                 self.listShoot.remove(shoot)
+        if self.PV <= 0:
+            self.gamePhaseEventDispasher.dispatch_event("on_changeGamePhase",GAMEPHASE.GAMEOVER)
+
         return
 
     def choseSpawnList(self):
@@ -249,6 +248,7 @@ class GameProgress:
         self.spawnRate = 600/len(self.mobToSpawn)
         self.spawnRate = max(self.spawnRate, 1)
         self.spawnRate = min(self.spawnRate, 50)
+        print(self.spawnRate)
         self.spawnCounter = 0
 
     def towerShoot(self):
@@ -272,6 +272,14 @@ class GameProgress:
         if len(self.listMobs.listMobsOnMap) == 0 and len(self.mobToSpawn) == 0:
             self.gamePhaseEventDispasher.dispatch_event('on_changeGamePhase', GAMEPHASE.STUDENT_SELECT)
 
+    def hiring(self):
+        self.listTower.append(Tower.Tower(0, 0, 1000000, 0, "Patricks"))
+        prestige = 0
+        for tower in self.listTower:
+            prestige += tower.year
+        if prestige >= random.randint(1, 50):
+            self.listTower.append(Tower.Tower(0, 0, 1000000, 0, "Super Patrick"))
+
     @staticmethod
     def placeTower(widget):
         if GameProgress.listTowerToPlace:
@@ -284,10 +292,4 @@ class GameProgress:
         else:
             return False
 
-    @staticmethod
-    def buy(price):
-        if GameProgress.estacaTears >= price:
-            GameProgress.estacaTears -= price
-            return True
-        else:
-            return False
+

@@ -8,7 +8,7 @@ from pyglet.gl import *
 class PlacingStudentWidget(PushButton):
     def __init__(self, xPixel, yPixel, batch):
         pressedAtt = pyglet.resource.image("ressources/gui/widget/PlacingZone/PlacingZone.png")
-        hover = pyglet.resource.image("ressources/gui/widget/PlacingZone/PlacingZoneHover.png")
+        hover = pyglet.resource.image("ressources/gui/widget/PlacingZone/PlacingZoneHoverTest2.png")
         self.isUsed = False
 
         super().__init__(x=xPixel, y=yPixel, pressed=pressedAtt, depressed=pressedAtt, hover=hover, batch=batch,
