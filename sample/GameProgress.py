@@ -3,14 +3,12 @@
 #TODO: fonction ajoute spriteRepresentation à representationCarte
 import random
 
-import sample.ListBlock as lsp
 import sample.ListMobs as lm
 import pyglet
 import sample.IsometricTools as IsometricTools
 import sample.Level as lvl
 import sample.tower.Tower as Tower
 from sample.GAMEPHASE import GAMEPHASE
-from sample.SCENESTATE import SCENESTATE
 from sample.gui.GamePhaseEvents import GamePhaseEvents
 from sample.Economy import Economy
 
@@ -22,9 +20,6 @@ class GameProgress:
     def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
         self.absysseX = absysseX
         self.ordonneeY = ordonneeY
-        self._init_carte()
-        self.positionCamera = 0  # 0 = 0° | 1 = 90° | 2 = 180° | 3 = 270°
-        self.listSpriteRepresentation = lsp.ListSpriteRepresentation()
         self.listMobs = lm.ListMobs()
         self.originePixelX = width_x_window / 2
         self.originePixelY = height_y_window
@@ -39,94 +34,6 @@ class GameProgress:
 
         self.gamePhaseEventDispasher = GamePhaseEvents()
         self.initPhase()
-
-
-    def _init_carte(self):
-        self.representationCarte = []
-        for k in range(self.ordonneeY):
-            for i in range(self.absysseX):
-                a = i + k * self.absysseX  # remplir liste dde nombre croissant (et pas pain au chocolat) (( comme jean pierre pas pain)) (((c'est drole looooool)))
-                self.representationCarte.append(0)
-        return 0
-
-
-    # ne marche pas encore il faut choper l'index Y et X pour l'affichage
-    def afficheCarteCarreDebug(self):
-        if self.absysseX > self.ordonneeY:
-            tailleAAfficher = self.absysseX * 2 - 1
-        else:
-            tailleAAfficher = self.ordonneeY * 2 - 1
-        vide = "R=_|"
-        vide = "   |"
-        for i in range(tailleAAfficher):
-            print("|", end="")
-            nbCaseVide = abs(tailleAAfficher//2 - i)
-            for numVide in range (nbCaseVide):
-                print(vide, end="")
-            for indexLigneCaseRepresente in range(tailleAAfficher - (2* nbCaseVide) - (tailleAAfficher - (2* nbCaseVide))//2 ):
-                index = 0
-                if indexLigneCaseRepresente != 0:
-                    print(vide, end="")
-                print("R="+str(self.representationCarte[0])
-                      +"|" , end="")
-            for numVide in range (nbCaseVide):
-                print(vide, end="")
-            print() #newline
-        return 0
-
-    def afficheCarteDebug(self):
-        print(self.representationCarte)
-        print("x=" + str(self.absysseX) + " y=" + str(self.ordonneeY))
-        vide = "    |"
-        tailleAAfficher = self.absysseX + self.ordonneeY - 1  # Nombre de lignes à afficher
-        for i in range(tailleAAfficher):
-            print("|", end="")  # print "|" à chaque début de ligne
-            for j in range(abs(self.ordonneeY - i - 1)):
-                print(vide, end="")  # affiche le bon nombre de "vide" avant d'afficher la map
-            for j in range(min(self.absysseX, self.ordonneeY, i+1, tailleAAfficher - i)):  # giga bordel
-                if j != 0:
-                    print(vide, end="")
-                print("R=" + str("%02d" % self.representationCarte[j + max(0, i + 1 - self.ordonneeY) + (i - j - max(0, i + 1 - self.ordonneeY)) * self.absysseX]) + "|", end="")  # affiche la map
-            for j in range(abs(tailleAAfficher - (self.ordonneeY + i))):
-                print(vide, end="")  # affiche le nombre de vides restant pou compléter
-            print()  # retour chariot
-        return 0
-
-    def addSpriteToMap(self, idSprite, xMap, yMap):
-        sprite = self.listSpriteRepresentation.findSpriteById(idSprite)
-        isSpaceFree = True
-        for ySprite in range(len(sprite.tabRepresentation)):
-            for xSprite in range(len(sprite.tabRepresentation[ySprite])):
-                if sprite.tabRepresentation[ySprite][xSprite] != 0:
-                    xTot = xSprite - sprite.xBaseRelativeCoord + xMap
-                    yTot = ySprite - sprite.yBaseRelativeCoord + yMap
-                    if self.representationCarte[xTot + yTot * self.absysseX] != 0:
-                        isSpaceFree = False
-        if isSpaceFree:
-            for ySprite in range(len(sprite.tabRepresentation)):
-                for xSprite in range(len(sprite.tabRepresentation[ySprite])):
-                    if sprite.tabRepresentation[ySprite][xSprite] != 0:
-                        xTot = xSprite - sprite.xBaseRelativeCoord + xMap
-                        yTot = ySprite - sprite.yBaseRelativeCoord + yMap
-                        self.representationCarte[xTot + yTot * self.absysseX] = sprite.tabRepresentation[ySprite][xSprite]
-        return 0
-
-    def deleteSpriteFromMapGraphic(self, xPixel, yPixel):
-        xMap, yMap = IsometricTools.pixelToCoordinate(self, xPixel, yPixel)
-        idSprite = self.getIdAtIndex(xMap, yMap * self.absysseX)
-        if idSprite < 0:
-            return -1
-        sprite = self.listSpriteRepresentation.findSpriteById(idSprite)
-        for ySprite in range(len(sprite.tabRepresentation)):
-            for xSprite in range(len(sprite.tabRepresentation[ySprite])):
-                if sprite.tabRepresentation[ySprite][xSprite] != 0:
-                    xTot = xSprite - sprite.xBaseRelativeCoord + xMap
-                    yTot = ySprite - sprite.yBaseRelativeCoord + yMap
-                    self.representationCarte[xTot + yTot * self.absysseX] = 0
-        return 0
-
-    def getIdAtIndex(self, x, y):
-        return self.representationCarte[x + y * self.absysseX]
 
     def afficherTowers(self):
         self.drawListOfSprite(self.listTower)
@@ -161,10 +68,9 @@ class GameProgress:
         #         pass
         #
         if GAMEPHASE.MENU == GamePhaseEvents.getCurrentGamePhase():
-            self.hiring()
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
-
+            self.hiring()
             for tower in self.listTower:
                 GameProgress.listTowerToPlace.append(tower)
                 tower.xBlock = 10000000

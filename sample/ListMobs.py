@@ -37,7 +37,7 @@ class ListMobs:
     #     return None
 
     def spawnMob(self, spawningZone, name):
-        directory = "ressources/" + name #+ name
+        directory = "ressources/Mobs/" + name #+ name
         files = os.listdir(directory)
         # random_file = random.choice(files)
         frameList = list()
@@ -103,14 +103,11 @@ class ListMobs:
         mob.xBlock, mob.yBlock = spawningZone.getPosition()
         mob.destinationX = mob.xBlock
         mob.destinationY = mob.yBlock
-        print(self.listMobsOnMap)
         self.listMobsOnMap.append(mob)
-        print(self.listMobsOnMap)
-        print("A " + name + " spawned in x=" + str(mob.xBlock) + " y=" + str(mob.yBlock))
         return mob
 
     def spawnMobBulldozer(self, spawningZone, mobCaster):
-        directory = "ressources/Bulldozer"
+        directory = "ressources/Mobs/Bulldozer"
         files = os.listdir(directory)
         frameList = list()
         for image in files:
@@ -132,10 +129,7 @@ class ListMobs:
         mob.xBlock, mob.yBlock = spawningZone.getPosition()
         mob.destinationX = mob.xBlock
         mob.destinationY = mob.yBlock
-        print(self.listMobsOnMap)
         self.listMobsOnMap.append(mob)
-        print(self.listMobsOnMap)
-        print("A " + name + " spawned in x=" + str(mob.xBlock) + " y=" + str(mob.yBlock))
         return mob
 
     def spawnMultipleMobs(self, level, mobDictionary):
