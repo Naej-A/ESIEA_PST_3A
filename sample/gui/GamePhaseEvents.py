@@ -3,7 +3,7 @@ from sample.GAMEPHASE import GAMEPHASE
 
 class GamePhaseEvents(pyglet.event.EventDispatcher):
 
-    _gamePhase = GAMEPHASE.STUDENT_SELECT
+    _gamePhase = GAMEPHASE.MENU
     _gameScene = None
 
     @staticmethod

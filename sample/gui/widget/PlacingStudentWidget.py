@@ -19,5 +19,6 @@ class PlacingStudentWidget(PushButton):
         print("utilisé")
         if not self.isUsed:
             self.isUsed = GameProgress.placeTower(self)
+            self._hover_img = self._pressed_img
 
 

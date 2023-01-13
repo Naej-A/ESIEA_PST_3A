@@ -2,7 +2,6 @@ import pyglet
 from sample.gui.GamePhaseEvents import GamePhaseEvents
 from sample.GAMEPHASE import GAMEPHASE
 from sample.gui.DisplayCharacteristics import DisplayCharacteristics
-from sample.gui.events.SelectStudentEvents import SelectStudentEvents
 from pyglet.gui.widgets import PushButton
 
 
@@ -29,9 +28,6 @@ class SelectStudentWidget(PushButton):
         else:
             dc.dispatch_event("on_unShowCharacteristique")
 
-    def on_mouse_release(self, x, y, buttons, modifiers):
-        super(SelectStudentWidget, self).on_mouse_release(x, y, buttons, modifiers)
-        SelectStudentEvents.moveStudentWidget(self)
 
     def updatePosComplement(self):
         pathToImage = "ressources/gui/amelioration/badges/" + str(self.tower.year) + "A.png"

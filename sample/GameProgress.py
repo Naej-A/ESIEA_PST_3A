@@ -164,6 +164,7 @@ class GameProgress:
             self.hiring()
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+
             for tower in self.listTower:
                 GameProgress.listTowerToPlace.append(tower)
                 tower.xBlock = 10000000
@@ -177,7 +178,7 @@ class GameProgress:
 
 
     def unInitPhase(self):
-        if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
+        if GAMEPHASE.MENU == GamePhaseEvents.getCurrentGamePhase():
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
 

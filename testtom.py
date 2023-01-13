@@ -9,16 +9,18 @@ import sample.GameProgress as gp
 import sample.ListMobs as lm
 import sample.gui.DisplayCharacteristics as DisplayCharacteristics
 from sample.gui.GamePhaseEvents import GamePhaseEvents
-from sample.gui.widget.NextGamePhaseWidget import NextGamePhaseWidget
-from sample.GAMEPHASE import GAMEPHASE
 from sample.scene.SceneInGame import SceneInGame
 from pyglet.window import mouse
 from pyglet.gl import *
+from sample.GAMEPHASE import GAMEPHASE
 import sample.shoot.Shoot as Shoot
 import sample.mob.Mobs as mob
 
 if __name__ == '__main__':
-
+    song = pyglet.resource.media('ressources/Musique/Complots.mp3', streaming=False)
+    song.play()
+    pyglet.clock.schedule_interval(song.play, song.duration)
+    gamePhaseEvent = GamePhaseEvents()
     # largeur de la fenêtre
     width = 1280
     # hauteur de la fenêtre
@@ -28,14 +30,20 @@ if __name__ == '__main__':
     title = "Battle for the boîte aux lettres"
 
     window = pyglet.window.Window(width, height, title)  # Création de la fenêtre
+
     EventManagement.setWindow(window)
     gameScene = SceneInGame(window=window, frameRate=60)
 
 
     @window.event
     def on_key_press(symbol, modif):
+        if GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.MENU:
+            gamePhaseEvent.dispatch_event("on_changeGamePhase", GAMEPHASE.PLACING_STUDENT)
         if symbol == key.ESCAPE:
             print('The escape key was pressed.')
+            window.close()
+        if symbol == key.R and GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.GAMEOVER:
+            gamePhaseEvent.dispatch_event("on_changeGamePhase", GAMEPHASE.GAMEOVER)
             window.close()
 
     @window.event
@@ -48,40 +56,7 @@ if __name__ == '__main__':
         window.clear()
         gameScene.drawScene()
 
-    ############## widget ##############
-    # gameScene.initWidget(frame)
-    ############## fin widget ##########
-
     frame = gameScene.initWidgetByGamePhase()
-
-
-    # voir ce qui est inscrit sur
-    event_logger = pyglet.window.event.WindowEventLogger()
-    # window.push_handlers(event_logger)
 
     pyglet.app.run()
 
-# ---------------- Minimum with image -------------------
-#     window = pyglet.window.Window()
-#     image = pyglet.resource.image('ressources/img_Test_1.png')
-#     @window.event
-#     def on_draw():
-#         window.clear()
-#         image.blit(100, 100)
-#
-#     pyglet.app.run()
-
-# ---------------- Minimum with label -------------------
-    # window = pyglet.window.Window()
-    # label = pyglet.text.Label('Hello, world',
-    #                           font_name='Times New Roman',
-    #                           font_size=36,
-    #                           x=window.width // 2, y=window.height // 2,
-    #                           anchor_x='center', anchor_y='center')
-    #
-    # @window.event
-    # def on_draw():
-    #     window.clear()
-    #     label.draw()
-    #
-    # pyglet.app.run()

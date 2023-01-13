@@ -10,6 +10,11 @@ from sample.gui.widget.AmeliorationWidget import AmeliorationWidget
 from sample.gui.events.PlacingStudentEvent import PlacingStudentEvent
 #import à retirer ensuite
 from sample.tower.Tower import Tower
+from sample.Economy import Economy
+
+from sample.gui.events.PlacingStudentEvent import PlacingStudentEvent
+
+
 
 
 
@@ -58,7 +63,7 @@ class SceneInGame(Scene):
             self.addWidget(NextGamePhaseWidget(1100, 100, GAMEPHASE.PLACING_STUDENT, self.batchWidget))
         elif GamePhaseEvents.getCurrentGamePhase() == GAMEPHASE.PLACING_STUDENT:
             nextPhaseWidget = NextGamePhaseWidget(1100, 100, GAMEPHASE.GAME, self.batchWidget)
-
+            PlacingStudentEvent.setListTowerToPlace(self.gameReprersentation.listTowerToPlace)
             PlacingStudentEvent.initWidget()
 
             self.frame.add_widget(nextPhaseWidget)
