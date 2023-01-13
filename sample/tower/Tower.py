@@ -15,6 +15,58 @@ class StatToAddNotFound(Exception):
 
 
 class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
+    dictionaryStuding = {"maths": {"level0": {"price": 30,
+                            "stat": 5},
+                 "level1": {"price": 40,
+                            "stat": 5},
+                 "level2": {"price": 90,
+                            "stat": 10},
+                 "level3": {"price": 120,
+                            "stat": 15},
+                 "level4": {"price": 250,
+                            "stat": 50},
+                 "level5": {"price" : "MAX",
+                            "stat": 0}
+                 },
+        "elec": {"level0": {"price": 20,
+                            "stat": 0.1},
+                 "level1": {"price": 25,
+                            "stat": 0.1},
+                 "level2": {"price": 70,
+                            "stat": 0.3},
+                 "level3": {"price": 115,
+                            "stat": 0.5},
+                 "level4": {"price": 250,
+                            "stat": 2},
+                 "level5": {"price" : "MAX",
+                            "stat": 0}
+                 },
+        "res": {"level0": {"price": 30,
+                           "stat": 10},
+                "level1": {"price": 35,
+                           "stat": 10},
+                "level2": {"price": 100,
+                           "stat": 20},
+                "level3": {"price": 250,
+                           "stat": 40},
+                "level4": {"price": 500,
+                           "stat": 100},
+                 "level5": {"price" : "MAX",
+                            "stat": 0}
+                },
+        "curio": {"level0": {"price": 50,
+                          "stat": 5},
+               "level1": {"price": 50,
+                          "stat": 5},
+               "level2": {"price": 50,
+                          "stat": 5},
+               "level3": {"price": 50,
+                          "stat": 5},
+               "level4": {"price": 100,
+                          "stat": 10},
+               "level5": {"price" : "MAX",
+                            "stat": 0}
+               }}
     def __init__(self, xPixel, yPixel, xBlock, yBlock, name):
         image = open('ressources/ESIEA/ESIEA1A.png', 'rb')  # Lecture du fichier en binaire
         img = pyglet.image.load('ressources/ESIEA/ESIEA1A.png', file=image)
@@ -25,8 +77,8 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         self.name = name
         self.year = 1
         self.evolutionBlock = Tower.getEvolutionBlock(self.year)
-        self.attack = 0
-        self.attackSpeed = 2 #Nombre de tirs par secondes
+        self.attack = 50
+        self.attackSpeed = 0.5 #Nombre de tirs par secondes
         self.attackCooldown = 0
         self.range = 20
         self.curiosity = 0
@@ -50,8 +102,8 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def studentPassNextYear(self):
         self.year += 1
-        print("passe à l'année suivante")
-        pathToImage = "ressources/ESIEA/ESIEA" + str(self.year) + "A.png"
+        pathToImage = \
+            "ressources/ESIEA/ESIEA" + str(self.year) + "A.png"
         image = open(pathToImage, 'rb')  # Lecture du fichier en binaire
         self.image = pyglet.image.load(pathToImage, file=image)
         self.evolutionBlock = Tower.getEvolutionBlock(self.year)
@@ -60,43 +112,39 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
         if educationnalField.level < educationnalField.maxLevel:
             if educationnalField.name == "math":
                 self.attackPower += educationnalField.intToAddToStat
-                educationnalField.level+= 1
+                educationnalField.level += 1
 
     @staticmethod
     def getEvolutionBlock(year):
-        if year == 1:
-            return Tower.createEducationBlock1A()
-        elif year == 2:
-            return Tower.createEducationBlock2A()
-        elif year == 3:
-            return Tower.createEducationBlock3A()
-        return -1
+
+        return Tower.createEducationBlock1A()
+
 
     @staticmethod
     def createEducationBlock1A():
         listField = list()
-        listField.append(educationField(None, "computerScience", 5, 10, 3, "attack"))
-        listField.append(educationField(None, "livingLanguage", 5, 10, 3, "attackSpeed"))
-        listField.append(educationField(None, "electronics", 5, 10, 3, "range"))
-        listField.append(educationField(None, "projectManagement", 5, 10, 3, "curiosity"))
+        listField.append(educationField(None, "computerScience", 5, Tower.dictionaryStuding["maths"], "attack"))
+        listField.append(educationField(None, "livingLanguage", 5, Tower.dictionaryStuding["elec"], "attackSpeed"))
+        listField.append(educationField(None, "electronics", 5, Tower.dictionaryStuding["res"], "range"))
+        listField.append(educationField(None, "projectManagement", 5, Tower.dictionaryStuding["curio"], "curiosity"))
         return listField
 
     @staticmethod
     def createEducationBlock2A():
         listField = list()
-        listField.append(educationField(None, "2A_1", 5, 10, 3, "attack"))
-        listField.append(educationField(None, "2A_2", 5, 10, 3, "attackSpeed"))
-        listField.append(educationField(None, "2A_3", 5, 10, 3, "range"))
-        listField.append(educationField(None, "2A_4", 5, 10, 3, "curiosity"))
+        listField.append(educationField(None, "computerScience", 5, Tower.dictionaryStuding["maths"], "attack"))
+        listField.append(educationField(None, "livingLanguage", 5, Tower.dictionaryStuding["elec"], "attackSpeed"))
+        listField.append(educationField(None, "electronics", 5, Tower.dictionaryStuding["res"], "range"))
+        listField.append(educationField(None, "projectManagement", 5, Tower.dictionaryStuding["curio"], "curiosity"))
         return listField
 
     @staticmethod
     def createEducationBlock3A():
         listField = list()
-        listField.append(educationField(None, "3A_1", 5, 10, 3, "attack"))
-        listField.append(educationField(None, "3A_2", 5, 10, 3, "attackSpeed"))
-        listField.append(educationField(None, "3A_3", 5, 10, 3, "range"))
-        listField.append(educationField(None, "3A_4", 5, 10, 3, "curiosity"))
+        listField.append(educationField(None, "computerScience", 5, Tower.dictionaryStuding["maths"], "attack"))
+        listField.append(educationField(None, "livingLanguage", 5, Tower.dictionaryStuding["elec"], "attackSpeed"))
+        listField.append(educationField(None, "electronics", 5, Tower.dictionaryStuding["res"], "range"))
+        listField.append(educationField(None, "projectManagement", 5, Tower.dictionaryStuding["curio"], "curiosity"))
         return listField
 
     def increaseLevelEducationField(self, educationFieldToSearch):
@@ -187,35 +235,35 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
 
 class educationField:
-    def __init__(self, precedentEvolution, name, maxLevel, price, intToAddToStat, nameStatToAdd):
+    def __init__(self, precedentEvolution, name, maxLevel, dictionary, nameStatToAdd):
         self.precedentEvolution = precedentEvolution
+        if not self.precedentEvolution:
+            self.level = 0
+        else:
+            self.level = self.precedentEvolution.level + 1
         self.nextEvolution = None
         self.name = name
         self.maxLevel = maxLevel
-        self.price = price
-        self.intToAddToStat = intToAddToStat
+        self.price = dictionary["level" + str(self.level)]["price"]
+        self.intToAddToStat = dictionary["level" + str(self.level)]["stat"]
         self.nameStatToAdd = nameStatToAdd
         self.isBuyable = False
         self.currentLevel = 0
-        self.level = 0
-        self._initTreeToMaxLevel(price, intToAddToStat)
+        self._initTreeToMaxLevel(dictionary)
 
-    def _initTreeToMaxLevel(self, basePrice, baseIntToAddToStat):
+
+
+    def _initTreeToMaxLevel(self, dictionary):
         """
         init the tree of evolution
         :param basePrice: le prix minimum auquel
         :param baseIntToAddToStat: the minimum int stat
         :return: an education field instance
         """
-        if not self.precedentEvolution :
-            self.level = 0
-        else:
-            self.level = self.precedentEvolution.level + 1
 
         if self.level >= self.maxLevel:
             return None
-        print(self.intToAddToStat * self.level)
-        self.nextEvolution = educationField(self, self.name, self.maxLevel, basePrice * self.level,
-                                            baseIntToAddToStat * self.level, self.nameStatToAdd)
-        self.nextEvolution._initTreeToMaxLevel(basePrice, baseIntToAddToStat)
+        if self.level < self.maxLevel:
+            self.nextEvolution = educationField(self, self.name, self.maxLevel, dictionary, self.nameStatToAdd)
+        self.nextEvolution._initTreeToMaxLevel(dictionary)
         return self

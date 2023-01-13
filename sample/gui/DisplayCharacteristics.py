@@ -59,6 +59,7 @@ class DisplayCharacteristics(pyglet.event.EventDispatcher):
         if objectToDetails:
             if isinstance(objectToDetails, Tower.Tower):
                 tower = DisplayCharacteristics.objectToDetails
+                # print(tower)
                 drawTower(tower)
                 pass
 

@@ -17,6 +17,7 @@ from sample.gui.GamePhaseEvents import GamePhaseEvents
 class GameProgress:
     ratioPixel = 14
     estacaTears = 0
+    listTowerToPlace = list()
 
     def __init__(self, absysseX, ordonneeY, width_x_window, height_y_window):
         self.absysseX = absysseX
@@ -182,10 +183,17 @@ class GameProgress:
         if GAMEPHASE.STUDENT_SELECT == GamePhaseEvents.getCurrentGamePhase():
             return
         elif GAMEPHASE.PLACING_STUDENT == GamePhaseEvents.getCurrentGamePhase():
+            for tower in self.listTower:
+                GameProgress.listTowerToPlace.append(tower)
+                tower.xBlock = 10000000
+
             return
         elif GAMEPHASE.GAME == GamePhaseEvents.getCurrentGamePhase():
             pyglet.clock.unschedule(self.updateGame)
             pyglet.clock.unschedule(self.endWave)
+            for tower in self.listTower:
+                if tower.level >= 5:
+                    self.listTower.remove(tower)
             self.goNextYear()
             return
 
