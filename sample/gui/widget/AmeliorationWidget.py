@@ -27,7 +27,7 @@ class AmeliorationWidget(PushButton):
 
     def push_button_handler(self):
         self.educationField = self.tower.increaseLevelEducationField(self.educationField)
-        print(self.tower)
+        # print(self.tower)
 
 
     def drawComplement(self):

@@ -271,6 +271,13 @@ class GameProgress:
             self.gamePhaseEventDispasher.dispatch_event('on_changeGamePhase', GAMEPHASE.STUDENT_SELECT)
 
     @staticmethod
+    def placeTower(widget):
+        tower = GameProgress.listTowerToPlace.pop(0)
+        tower.x = widget.x
+        tower.y = widget.y
+        tower.xBlock, tower.yBlock = IsometricTools.coordinateToPixel2(tower.x, tower.y)
+
+    @staticmethod
     def buy(price):
         if GameProgress.estacaTears >= price:
             GameProgress.estacaTears -= price

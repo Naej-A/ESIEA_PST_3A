@@ -149,12 +149,12 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
 
     def increaseLevelEducationField(self, educationFieldToSearch):
         compteur = 0
+        print(educationFieldToSearch)
         for tempEducationField in self.evolutionBlock:
             if tempEducationField == educationFieldToSearch:
                 if not tempEducationField.nextEvolution: # si la prochaine évolution est vide (none)
                     return tempEducationField
                 tempEducationField = tempEducationField.nextEvolution
-                print("int stat to add :"+ str(tempEducationField.intToAddToStat))
                 self.evolutionBlock[compteur] = tempEducationField
                 if tempEducationField.nameStatToAdd == "attack":
                     self.attack += tempEducationField.intToAddToStat
@@ -170,6 +170,7 @@ class Tower(pyglet.sprite.Sprite, pyglet.event.EventDispatcher):
                     return tempEducationField
                 raise StatToAddNotFound
             compteur += 1
+        print(educationFieldToSearch)
         raise FieldToEvolveNotFound
 
     def shooting(self, gameProgress):
@@ -267,3 +268,10 @@ class educationField:
             self.nextEvolution = educationField(self, self.name, self.maxLevel, dictionary, self.nameStatToAdd)
         self.nextEvolution._initTreeToMaxLevel(dictionary)
         return self
+
+    def __str__(self):
+        return "Education Field[" \
+               "level :"+ str(self.level)+"|" \
+               "name :"+ str(self.name )+"|" \
+               "prix :"+ str(self.price )+"|" \
+               "nom stat :"+ str(self.nameStatToAdd )+"]"
