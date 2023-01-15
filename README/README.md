@@ -1,15 +1,25 @@
-to-do 
-- faire l'affichage de la tour en fonction des coordonnées 
-
-
 # Projet en Python 3.8
 
-# Activer un environnement virtuel
+## Installation et lancement du projet (Linux et Mac)
+Besoin de Python 3.8, le projet n'est pas garanti de fonctionner si une autre version est utilisé
 ```shell
 source venv/bin/activate
 which python  #vérifie quel python est utilisé
+pip install -r requirements.txt
+python app.py
 ```
-# Désactiver un environnement virtuel
+
+# synopsys
+Nous ésiarque avons volé cet immondice qu'est la boites aux lettres de l'estaca.
+C'est voyous veulent la reprendre. Nous ferons tout ce qui est en notre pouvoir pour 
+défendre 
+
+## Pour la première fois d'un utilisateur 
+Lire le ficher comment jouer 
+
+
+
+## Désactiver un environnement virtuel
 ```shell
 deactivate
 ```
@@ -24,6 +34,9 @@ pip freeze > requirements.txt
 cd /path/to/requirements.txt
 pip install -r requirements.txt
 ```
+
+
+# --------------- surement falloir le virer --------------
 
 # Créer un executable
 ### 1- ajouter les images dans le fichier <nom_Exec>.spec
