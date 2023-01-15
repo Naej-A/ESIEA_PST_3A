@@ -136,7 +136,7 @@ class GameProgress:
         return
 
     def choseSpawnList(self):
-        tearToSpend = self.yearNumber * self.yearNumber * 50 + 300
+        tearToSpend = self.yearNumber * self.yearNumber * self.yearNumber * 50 + 300
         thisdict = {"Student": 30, "Engineer": 50, "Energic": 60, "GoMuscu": 150, "Vehicule": 500}
         poolMob = list()
         self.mobToSpawn = list()
